@@ -1,0 +1,64 @@
+---
+import StarRating from './StarRating.astro';
+import Badge from './Badge.astro';
+interface Props {
+  rating: number;
+  title?: string;
+  body: string;
+  displayName: string;
+  city?: string;
+  date: string;
+  verified?: boolean;
+  photoUrl?: string;
+  rugTitle?: string;
+  rugHref?: string;
+  class?: string;
+}
+const {
+  rating,
+  title,
+  body,
+  displayName,
+  city,
+  date,
+  verified = false,
+  photoUrl,
+  rugTitle,
+  rugHref,
+  class: className = '',
+} = Astro.props;
+---
+
+<article
+  class={`review-card flex flex-col gap-3 rounded-card border border-line bg-white p-5 ${className}`}
+>
+  <div class="flex items-center justify-between gap-3">
+    <StarRating rating={rating} />
+    {verified && <Badge kind="available">Verified purchase</Badge>}
+  </div>
+  {title && <h3 class="font-sans text-h4 font-semibold text-indigo">{title}</h3>}
+  <p class="text-body text-charcoal">{body}</p>
+  {photoUrl && (
+    <img
+      src={photoUrl}
+      alt={`Photo from ${displayName}'s review`}
+      width="640"
+      height="480"
+      loading="lazy"
+      class="rounded-card object-cover"
+    />
+  )}
+  <footer class="mt-auto text-small text-stone">
+    <span class="font-medium text-charcoal">{displayName}</span>
+    {city && <span> · {city}</span>}
+    <time datetime={date}>
+      {' '}
+      · {new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+    </time>
+    {rugTitle && (
+      <div>
+        On <a href={rugHref}>{rugTitle}</a>
+      </div>
+    )}
+  </footer>
+</article>

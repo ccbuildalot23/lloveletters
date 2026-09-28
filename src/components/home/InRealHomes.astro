@@ -1,0 +1,44 @@
+---
+/** 5.8: customer / styled room grid. Hidden until ≥3 exist. Data in src/data/rooms.json. */
+import SectionHeader from '../ui/SectionHeader.astro';
+import rooms from '@/data/rooms.json';
+import { imageUrl } from '@lib/images';
+import { getById } from '@lib/catalog';
+const items = (rooms as Array<{ image: string; alt: string; rugId: string; caption?: string }>)
+  .map((r) => ({ ...r, rug: getById(r.rugId) }))
+  .filter((r) => r.rug)
+  .slice(0, 6);
+---
+
+{items.length >= 3 && (
+  <section class="container-content section-pad" aria-labelledby="homes-title">
+    <SectionHeader
+      id="homes-title"
+      title="In real homes"
+      intro="Customer photos and styled rooms. Every image links to its rug."
+    />
+    <ul class="grid grid-cols-2 gap-4 md:grid-cols-3">
+      {items.map((r) => (
+        <li>
+          <a
+            href={`/rugs/${r.rug!.slug}`}
+            class="group block overflow-hidden rounded-card bg-sand no-underline"
+          >
+            <img
+              src={imageUrl(r.image, 'card')}
+              alt={r.alt}
+              width="800"
+              height="450"
+              loading="lazy"
+              decoding="async"
+              class="aspect-video w-full object-cover"
+            />
+            <span class="block p-3 text-small text-indigo group-hover:underline">
+              {r.caption ?? r.rug!.title.replace('SAMPLE · ', '')}
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

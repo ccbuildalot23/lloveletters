@@ -1,0 +1,76 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Hero from '@/components/home/Hero.astro';
+import TrustBar from '@/components/ui/TrustBar.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import RugGrid from '@/components/product/RugGrid.astro';
+import Button from '@/components/ui/Button.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import VerifySteps from '@/components/home/VerifySteps.astro';
+import MeetChris from '@/components/home/MeetChris.astro';
+import ShopBySize from '@/components/home/ShopBySize.astro';
+import ShopByStyle from '@/components/home/ShopByStyle.astro';
+import InRealHomes from '@/components/home/InRealHomes.astro';
+import ReviewsTeaser from '@/components/home/ReviewsTeaser.astro';
+import TradeTeaser from '@/components/home/TradeTeaser.astro';
+import Waitlist from '@/components/home/Waitlist.astro';
+import { byNewest } from '@lib/catalog';
+import { site } from '@lib/site';
+import { websiteJsonLd } from '@lib/jsonld';
+
+const latest = byNewest.slice(0, 8);
+const latestRegion = latest[0]?.region ?? 'Anatolia';
+---
+
+<BaseLayout
+  title={`${site.name} · ${site.tagline}`}
+  description={site.description}
+  transparentHeader
+  jsonLd={[websiteJsonLd()]}
+>
+  <Hero />
+  <TrustBar />
+  <section class="container-content section-pad" aria-labelledby="drop-title">
+    <SectionHeader
+      id="drop-title"
+      title={`Just in from ${latestRegion}`}
+      intro="Every rug is one of one. Sorted newest first."
+    />
+    {latest.length ? (
+      <>
+        <RugGrid rugs={latest} eagerCount={0} listName="latest_drop" />
+        <div class="mt-10 text-center">
+          <Button href="/rugs" variant="secondary" size="lg">
+            View all rugs
+          </Button>
+        </div>
+      </>
+    ) : (
+      <EmptyState
+        title="The next drop is on its way — join the list."
+        body="I'm on a sourcing trip now. Sign up and you'll see the rugs before anyone else."
+      >
+        <Button href="#waitlist">Join the drop list</Button>
+      </EmptyState>
+    )}
+  </section>
+  <VerifySteps />
+  <MeetChris />
+  <ShopBySize />
+  <ShopByStyle />
+  <InRealHomes />
+  <ReviewsTeaser />
+  <TradeTeaser />
+  <Waitlist />
+</BaseLayout>
+<script>
+  import { track } from '@/scripts/analytics';
+  const grid = document.querySelector<HTMLElement>('[data-rug-grid]');
+  if (grid)
+    track('view_item_list', {
+      list_name: grid.dataset.listName,
+      item_ids: Array.from(grid.querySelectorAll<HTMLElement>('[data-rug-id]')).map(
+        (e) => e.dataset.rugId,
+      ),
+    });
+</script>

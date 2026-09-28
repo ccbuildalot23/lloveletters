@@ -1,0 +1,63 @@
+---
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Turnstile from './Turnstile.astro';
+interface Props {
+  rugId?: string;
+}
+const { rugId = '' } = Astro.props;
+---
+
+<form
+  id="contact-form"
+  class="contact-form flex flex-col gap-4"
+  method="post"
+  action="/api/forms/contact"
+  data-form="contact"
+  data-form-type="contact"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="source" value="" data-utm />
+  <div class="grid gap-4 sm:grid-cols-2">
+    <FormField name="name" label="Name" required autocomplete="name" />
+    <FormField
+      name="email"
+      label="Email"
+      required
+      type="email"
+      autocomplete="email"
+      inputmode="email"
+    />
+    <FormField name="subject" label="Subject" />
+    <FormField
+      name="rug_id"
+      label="Rug ID"
+      placeholder="TR-0042"
+      value={rugId}
+      pattern="^[Tt][Rr]-\d{4}$"
+    />
+  </div>
+  <FormField name="message" label="Message" as="textarea" rows={5} required minlength={10} />
+  <Turnstile action="contact" />
+  <Button type="submit" size="lg" loadingText="Sending…">
+    Send message
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      Message received. I reply to every one, usually the same day.
+    </p>
+  </div>
+</form>

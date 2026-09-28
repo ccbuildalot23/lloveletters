@@ -1,0 +1,60 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import ReturnForm from '@/components/forms/ReturnForm.astro';
+import { site } from '@lib/site';
+---
+
+<ContentLayout
+  title="Returns · 30 days from delivery"
+  description="30-day returns from delivery on every rug. How it works, what it costs, and how to start one."
+  h1="30-day returns"
+  intro="Rugs look different in your light than on a screen. Take a month."
+  updated="2026-09-28"
+  toc={[
+    { id: 'policy', label: 'The policy' },
+    { id: 'how', label: 'How it works' },
+    { id: 'start', label: 'Start a return' },
+  ]}
+>
+  <section id="policy" class="scroll-mt-24">
+    <h2>The policy</h2>
+    <ul>
+      <li>
+        <strong>30 days</strong> from the delivery date, on every rug.
+      </li>
+      <li>
+        The rug comes back in its <strong>original condition</strong>: no cuts, stains, pet damage,
+        or heavy wear. Normal unrolling and walking on it is fine.
+      </li>
+      <li>
+        Return shipping: <strong>{site.returnShipping}</strong>. [EDIT: choose one and delete the
+        other.]
+      </li>
+      <li>
+        Refund to the original payment method within <strong>5 business days</strong> of the rug
+        arriving back.
+      </li>
+      <li>
+        Authenticity guarantee: if an independent appraiser finds the rug isn’t what I described,
+        full refund including return shipping, no questions.
+      </li>
+    </ul>
+  </section>
+  <section id="how" class="scroll-mt-24">
+    <h2>How it works</h2>
+    <ol>
+      <li>
+        Start the return below (or just text me). Within one business day you get a prepaid label
+        and packing instructions.
+      </li>
+      <li>Roll the rug pile-side in, back into its bag and box, and drop it with the carrier.</li>
+      <li>When it arrives at the US returns address, I check it over and issue the refund.</li>
+    </ol>
+  </section>
+  <section id="start" class="scroll-mt-24">
+    <h2>Start a return</h2>
+    <div class="mt-4 rounded-card border border-line bg-white p-6 not-prose">
+      <ReturnForm />
+    </div>
+  </section>
+</ContentLayout>

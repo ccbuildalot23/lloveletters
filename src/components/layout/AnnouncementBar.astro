@@ -1,0 +1,47 @@
+---
+/** Dismissible, remembered in localStorage (4.2). */
+import Icon from '../ui/Icon.astro';
+interface Props {
+  text?: string;
+}
+const { text = 'Duties & US shipping included · 30-day returns · Every rug filmed at the source' } =
+  Astro.props;
+---
+
+<div
+  id="announcement"
+  class="announcement relative bg-indigo text-center text-small text-ivory"
+  data-announcement
+  hidden
+>
+  <p class="mx-auto max-w-none px-12 py-2">{text}</p>
+  <button
+    type="button"
+    class="absolute top-1/2 right-2 flex size-9 -translate-y-1/2 items-center justify-center rounded text-ivory hover:bg-white/10"
+    aria-label="Dismiss announcement"
+    data-dismiss-announcement
+  >
+    <Icon name="x" size={20} />
+  </button>
+</div>
+<script>
+  const el = document.querySelector<HTMLElement>('[data-announcement]');
+  if (el) {
+    const KEY = 'announcement_dismissed_v1';
+    let dismissed = false;
+    try {
+      dismissed = localStorage.getItem(KEY) === '1';
+    } catch {
+      /* noop */
+    }
+    if (!dismissed) el.hidden = false;
+    el.querySelector('[data-dismiss-announcement]')?.addEventListener('click', () => {
+      el.hidden = true;
+      try {
+        localStorage.setItem(KEY, '1');
+      } catch {
+        /* noop */
+      }
+    });
+  }
+</script>

@@ -1,0 +1,263 @@
+---
+/**
+ * 7.3 Gallery: main image + vertical thumb rail (desktop), horizontal swipe with dots + count (mobile),
+ * "View back of rug" quick-jump, video thumbnails, and a full-screen lightbox (pinch-zoom, pan, swipe, arrows, Esc, focus trap).
+ */
+import Icon from '../ui/Icon.astro';
+import IconButton from '../ui/IconButton.astro';
+import { imageUrl, imageSrcset } from '@lib/images';
+import type { Product } from '@lib/schema';
+interface Props {
+  rug: Product;
+}
+const { rug } = Astro.props;
+const items = [
+  ...rug.images.map((img, i) => ({
+    type: 'image' as const,
+    id: img.id,
+    alt: img.alt,
+    kind: img.kind,
+    index: i,
+    width: img.width ?? 1600,
+    height: img.height ?? 2000,
+  })),
+  ...rug.videos.map((v, i) => ({
+    type: 'video' as const,
+    id: v.poster,
+    alt: v.caption,
+    kind: v.kind,
+    index: rug.images.length + i,
+    streamId: v.streamId,
+    width: 1600,
+    height: 900,
+  })),
+];
+const backIndex = items.findIndex((i) => i.kind === 'back');
+const main = items[0]!;
+const sizes = '(min-width: 1024px) 58vw, 100vw';
+---
+
+<div class="gallery max-w-full min-w-0" data-gallery data-count={items.length}>
+  <div class="grid gap-3 lg:grid-cols-[88px_1fr]">
+    <!-- Thumb rail (desktop) -->
+    <ul
+      class="order-2 hidden max-h-[720px] flex-col gap-2 overflow-y-auto lg:order-1 lg:flex"
+      aria-label="Gallery thumbnails"
+      data-thumbs
+    >
+      {items.map((it) => (
+        <li>
+          <button
+            type="button"
+            class="relative block w-full overflow-hidden rounded border-2 border-transparent aria-[current=true]:border-indigo"
+            data-thumb={it.index}
+            aria-current={it.index === 0 ? 'true' : 'false'}
+            aria-label={`${it.type === 'video' ? 'Play video: ' : 'Show image: '}${it.alt}`}
+          >
+            <img
+              src={imageUrl(it.id, 'thumb')}
+              alt=""
+              width="88"
+              height="110"
+              loading="lazy"
+              decoding="async"
+              class="aspect-[4/5] w-full object-cover"
+            />
+            {it.type === 'video' && (
+              <span
+                class="absolute inset-0 flex items-center justify-center bg-charcoal/30 text-white"
+                aria-hidden="true"
+              >
+                <Icon name="play" size={20} />
+              </span>
+            )}
+          </button>
+        </li>
+      ))}
+    </ul>
+    <!-- Main stage: horizontally scrollable track on mobile, single stage on desktop -->
+    <div class="relative order-1 min-w-0 lg:order-2">
+      <div
+        class="no-scrollbar flex snap-x snap-mandatory overflow-x-auto scroll-smooth rounded-card bg-sand lg:block lg:overflow-hidden"
+        data-track
+        tabindex="0"
+        aria-roledescription="carousel"
+        aria-label="Product images"
+      >
+        {items.map((it) => (
+          <figure
+            class="relative w-full shrink-0 snap-center lg:hidden lg:data-[active]:block"
+            data-slide={it.index}
+            data-active={it.index === 0 ? '' : undefined}
+            aria-roledescription="slide"
+            aria-label={`${it.index + 1} of ${items.length}`}
+          >
+            <button
+              type="button"
+              class="block w-full cursor-zoom-in"
+              data-open-lightbox={it.index}
+              aria-label={
+                it.type === 'video'
+                  ? `Play video: ${it.alt}`
+                  : `Open image in full screen: ${it.alt}`
+              }
+            >
+              <img
+                src={imageUrl(it.id, 'gallery')}
+                srcset={imageSrcset(it.id, ['card', 'gallery', 'zoom']) || undefined}
+                sizes={sizes}
+                alt={it.alt}
+                width={it.width}
+                height={it.height}
+                loading={it.index === 0 ? 'eager' : 'lazy'}
+                fetchpriority={it.index === 0 ? 'high' : undefined}
+                decoding="async"
+                class="mx-auto max-h-[720px] w-full object-contain"
+                style={`aspect-ratio:${it.width}/${it.height}`}
+              />
+              {it.type === 'video' && (
+                <span class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+                  <span class="flex size-16 items-center justify-center rounded-full bg-madder text-white">
+                    <Icon name="play" size={32} />
+                  </span>
+                </span>
+              )}
+            </button>
+          </figure>
+        ))}
+        <div
+          class="lg:hidden"
+          style={`aspect-ratio:${main.width}/${main.height}`}
+          aria-hidden="true"
+          data-track-sizer
+          hidden
+        ></div>
+      </div>
+      <!-- Controls -->
+      <div class="pointer-events-none absolute inset-y-0 right-0 left-0 hidden items-center justify-between px-2 lg:flex">
+        <IconButton
+          icon="chevron-left"
+          label="Previous image"
+          variant="solid"
+          class="pointer-events-auto bg-ivory/90 text-indigo hover:bg-ivory"
+          data-prev
+        />
+        <IconButton
+          icon="chevron-right"
+          label="Next image"
+          variant="solid"
+          class="pointer-events-auto bg-ivory/90 text-indigo hover:bg-ivory"
+          data-next
+        />
+      </div>
+      <div class="mt-2 flex flex-wrap items-center justify-between gap-2">
+        <div class="flex items-center gap-2 lg:hidden">
+          <span class="tnum text-small text-stone" aria-live="polite" data-counter>
+            1 / {items.length}
+          </span>
+          <div class="flex gap-1" aria-hidden="true" data-dots>
+            {items.map((it) => (
+              <span
+                class={`size-1.5 rounded-full ${it.index === 0 ? 'bg-indigo' : 'bg-line'}`}
+                data-dot={it.index}
+              ></span>
+            ))}
+          </div>
+        </div>
+        <div class="flex gap-2">
+          {backIndex >= 0 && (
+            <button
+              type="button"
+              class="inline-flex min-h-[40px] items-center gap-1 rounded-btn border border-line bg-white px-3 text-small text-indigo hover:border-indigo"
+              data-goto={backIndex}
+              data-track="gallery_back_view"
+              data-track-params={JSON.stringify({ item_id: rug.id })}
+            >
+              <Icon name="flip" size={20} /> View back of rug
+            </button>
+          )}
+          <button
+            type="button"
+            class="inline-flex min-h-[40px] items-center gap-1 rounded-btn border border-line bg-white px-3 text-small text-indigo hover:border-indigo"
+            data-open-lightbox="0"
+          >
+            <Icon name="maximize-2" size={20} /> Full screen
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <dialog
+    class="lightbox m-0 h-dvh max-h-dvh w-screen max-w-none bg-charcoal p-0 text-ivory backdrop:bg-charcoal"
+    data-lightbox
+    aria-label="Image viewer"
+  >
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between px-4 py-3">
+        <span class="tnum text-small" data-lb-counter>
+          1 / {items.length}
+        </span>
+        <div class="flex gap-1">
+          <IconButton
+            icon="zoom-in"
+            label="Zoom in"
+            class="text-ivory hover:bg-white/10"
+            data-lb-zoom
+          />
+          <IconButton
+            icon="x"
+            label="Close viewer"
+            class="text-ivory hover:bg-white/10"
+            data-lb-close
+          />
+        </div>
+      </div>
+      <div class="relative flex-1 touch-none overflow-hidden" data-lb-stage>
+        <img
+          src=""
+          alt=""
+          class="absolute top-1/2 left-1/2 max-h-full max-w-full -translate-x-1/2 -translate-y-1/2 object-contain will-change-transform"
+          data-lb-img
+        />
+        <iframe
+          class="absolute inset-0 hidden h-full w-full border-0"
+          data-lb-video
+          title="Video"
+        ></iframe>
+      </div>
+      <p class="px-4 py-2 text-center text-small text-ivory/80" data-lb-caption></p>
+      <div class="flex justify-between px-4 pb-4 safe-bottom">
+        <IconButton
+          icon="chevron-left"
+          label="Previous"
+          class="text-ivory hover:bg-white/10"
+          data-lb-prev
+        />
+        <IconButton
+          icon="chevron-right"
+          label="Next"
+          class="text-ivory hover:bg-white/10"
+          data-lb-next
+        />
+      </div>
+    </div>
+  </dialog>
+  <script
+    type="application/json"
+    data-gallery-items
+    set:html={JSON.stringify(
+      items.map((i) => ({
+        type: i.type,
+        src: imageUrl(i.id, 'zoom'),
+        alt: i.alt,
+        streamId: 'streamId' in i ? i.streamId : undefined,
+      })),
+    )}
+  />
+</div>
+<script>
+  import { initGallery } from '@/scripts/gallery';
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach(initGallery);
+</script>

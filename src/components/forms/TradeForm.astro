@@ -1,0 +1,95 @@
+---
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Select from './Select.astro';
+import Checkbox from './Checkbox.astro';
+import Turnstile from './Turnstile.astro';
+const projectTypes = ['Residential', 'Hospitality', 'Commercial', 'Staging', 'Short-term rental'];
+---
+
+<form
+  id="trade-form"
+  class="trade-form flex flex-col gap-4"
+  method="post"
+  action="/api/forms/trade"
+  data-form="trade"
+  data-form-type="trade"
+  data-track="trade_apply"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="source" value="" data-utm />
+  <div class="grid gap-4 sm:grid-cols-2">
+    <FormField name="name" label="Your name" required autocomplete="name" />
+    <FormField name="firm" label="Firm or studio" required autocomplete="organization" />
+    <FormField
+      name="website"
+      label="Website or Instagram"
+      required
+      type="url"
+      autocomplete="url"
+      placeholder="https://"
+      inputmode="url"
+    />
+    <FormField
+      name="email"
+      label="Email"
+      required
+      type="email"
+      autocomplete="email"
+      inputmode="email"
+    />
+    <FormField name="phone" label="Phone" required type="tel" autocomplete="tel" inputmode="tel" />
+    <FormField name="city_state" label="City, state" required autocomplete="address-level2" />
+  </div>
+  <fieldset>
+    <legend class="mb-1 text-small font-medium text-charcoal">Project types</legend>
+    <div class="flex flex-wrap gap-x-4">
+      {projectTypes.map((p) => (
+        <Checkbox name="project_types" value={p} label={p} class="min-h-[40px] py-1" />
+      ))}
+    </div>
+  </fieldset>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <FormField
+      name="resale_cert"
+      label="Resale certificate #"
+      hint="Only needed if you want tax-exempt purchasing."
+    />
+    <Select
+      name="heard_from"
+      label="How did you hear about us?"
+      placeholder="Pick one"
+      options={[
+        'Instagram',
+        'TikTok',
+        'Pinterest',
+        'Google',
+        'A designer friend',
+        'Press',
+        'Other',
+      ].map((v) => ({ value: v, label: v }))}
+    />
+  </div>
+  <Turnstile action="trade" />
+  <Button type="submit" size="lg" loadingText="Sending application…">
+    Apply for trade
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      Application received. I review every one personally and reply within 48 hours.
+    </p>
+  </div>
+</form>

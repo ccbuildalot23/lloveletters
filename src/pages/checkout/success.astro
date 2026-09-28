@@ -1,0 +1,151 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { site } from '@lib/site';
+---
+
+<BaseLayout title="Order confirmed" description="Thank you. Your rug is on its way." noindex>
+  <section class="container-content section-pad max-w-3xl">
+    <p class="text-small font-medium tracking-wide text-olive-dark uppercase">Order confirmed</p>
+    <h1 class="mt-2" data-success-title>
+      Thank you. It’s yours.
+    </h1>
+    <p class="mt-3 text-body-lg text-stone" data-success-sub>
+      Stripe has emailed you a receipt. Here’s what happens next.
+    </p>
+    <div class="mt-8 rounded-card border border-line bg-white p-6" data-order-summary>
+      <div class="skeleton h-5 w-40"></div>
+      <div class="mt-3 skeleton h-24"></div>
+    </div>
+    <ol class="mt-10 grid gap-4 md:grid-cols-3" aria-label="What happens next">
+      {[
+        {
+          icon: 'package',
+          title: 'Packed',
+          body: 'Within 2 business days. I roll it, wrap it, and tuck the printed certificate in the box.',
+        },
+        {
+          icon: 'truck',
+          title: 'Shipped with tracking',
+          body: 'Insured, duties prepaid. You’ll get a tracking link by email.',
+        },
+        {
+          icon: 'map-pin',
+          title: 'Delivered',
+          body: 'Usually 5–10 business days. Unroll it, let it relax for a day, and enjoy.',
+        },
+      ].map((s, i) => (
+        <li class="rounded-card bg-sand p-5">
+          <Icon name={s.icon} size={24} class="text-madder" />
+          <h2 class="mt-2 font-sans text-h4 font-semibold text-indigo">
+            {i + 1}. {s.title}
+          </h2>
+          <p class="mt-1 text-small text-charcoal">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-card border border-line p-5">
+        <h2 class="text-h4">Your certificate</h2>
+        <p class="mt-1 text-small text-charcoal">
+          The signed certificate with your rug ID ships in the box. A PDF copy is on the rug’s page,
+          and it will always be there.
+        </p>
+        <Button href="/care" variant="link" class="mt-2">
+          Read the care guide before it arrives
+        </Button>
+      </div>
+      <div class="rounded-card border border-line p-5">
+        <h2 class="text-h4">Know someone who’d love this?</h2>
+        <p class="mt-1 text-small text-charcoal">
+          Every rug is one of one, so sharing doesn’t cost you anything. Send them the drop list.
+        </p>
+        <Button href="/waitlist" variant="link" class="mt-2">
+          Share the drop list
+        </Button>
+      </div>
+    </div>
+    <p class="mt-8 text-small text-stone">
+      Questions? Text {site.phone} or email <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </section>
+  <script>
+    import { track } from '@/scripts/analytics';
+    import { clearCart } from '@/scripts/cart';
+    const sid = new URLSearchParams(location.search).get('session_id');
+    const box = document.querySelector<HTMLElement>('[data-order-summary]')!;
+    const hash = document.documentElement.dataset.cfImages || '';
+    const img = (i: string) =>
+      i.startsWith('sample-') || !hash
+        ? `/placeholders/${i}.svg`
+        : `https://imagedelivery.net/${hash}/${i}/thumb`;
+    const money = (c: number) =>
+      `$${(c / 100).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+    if (sid) {
+      fetch(`/api/order?session_id=${encodeURIComponent(sid)}`)
+        .then((r) => r.json())
+        .then(
+          (o: {
+            ok: boolean;
+            paid: boolean;
+            orderId: string;
+            items: Array<{
+              id: string;
+              slug: string;
+              title: string;
+              image: string;
+              priceUsd: number;
+            }>;
+            subtotal: number;
+            tax: number;
+            total: number;
+            email: string;
+            firstName: string;
+          }) => {
+            if (!o.ok) throw new Error('nf');
+            clearCart();
+            if (o.firstName)
+              document.querySelector('[data-success-title]')!.textContent =
+                `Thank you, ${o.firstName}. It’s yours.`;
+            if (o.email)
+              document.querySelector('[data-success-sub]')!.textContent =
+                `Stripe has emailed a receipt to ${o.email}. Here’s what happens next.`;
+            box.innerHTML = `<p class="tnum text-small text-stone">Order ${o.orderId.slice(-8).toUpperCase()}</p><ul class="mt-3 divide-y divide-line">${o.items
+              .map(
+                (it) =>
+                  `<li class="flex items-center gap-3 py-3"><img src="${img(it.image)}" alt="" width="56" height="70" class="w-14 rounded bg-sand object-cover aspect-[4/5]" /><a href="/rugs/${it.slug}" class="flex-1 font-medium text-indigo">${it.title}</a><span class="tnum">$${it.priceUsd.toLocaleString('en-US')}</span></li>`,
+              )
+              .join(
+                '',
+              )}</ul><dl class="tnum mt-3 grid grid-cols-[1fr_auto] gap-y-1 text-small"><dt>Subtotal</dt><dd>${money(o.subtotal)}</dd><dt>Sales tax</dt><dd>${money(o.tax)}</dd><dt>Shipping &amp; duties</dt><dd>Included</dd><dt class="font-semibold text-indigo">Total</dt><dd class="font-semibold text-indigo">${money(o.total)}</dd></dl>`;
+            const key = `purchase_tracked_${o.orderId}`;
+            if (o.paid && !sessionStorage.getItem(key)) {
+              sessionStorage.setItem(key, '1');
+              track('purchase', {
+                transaction_id: o.orderId,
+                event_id: o.orderId,
+                value: o.total / 100,
+                tax: o.tax / 100,
+                currency: 'USD',
+                item_ids: o.items.map((i) => i.id),
+                items: o.items.map((i) => ({
+                  item_id: i.id,
+                  item_name: i.title,
+                  price: i.priceUsd,
+                  quantity: 1,
+                })),
+              });
+            }
+          },
+        )
+        .catch(() => {
+          box.innerHTML =
+            '<p class="text-body">Your payment went through and a receipt is on its way. The summary couldn’t load here, but your rug is reserved for you. If anything looks off, text me.</p>';
+        });
+    } else {
+      box.innerHTML =
+        '<p class="text-body">No order reference found. If you just paid, check your email for the Stripe receipt.</p>';
+    }
+  </script>
+</BaseLayout>

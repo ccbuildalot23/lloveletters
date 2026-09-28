@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import ReviewCard from '@/components/ui/ReviewCard.astro';
+import StarRating from '@/components/ui/StarRating.astro';
+import Button from '@/components/ui/Button.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import ReviewForm from '@/components/forms/ReviewForm.astro';
+import { reviews, showReviews, aggregateRating, approvedCount } from '@lib/reviews';
+import { getById } from '@lib/catalog';
+import { site } from '@lib/site';
+---
+
+<BaseLayout
+  title="Reviews · verified purchases only"
+  description="Real reviews from verified purchases, with photos. Nothing here is paid for or made up."
+  noindex={!showReviews}
+>
+  <div class="container-content pt-6 pb-24">
+    <Breadcrumbs items={[{ label: 'Reviews' }]} />
+    <header class="mt-4 max-w-3xl">
+      <h1>Reviews</h1>
+      <p class="mt-3 text-body-lg text-stone">
+        Only verified purchases, only after I’ve matched the review to an order. No incentives, no
+        filtering out the grumpy ones.
+      </p>
+      {showReviews && (
+        <div class="mt-4 flex items-center gap-3">
+          <StarRating rating={aggregateRating} count={approvedCount} size={20} />
+          <span class="tnum text-body">
+            {aggregateRating} average from {approvedCount} reviews
+          </span>
+        </div>
+      )}
+      <p class="mt-4">
+        <a href={site.googleReviewUrl} rel="noopener" target="_blank">
+          Read or leave a review on Google
+        </a>
+      </p>
+    </header>
+    {showReviews ? (
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {reviews.map((r) => {
+          const rug = r.rugId ? getById(r.rugId) : undefined;
+          return (
+            <ReviewCard
+              rating={r.rating}
+              title={r.title}
+              body={r.body}
+              displayName={r.displayName}
+              city={r.city}
+              date={r.date}
+              verified={r.verified}
+              photoUrl={r.photo}
+              rugTitle={rug?.title.replace('SAMPLE · ', '')}
+              rugHref={rug ? `/rugs/${rug.slug}` : undefined}
+            />
+          );
+        })}
+      </div>
+    ) : (
+      <EmptyState
+        class="mt-10"
+        title="No reviews yet, on purpose."
+        body="The first rugs haven’t landed in homes yet. Reviews appear here once three verified customers have written one. Until then, the flip videos will have to do."
+        icon="star"
+      >
+        <Button href="/rugs" variant="secondary" size="sm">
+          See the rugs
+        </Button>
+      </EmptyState>
+    )}
+    <section
+      id="write"
+      class="mt-16 hidden max-w-2xl scroll-mt-24"
+      data-review-section
+      aria-labelledby="write-title"
+    >
+      <h2 id="write-title">Write your review</h2>
+      <p class="mt-2 text-body text-stone">
+        Thanks for taking a minute. Photos of the rug in your room are gold.
+      </p>
+      <div class="mt-6 rounded-card border border-line bg-white p-6">
+        <ReviewForm />
+      </div>
+    </section>
+  </div>
+  <script>
+    // Tokenized link from the post-purchase email: /reviews?token=…#write
+    const token = new URLSearchParams(location.search).get('token');
+    if (token) {
+      const s = document.querySelector<HTMLElement>('[data-review-section]')!;
+      (document.querySelector('[data-review-token]') as HTMLInputElement).value = token;
+      s.classList.remove('hidden');
+      s.scrollIntoView();
+    }
+  </script>
+</BaseLayout>

@@ -1,0 +1,72 @@
+---
+/** "See it in my room" (11.1): photo upload to R2 (≤10MB, jpg/png/heic, EXIF stripped server-side). */
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Turnstile from './Turnstile.astro';
+interface Props {
+  rugId: string;
+  id?: string;
+}
+const { rugId, id = 'room-form' } = Astro.props;
+---
+
+<form
+  id={id}
+  class="room-form flex flex-col gap-4"
+  method="post"
+  action="/api/forms/room"
+  enctype="multipart/form-data"
+  data-form="room"
+  data-form-type="room_photo"
+  novalidate
+>
+  <p class="text-small text-stone">
+    Send a photo of your room and its rough dimensions. I’ll mock the rug into it and email you
+    within 24 hours. Manual, human, free.
+  </p>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="rug_id" value={rugId} />
+  <input type="hidden" name="source" value="" data-utm />
+  <FormField
+    name="email"
+    label="Email"
+    type="email"
+    required
+    autocomplete="email"
+    inputmode="email"
+  />
+  <FormField
+    name="photo"
+    label="Room photo"
+    type="file"
+    required
+    accept="image/jpeg,image/png,image/heic,image/heif,.heic"
+    hint="JPG, PNG, or HEIC up to 10MB. Location data is removed from the file."
+  />
+  <FormField
+    name="room_dimensions"
+    label="Room dimensions"
+    placeholder="e.g. 14 × 16 ft"
+    hint="Rough is fine."
+  />
+  <FormField name="notes" label="Notes" as="textarea" rows={3} />
+  <Turnstile action="room" />
+  <Button type="submit" variant="secondary" loadingText="Uploading…">
+    Send my room photo
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">Got the photo. Mockup coming within 24 hours.</p>
+  </div>
+</form>

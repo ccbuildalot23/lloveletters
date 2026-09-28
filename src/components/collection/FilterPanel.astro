@@ -1,0 +1,149 @@
+---
+/** 6.2 filters: multi-select facets with live counts, ranges, ft/cm toggle, sold toggle. One <form>; moved into the mobile drawer by JS. */
+import ColorSwatchFilter from '../forms/ColorSwatchFilter.astro';
+import RangeSlider from '../forms/RangeSlider.astro';
+import Button from '../ui/Button.astro';
+import { SIZE_BUCKETS, STYLES, REGIONS, CONDITIONS, CONSTRUCTIONS } from '@lib/catalog-constants';
+import { products } from '@lib/catalog';
+interface Props {
+  lock?: Record<string, string>;
+  priceMax?: number;
+}
+const { lock = {}, priceMax } = Astro.props;
+const maxPrice =
+  priceMax ?? Math.max(1000, Math.ceil(Math.max(...products.map((p) => p.priceUsd)) / 500) * 500);
+const hasSilk = products.some((p) => /silk/i.test(p.pileFiber));
+const styles = STYLES.filter((s) => s.value !== 'silk' || hasSilk);
+const facet = (
+  name: string,
+  legend: string,
+  opts: ReadonlyArray<{ value: string; label: string }>,
+) => ({ name, legend, opts });
+const facets = [
+  facet('size', 'Size', SIZE_BUCKETS),
+  facet('style', 'Style', styles),
+  facet(
+    'region',
+    'Region',
+    REGIONS.map((r) => ({ value: r, label: r })),
+  ),
+  facet('condition', 'Condition / age', CONDITIONS),
+  facet('pile', 'Pile type', CONSTRUCTIONS),
+];
+---
+
+<form
+  id="filter-form"
+  class="filter-form flex flex-col gap-6"
+  data-filter-form
+  data-lock={JSON.stringify(lock)}
+  method="get"
+  action=""
+>
+  <div class="flex items-center justify-between">
+    <h2 class="font-sans text-h4 font-semibold text-indigo">Filters</h2>
+    <button
+      type="button"
+      class="text-small text-madder underline underline-offset-4"
+      data-clear-all
+    >
+      Clear all
+    </button>
+  </div>
+  {facets
+    .filter((f) => !(f.name in lock))
+    .map((f) => (
+      <fieldset data-facet={f.name}>
+        <legend class="mb-2 text-small font-medium text-charcoal">{f.legend}</legend>
+        <div class="flex flex-col">
+          {f.opts.map((o) => (
+            <label class="flex min-h-[40px] cursor-pointer items-center gap-2 text-small text-charcoal">
+              <input type="checkbox" name={f.name} value={o.value} class="size-5 accent-madder" />
+              <span>{o.label}</span>
+              <span
+                class="tnum ml-auto text-caption text-stone"
+                data-count={o.value}
+                aria-label="matching rugs"
+              ></span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+  {!('size' in lock) && (
+    <fieldset>
+      <legend class="mb-2 text-small font-medium text-charcoal">Dimensions</legend>
+      <div
+        class="mb-3 inline-flex rounded-btn border border-line p-0.5"
+        role="group"
+        aria-label="Units"
+        data-unit-toggle
+      >
+        <button
+          type="button"
+          data-unit="ft"
+          aria-pressed="true"
+          class="rounded px-3 py-1 text-small aria-pressed:bg-indigo aria-pressed:text-ivory"
+        >
+          ft
+        </button>
+        <button
+          type="button"
+          data-unit="cm"
+          aria-pressed="false"
+          class="rounded px-3 py-1 text-small aria-pressed:bg-indigo aria-pressed:text-ivory"
+        >
+          cm
+        </button>
+      </div>
+      <div class="flex flex-col gap-4">
+        <RangeSlider name="w" label="Width" min={2} max={16} step={0.5} unit="ft" />
+        <RangeSlider name="l" label="Length" min={2} max={24} step={0.5} unit="ft" />
+      </div>
+    </fieldset>
+  )}
+  {!('color' in lock) && <ColorSwatchFilter />}
+  <fieldset>
+    <legend class="mb-2 text-small font-medium text-charcoal">Price</legend>
+    <div class="mb-3 flex flex-wrap gap-2" role="group" aria-label="Price presets">
+      {[
+        { l: 'Under $1,000', a: 0, b: 999 },
+        { l: '$1,000–2,000', a: 1000, b: 2000 },
+        { l: '$2,000–3,000', a: 2000, b: 3000 },
+        { l: '$3,000+', a: 3000, b: maxPrice },
+      ].map((c) => (
+        <button
+          type="button"
+          class="rounded-full border border-line px-3 py-1 text-caption hover:border-indigo aria-pressed:bg-indigo aria-pressed:text-ivory"
+          data-price-chip
+          data-min={c.a}
+          data-max={c.b}
+          aria-pressed="false"
+        >
+          {c.l}
+        </button>
+      ))}
+    </div>
+    <RangeSlider
+      name="price"
+      label="Price range"
+      min={0}
+      max={maxPrice}
+      step={50}
+      unit="$"
+      format="usd"
+    />
+  </fieldset>
+  <fieldset>
+    <legend class="visually-hidden">Availability</legend>
+    <label class="flex min-h-[44px] cursor-pointer items-center gap-3 text-small text-charcoal">
+      <input type="checkbox" name="sold" value="1" role="switch" class="size-5 accent-madder" />
+      Show sold rugs
+    </label>
+  </fieldset>
+  <noscript>
+    <Button type="submit" variant="secondary">
+      Apply filters
+    </Button>
+  </noscript>
+</form>

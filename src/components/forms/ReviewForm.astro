@@ -1,0 +1,70 @@
+---
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import RadioGroup from './RadioGroup.astro';
+import Turnstile from './Turnstile.astro';
+---
+
+<form
+  id="review-form"
+  class="review-form flex flex-col gap-4"
+  method="post"
+  action="/api/forms/review"
+  enctype="multipart/form-data"
+  data-form="review"
+  data-form-type="review"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="token" value="" data-review-token />
+  <RadioGroup
+    name="rating"
+    legend="Your rating"
+    required
+    inline
+    options={[5, 4, 3, 2, 1].map((n) => ({
+      value: String(n),
+      label: `${n} star${n > 1 ? 's' : ''}`,
+    }))}
+  />
+  <FormField name="title" label="Title" maxlength={120} />
+  <FormField name="text" label="Your review" as="textarea" rows={5} required minlength={20} />
+  <FormField
+    name="photo"
+    label="Photo of the rug in your home"
+    type="file"
+    accept="image/jpeg,image/png,image/heic"
+    hint="Optional. Location data is removed from the file."
+  />
+  <div class="grid gap-4 sm:grid-cols-2">
+    <FormField
+      name="display_name"
+      label="Display name"
+      required
+      hint="First name and last initial is perfect."
+      autocomplete="name"
+    />
+    <FormField name="city" label="City" autocomplete="address-level2" />
+  </div>
+  <Turnstile action="review" />
+  <Button type="submit" size="lg" loadingText="Sending…">
+    Submit review
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      Thank you. Your review is in the queue and will appear once I’ve checked it against the order.
+    </p>
+  </div>
+</form>

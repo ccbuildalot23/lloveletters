@@ -1,0 +1,44 @@
+---
+import Icon from '../ui/Icon.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+const steps = [
+  {
+    icon: 'flip',
+    title: '1. The flip test',
+    body: 'I turn every rug over on camera and count the knots. Hand-knotted rugs show the pattern clearly on the back. Machine-made ones don’t. That video lives on the product page.',
+  },
+  {
+    icon: 'knot',
+    title: '2. Fiber & dye check',
+    body: 'A burn test on a fringe fiber (wool smells like hair, viscose like paper), a close look at the pile, and honest notes on whether the dyes are natural, synthetic, or mixed.',
+  },
+  {
+    icon: 'certificate',
+    title: '3. Signed certificate',
+    body: 'Every rug gets a unique ID and a signed certificate with its photo, size, fibers, region, and age. It matches the page you bought it from, forever.',
+  },
+];
+---
+
+<section class="container-content section-pad" aria-labelledby="verify-title">
+  <SectionHeader
+    id="verify-title"
+    eyebrow="No haggling. No surprises."
+    title="How I verify every rug"
+    intro="Most people get burned buying rugs because nobody shows them the back. So I show you the back."
+  />
+  <ol class="grid gap-8 md:grid-cols-3">
+    {steps.map((s) => (
+      <li class="flex flex-col gap-3 rounded-card bg-sand p-6">
+        <Icon name={s.icon} size={40} class="text-madder" />
+        <h3 class="font-sans text-h4 font-semibold text-indigo">{s.title}</h3>
+        <p class="text-body text-charcoal">{s.body}</p>
+      </li>
+    ))}
+  </ol>
+  <p class="mt-6">
+    <a href="/authenticity" class="font-medium">
+      Read the authenticity guide →
+    </a>
+  </p>
+</section>

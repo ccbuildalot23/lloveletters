@@ -1,0 +1,402 @@
+---
+/** 3.8 Component showcase: every component in every state. noindex. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import IconButton from '@/components/ui/IconButton.astro';
+import Badge from '@/components/ui/Badge.astro';
+import PriceTag from '@/components/ui/PriceTag.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import TrustBar from '@/components/ui/TrustBar.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import Tabs from '@/components/ui/Tabs.astro';
+import FactsTable from '@/components/ui/FactsTable.astro';
+import StarRating from '@/components/ui/StarRating.astro';
+import ReviewCard from '@/components/ui/ReviewCard.astro';
+import Testimonial from '@/components/ui/Testimonial.astro';
+import Modal from '@/components/ui/Modal.astro';
+import Drawer from '@/components/ui/Drawer.astro';
+import Skeleton from '@/components/ui/Skeleton.astro';
+import EmptyState from '@/components/ui/EmptyState.astro';
+import ErrorState from '@/components/ui/ErrorState.astro';
+import Pagination from '@/components/ui/Pagination.astro';
+import FormField from '@/components/forms/FormField.astro';
+import Select from '@/components/forms/Select.astro';
+import Checkbox from '@/components/forms/Checkbox.astro';
+import RadioGroup from '@/components/forms/RadioGroup.astro';
+import RangeSlider from '@/components/forms/RangeSlider.astro';
+import ColorSwatchFilter from '@/components/forms/ColorSwatchFilter.astro';
+import NewsletterForm from '@/components/forms/NewsletterForm.astro';
+import RugCard from '@/components/product/RugCard.astro';
+import VideoEmbed from '@/components/ui/VideoEmbed.astro';
+import Gallery from '@/components/product/Gallery.astro';
+import TurkeyMap from '@/components/product/TurkeyMap.astro';
+import SizeGuide from '@/components/product/SizeGuide.astro';
+import { colors } from '@lib/tokens';
+import { products } from '@lib/catalog';
+const rug = products[0]!;
+const sold = products.find((p) => p.status === 'sold')!;
+const reserved = products.find((p) => p.status === 'reserved')!;
+const sections = [
+  'Tokens',
+  'Typography',
+  'Buttons',
+  'Badges & price',
+  'Icons',
+  'Cards',
+  'Content & layout',
+  'Overlays & messaging',
+  'Forms',
+  'Media',
+];
+---
+
+<BaseLayout title="Styleguide" description="Every component in every state." noindex>
+  <div class="container-content py-10">
+    <h1>Styleguide</h1>
+    <p class="mt-2 text-body-lg text-stone">Every component in every state. Not indexed.</p>
+    <nav aria-label="Sections" class="mt-4 flex flex-wrap gap-2">
+      {sections.map((s) => (
+        <a
+          href={`#${s.toLowerCase().replace(/[^a-z]+/g, '-')}`}
+          class="rounded-full border border-line px-3 py-1 text-small no-underline hover:border-indigo"
+        >
+          {s}
+        </a>
+      ))}
+    </nav>
+
+    <section id="tokens" class="mt-16">
+      <h2>Tokens</h2>
+      <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+        {Object.entries(colors).map(([name, hex]) => (
+          <li class="rounded-card border border-line bg-white p-2 text-caption">
+            <div class="mb-2 h-12 rounded" style={`background:${hex}`}></div>
+            <strong>{name}</strong>
+            <br />
+            <span class="tnum">{hex}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-6 flex flex-wrap items-end gap-2">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+          <div
+            class="bg-indigo"
+            style={`width:var(--space-${n});height:var(--space-${n})`}
+            title={`--space-${n}`}
+          ></div>
+        ))}
+      </div>
+      <div class="mt-6 flex gap-4">
+        <div class="h-16 w-32 rounded-input border border-line bg-white">radius input</div>
+        <div class="h-16 w-32 rounded-card border border-line bg-white">radius card</div>
+        <div class="h-16 w-32 rounded-card bg-white shadow-elevation">elevation</div>
+      </div>
+    </section>
+
+    <section id="typography" class="mt-16">
+      <h2>Typography</h2>
+      <p class="font-display text-display text-indigo">Display 44→72</p>
+      <p class="font-display text-h1 text-indigo">H1 36→56</p>
+      <p class="font-display text-h2 text-indigo">H2 28→40</p>
+      <p class="font-display text-h3 text-indigo">H3 22→28</p>
+      <p class="text-h4 font-semibold text-indigo">H4 18→22 (Inter 600)</p>
+      <p class="text-body-lg">Body-lg 18→20. The quick brown fox jumps over the lazy dog.</p>
+      <p class="text-body">
+        Body 16→17. The quick brown fox jumps over the lazy dog, with a <a href="#">link</a>.
+      </p>
+      <p class="text-small">
+        Small 14 · <span class="text-stone">secondary text</span>
+      </p>
+      <p class="text-caption">Caption 13</p>
+      <p class="tnum text-body">Tabular numbers: 5′ 2″ × 8′ 1″ · $1,650 · 157 × 246 cm</p>
+    </section>
+
+    <section id="buttons" class="mt-16">
+      <h2>Buttons</h2>
+      {(['primary', 'secondary', 'ghost', 'link'] as const).map((v) => (
+        <div class="mt-4 flex flex-wrap items-center gap-3">
+          <Button variant={v} size="sm">
+            {v} sm
+          </Button>
+          <Button variant={v}>{v} md</Button>
+          <Button variant={v} size="lg">
+            {v} lg
+          </Button>
+          <Button variant={v} icon="shopping-bag">
+            icon
+          </Button>
+          <Button variant={v} loading>
+            Loading
+          </Button>
+          <Button variant={v} disabled>
+            Disabled
+          </Button>
+          <Button variant={v} href="#">
+            as link
+          </Button>
+        </div>
+      ))}
+      <div class="mt-4 flex gap-2">
+        <IconButton icon="search" label="Search" />
+        <IconButton icon="heart" label="Wishlist" variant="outline" />
+        <IconButton icon="x" label="Close" variant="solid" />
+      </div>
+    </section>
+
+    <section id="badges-price" class="mt-16">
+      <h2>Badges &amp; price</h2>
+      <div class="mt-4 flex flex-wrap gap-2">
+        {(
+          [
+            'one-of-one',
+            'new',
+            'vintage',
+            'antique',
+            'sold',
+            'reserved',
+            'trade',
+            'available',
+            'sample',
+            'info',
+          ] as const
+        ).map((k) => (
+          <Badge kind={k}>{k === 'info' ? 'Info' : undefined}</Badge>
+        ))}
+      </div>
+      <div class="mt-6 grid gap-6 sm:grid-cols-3">
+        <PriceTag priceUsd={1650} />
+        <PriceTag priceUsd={2850} size="lg" showBnpl />
+        <PriceTag priceUsd={1900} status="sold" />
+      </div>
+    </section>
+
+    <section id="icons" class="mt-16">
+      <h2>Icons</h2>
+      <ul class="mt-4 flex flex-wrap gap-4 text-indigo">
+        {[
+          'knot',
+          'loom',
+          'flip',
+          'certificate',
+          'duties',
+          'returns',
+          'us-support',
+          'whatsapp',
+          'search',
+          'shopping-bag',
+          'heart',
+          'menu',
+          'x',
+          'play',
+          'lock',
+          'chevron-down',
+          'info',
+          'share-2',
+          'copy',
+          'download',
+        ].map((n) => (
+          <li class="flex flex-col items-center gap-1 text-caption">
+            <Icon name={n} size={24} />
+            <span>{n}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="cards" class="mt-16">
+      <h2>Cards</h2>
+      <div class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <RugCard rug={rug} />
+        <RugCard rug={reserved} />
+        <RugCard rug={sold} />
+        <Skeleton kind="card" />
+      </div>
+    </section>
+
+    <section id="content-layout" class="mt-16">
+      <h2>Content &amp; layout</h2>
+      <SectionHeader
+        eyebrow="Eyebrow"
+        title="Section header"
+        intro="With an intro paragraph."
+        class="mt-6"
+      />
+      <TrustBar />
+      <TrustBar variant="mini" class="mt-4" />
+      <Breadcrumbs
+        class="mt-6"
+        items={[
+          { label: 'All rugs', href: '/rugs' },
+          { label: 'Oushak', href: '/collections/oushak' },
+          { label: 'This rug' },
+        ]}
+      />
+      <Accordion
+        class="mt-6"
+        items={[
+          { title: 'Open by default', content: '<p>Content</p>', open: true },
+          { title: 'Closed', content: '<p>More</p>' },
+        ]}
+        name="sg"
+      />
+      <Tabs
+        class="mt-6"
+        tabs={[
+          { id: 'a', label: 'Tab A', content: '<p>A</p>' },
+          { id: 'b', label: 'Tab B', content: '<p>B</p>' },
+        ]}
+      />
+      <FactsTable
+        class="mt-6"
+        rows={[
+          { term: 'Rug ID', value: 'TR-0001' },
+          { term: 'KPSI', value: 64, tooltip: 'Knots per square inch.' },
+          { term: 'Empty', value: '' },
+        ]}
+      />
+      <div class="mt-6 flex items-center gap-4">
+        <StarRating rating={4.5} count={12} />
+        <StarRating rating={3} size={20} />
+        <StarRating rating={0} />
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <ReviewCard
+          rating={5}
+          title="Exactly as filmed"
+          body="The flip video sold me. Rug arrived in six days, duties already paid."
+          displayName="Jane D."
+          city="Austin"
+          date="2026-09-01"
+          verified
+        />
+        <Testimonial
+          quote="Shortlist in a day, memo terms, done."
+          name="A designer"
+          role="Trade member"
+        />
+      </div>
+      <Pagination current={2} total={4} baseHref="/rugs" class="mt-6" />
+    </section>
+
+    <section id="overlays-messaging" class="mt-16">
+      <h2>Overlays &amp; messaging</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <Button data-open-modal="sg-modal" variant="secondary">
+          Open modal
+        </Button>
+        <Button data-open-drawer="sg-drawer" variant="secondary">
+          Open drawer
+        </Button>
+        <Button type="button" variant="ghost" id="sg-toast">
+          Fire toast
+        </Button>
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <EmptyState title="Nothing here" body="Empty state body.">
+          <Button size="sm" variant="secondary">
+            Action
+          </Button>
+        </EmptyState>
+        <ErrorState />
+      </div>
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        <Skeleton kind="text" />
+        <Skeleton kind="facts" />
+        <Skeleton kind="review" />
+      </div>
+      <Modal id="sg-modal" title="A modal">
+        <p>Focus is trapped. Esc closes. Focus returns to the trigger.</p>
+      </Modal>
+      <Drawer id="sg-drawer" title="A drawer">
+        <div class="p-5">Drawer body</div>
+        <div slot="footer" class="border-t border-line p-4">
+          Footer
+        </div>
+      </Drawer>
+    </section>
+
+    <section id="forms" class="mt-16">
+      <h2>Forms</h2>
+      <div class="mt-4 grid gap-6 md:grid-cols-2">
+        <FormField name="sg-text" label="Text field" hint="With a hint." required />
+        <FormField name="sg-error" label="Field with error" value="oops" />
+        <FormField name="sg-textarea" label="Textarea" as="textarea" />
+        <Select
+          name="sg-select"
+          label="Select"
+          options={[
+            { value: 'a', label: 'Option A' },
+            { value: 'b', label: 'Option B' },
+          ]}
+          placeholder="Pick one"
+        />
+        <div>
+          <Checkbox name="sg-check" label="Checkbox" />
+          <Checkbox
+            name="sg-check"
+            value="2"
+            label="Checked"
+            checked
+            description="With description"
+          />
+        </div>
+        <RadioGroup
+          name="sg-radio"
+          legend="Radio group"
+          options={[
+            { value: '1', label: 'One', checked: true },
+            { value: '2', label: 'Two' },
+          ]}
+        />
+        <RangeSlider
+          name="sg-range"
+          label="Price"
+          min={0}
+          max={4000}
+          step={50}
+          valueMin={500}
+          valueMax={3000}
+          unit="$"
+        />
+        <ColorSwatchFilter name="sg-color" selected={['blue']} />
+      </div>
+      <div class="mt-6 max-w-xl">
+        <NewsletterForm variant="full" id="sg-newsletter" />
+      </div>
+    </section>
+
+    <section id="media" class="mt-16">
+      <h2>Media</h2>
+      <div class="mt-4 grid gap-6 md:grid-cols-2">
+        <VideoEmbed
+          streamId="sample-flip-TR-0001"
+          poster="sample-TR-0001-back"
+          title="Sample video"
+          caption="Click-to-load Stream embed"
+          transcript="Transcript text."
+        />
+        <TurkeyMap region="Konya" />
+      </div>
+      <div class="mt-6">
+        <Gallery rug={rug} />
+      </div>
+      <div class="mt-6">
+        <SizeGuide w={8} l={10} bucket="8x10" />
+      </div>
+    </section>
+  </div>
+  <script>
+    import { toast } from '@/scripts/toast';
+    document
+      .getElementById('sg-toast')
+      ?.addEventListener('click', () => toast('This is a toast.', 'success'));
+    const err = document.querySelector<HTMLElement>('[data-field="sg-error"] .field-error');
+    if (err) {
+      err.textContent = 'This is what an error looks like.';
+      err.classList.remove('hidden');
+      document.getElementById('f-sg-error')?.setAttribute('aria-invalid', 'true');
+    }
+  </script>
+</BaseLayout>

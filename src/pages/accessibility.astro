@@ -1,0 +1,37 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import { site } from '@lib/site';
+---
+
+<ContentLayout
+  title="Accessibility statement"
+  description="We aim for WCAG 2.2 AA. What we do, known limits, and how to tell us when something doesn't work for you."
+  h1="Accessibility"
+  updated="2026-09-28"
+>
+  <p>
+    We want everyone to be able to browse, buy, and get help on this site. We build to{' '}
+    <strong>WCAG 2.2 Level AA</strong> and test with keyboard-only navigation, screen readers
+    (VoiceOver and NVDA), 200–400% zoom, and automated checks on every page.
+  </p>
+  <h2>What that means in practice</h2>
+  <ul>
+    <li>Everything works with a keyboard. Focus is visible and never hidden behind sticky bars.</li>
+    <li>Images have descriptions. Videos have transcripts and pause controls.</li>
+    <li>Color is never the only signal; text sizes and contrast meet AA.</li>
+    <li>Forms have visible labels, clear errors, and no puzzles to solve.</li>
+    <li>The price slider and the gallery can be operated without dragging.</li>
+  </ul>
+  <h2>Known limits</h2>
+  <p>
+    Third-party pieces (Stripe checkout, the scheduling calendar, the video player) are built by
+    other companies. They meet most of the same standards; if one gets in your way, contact us and
+    we’ll complete the task with you another way.
+  </p>
+  <h2>Tell us</h2>
+  <p>
+    If something doesn’t work for you, email{' '}
+    <a href={`mailto:${site.email}?subject=Accessibility`}>{site.email}</a> or call {site.phone}. We
+    reply within 2 business days and fix what we can quickly.
+  </p>
+</ContentLayout>

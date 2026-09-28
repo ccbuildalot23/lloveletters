@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CollectionPage from '@/components/collection/CollectionPage.astro';
+import { COLLECTIONS } from '@lib/catalog-constants';
+import { collectionMembers } from '@lib/catalog';
+import { collectionJsonLd } from '@lib/jsonld';
+import { site } from '@lib/site';
+
+export function getStaticPaths() {
+  return Object.keys(COLLECTIONS).map((collection) => ({ params: { collection } }));
+}
+const { collection } = Astro.params;
+const meta = COLLECTIONS[collection!]!;
+const rugs = collectionMembers(collection!);
+const lock: Record<string, string> = [
+  'oushak',
+  'kilim',
+  'village',
+  'overdyed',
+  'modern-anatolian',
+].includes(collection!)
+  ? { style: collection! }
+  : collection === 'runners'
+    ? { size: 'runner' }
+    : {};
+---
+
+<BaseLayout
+  title={`${meta.title} · hand-knotted, one of one`}
+  description={meta.description}
+  jsonLd={[collectionJsonLd(meta.title, `${site.url}/collections/${collection}`, rugs)]}
+>
+  <CollectionPage
+    title={meta.title}
+    intro={meta.intro}
+    rugs={rugs}
+    baseHref={`/collections/${collection}`}
+    crumbs={[
+      { label: 'All rugs', href: '/rugs' },
+      { label: meta.title, href: `/collections/${collection}` },
+    ]}
+    lock={lock}
+    listName={`collection_${collection}`}
+  />
+</BaseLayout>

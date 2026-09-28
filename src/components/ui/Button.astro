@@ -1,0 +1,85 @@
+---
+/**
+ * Button / link-button.
+ * Props: variant primary|secondary|ghost|link, size sm|md|lg, href (renders <a>),
+ * type, loading, disabled, loadingText, icon (lucide name), iconRight, full (block width).
+ */
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'link' | 'accent';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  loading?: boolean;
+  loadingText?: string;
+  disabled?: boolean;
+  icon?: string;
+  iconRight?: string;
+  full?: boolean;
+  class?: string;
+  id?: string;
+  [key: string]: unknown;
+}
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  loading = false,
+  loadingText = 'Working…',
+  disabled = false,
+  icon,
+  iconRight,
+  full = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const base =
+  'btn inline-flex items-center justify-center gap-2 font-medium rounded-btn transition-[background-color,color,border-color,transform] duration-hover ease-brand select-none text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo disabled:opacity-50 disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:pointer-events-none';
+const variants = {
+  primary:
+    'bg-madder text-white hover:bg-madder-dark active:translate-y-px border border-madder hover:border-madder-dark',
+  secondary:
+    'bg-indigo text-ivory hover:bg-indigo-light active:translate-y-px border border-indigo hover:border-indigo-light',
+  ghost: 'bg-transparent text-indigo border border-indigo hover:bg-indigo hover:text-ivory',
+  link: 'bg-transparent text-madder underline underline-offset-4 hover:text-madder-dark px-0 py-0 min-h-0',
+  accent:
+    'bg-saffron text-charcoal border border-saffron hover:bg-ivory hover:border-ivory hover:text-indigo active:translate-y-px',
+};
+const sizes = {
+  sm: 'text-small px-3 py-2 min-h-[36px]',
+  md: 'text-body px-5 py-3 min-h-[44px]',
+  lg: 'text-body-lg px-6 py-3.5 min-h-[52px]',
+};
+const cls = [
+  base,
+  variants[variant],
+  variant === 'link' ? '' : sizes[size],
+  full ? 'w-full' : '',
+  className,
+].join(' ');
+const Tag = href ? 'a' : 'button';
+const attrs = href
+  ? { href, ...(disabled ? { 'aria-disabled': 'true' as const, tabindex: -1 } : {}) }
+  : { type, disabled: disabled || loading, 'aria-busy': loading ? ('true' as const) : undefined };
+---
+
+<Tag class={cls} data-loading-text={loadingText} {...attrs} {...rest}>
+  {loading ? (
+    <>
+      <span
+        class="btn-spinner size-4 animate-spin rounded-full border-2 border-current border-t-transparent"
+        aria-hidden="true"
+      />
+      <span>{loadingText}</span>
+    </>
+  ) : (
+    <>
+      {icon && <Icon name={icon} size={20} />}
+      <slot />
+      {iconRight && <Icon name={iconRight} size={20} />}
+    </>
+  )}
+</Tag>

@@ -1,0 +1,34 @@
+---
+/**
+ * Side drawer built on <dialog>. side: right|left. Used for cart, filters, menu.
+ * Open via data-open-drawer="id"; close via data-close-drawer, Esc, or backdrop click.
+ */
+import IconButton from './IconButton.astro';
+interface Props {
+  id: string;
+  title: string;
+  side?: 'right' | 'left';
+  class?: string;
+  width?: string;
+}
+const { id, title, side = 'right', class: className = '', width = 'max-w-md' } = Astro.props;
+---
+
+<dialog
+  id={id}
+  data-side={side}
+  class={`drawer fixed inset-y-0 ${side === 'right' ? 'right-0 left-auto' : 'left-0 right-auto'} m-0 flex h-dvh max-h-dvh w-full ${width} flex-col bg-ivory p-0 text-charcoal shadow-elevation backdrop:bg-charcoal/50 ${className}`}
+  aria-labelledby={`${id}-title`}
+  aria-modal="true"
+>
+  <div class="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
+    <h2 id={`${id}-title`} class="font-sans text-h4 font-semibold text-indigo">
+      {title}
+    </h2>
+    <IconButton icon="x" label={`Close ${title.toLowerCase()}`} data-close-drawer />
+  </div>
+  <div class="flex-1 overflow-y-auto">
+    <slot />
+  </div>
+  <slot name="footer" />
+</dialog>

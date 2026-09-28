@@ -1,0 +1,20 @@
+[
+  {
+    "image": "sample-room-1",
+    "alt": "SAMPLE: faded coral Oushak under a linen sofa in a bright living room",
+    "rugId": "TR-0001",
+    "caption": "SAMPLE · Living room, Brooklyn"
+  },
+  {
+    "image": "sample-room-2",
+    "alt": "SAMPLE: ivory and slate Oushak under a walnut dining table",
+    "rugId": "TR-0002",
+    "caption": "SAMPLE · Dining room, Austin"
+  },
+  {
+    "image": "sample-room-3",
+    "alt": "SAMPLE: madder and indigo village rug in an entryway with a bench",
+    "rugId": "TR-0003",
+    "caption": "SAMPLE · Entryway, Denver"
+  }
+]

@@ -1,0 +1,110 @@
+---
+/**
+ * Cloudflare Stream embed, click-to-load (12.4) with poster, caption and transcript toggle (13.5).
+ * Props: streamId, poster (Cloudflare Images id or URL), title, caption, transcript, autoplayLoop (hero only), aspect
+ */
+import Icon from './Icon.astro';
+import { imageUrl } from '@lib/images';
+interface Props {
+  streamId: string;
+  poster?: string;
+  title: string;
+  caption?: string;
+  transcript?: string;
+  aspect?: '16/9' | '9/16' | '4/5' | '1/1';
+  kind?: string;
+  rugId?: string;
+  class?: string;
+}
+const {
+  streamId,
+  poster,
+  title,
+  caption,
+  transcript,
+  aspect = '16/9',
+  kind = 'video',
+  rugId,
+  class: className = '',
+} = Astro.props;
+const posterUrl = poster
+  ? poster.startsWith('http')
+    ? poster
+    : imageUrl(poster, 'gallery')
+  : `https://videodelivery.net/${streamId}/thumbnails/thumbnail.jpg?time=1s&height=720`;
+const src = `https://iframe.videodelivery.net/${streamId}?poster=${encodeURIComponent(posterUrl)}&preload=none&autoplay=true`;
+const aspectCls = {
+  '16/9': 'aspect-video',
+  '9/16': 'aspect-[9/16]',
+  '4/5': 'aspect-[4/5]',
+  '1/1': 'aspect-square',
+}[aspect];
+const uid = `v-${streamId.slice(0, 8)}-${Math.random().toString(36).slice(2, 6)}`;
+---
+
+<figure
+  class={`video-embed ${className}`}
+  data-video
+  data-stream-id={streamId}
+  data-video-kind={kind}
+  data-rug-id={rugId}
+>
+  <div class={`relative w-full overflow-hidden rounded-card bg-charcoal ${aspectCls}`}>
+    <img
+      src={posterUrl}
+      alt=""
+      width="1280"
+      height="720"
+      loading="lazy"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover"
+      data-poster
+    />
+    <button
+      type="button"
+      class="absolute inset-0 flex items-center justify-center bg-charcoal/20 text-white transition-colors duration-hover hover:bg-charcoal/40"
+      data-play
+      aria-label={`Play video: ${title}`}
+      data-src={src}
+      data-title={title}
+    >
+      <span class="flex size-16 items-center justify-center rounded-full bg-madder">
+        <Icon name="play" size={32} />
+      </span>
+    </button>
+  </div>
+  {caption && <figcaption class="mt-2 text-small text-stone">{caption}</figcaption>}
+  {transcript && (
+    <details class="mt-2 text-small">
+      <summary class="cursor-pointer text-indigo underline underline-offset-4">
+        Read transcript
+      </summary>
+      <div id={`${uid}-transcript`} class="mt-2 rounded-card bg-sand p-4 text-charcoal">
+        {transcript}
+      </div>
+    </details>
+  )}
+</figure>
+<script>
+  import { track } from '@/scripts/analytics';
+  document.querySelectorAll<HTMLElement>('[data-video]').forEach((fig) => {
+    const btn = fig.querySelector<HTMLButtonElement>('[data-play]');
+    btn?.addEventListener('click', () => {
+      const wrap = btn.parentElement!;
+      const iframe = document.createElement('iframe');
+      iframe.src = btn.dataset.src!;
+      iframe.title = btn.dataset.title!;
+      iframe.allow = 'accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;';
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+      iframe.loading = 'lazy';
+      wrap.querySelector('[data-poster]')?.remove();
+      btn.replaceWith(iframe);
+      iframe.focus();
+      track('video_play', {
+        video_kind: fig.dataset.videoKind ?? 'video',
+        item_id: fig.dataset.rugId,
+      });
+    });
+  });
+</script>

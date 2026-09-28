@@ -1,0 +1,448 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Gallery from '@/components/product/Gallery.astro';
+import PurchasePanel from '@/components/product/PurchasePanel.astro';
+import VideoEmbed from '@/components/ui/VideoEmbed.astro';
+import TurkeyMap from '@/components/product/TurkeyMap.astro';
+import FactsTable from '@/components/ui/FactsTable.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import AccordionItem from '@/components/ui/AccordionItem.astro';
+import SizeGuide from '@/components/product/SizeGuide.astro';
+import RugGrid from '@/components/product/RugGrid.astro';
+import StickyBuyBar from '@/components/layout/StickyBuyBar.astro';
+import Modal from '@/components/ui/Modal.astro';
+import RoomPhotoForm from '@/components/forms/RoomPhotoForm.astro';
+import RequestForm from '@/components/forms/RequestForm.astro';
+import ReviewCard from '@/components/ui/ReviewCard.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import { products, similarRugs, styleLabel, colorLabel, sizeBucketLabel } from '@lib/catalog';
+import { imageUrl } from '@lib/images';
+import { sizeFt, sizeCm, formatDate } from '@lib/format';
+import { site } from '@lib/site';
+import { productJsonLd, videoJsonLd } from '@lib/jsonld';
+import { reviews, showReviews, aggregateRating, approvedCount } from '@lib/reviews';
+import { marked } from 'marked';
+
+export function getStaticPaths() {
+  return products.map((rug) => ({ params: { slug: rug.slug }, props: { rug } }));
+}
+const { rug } = Astro.props;
+const title = rug.title.replace('SAMPLE · ', '');
+const front = rug.images.find((i) => i.kind === 'front') ?? rug.images[0]!;
+const og = imageUrl(front.id, 'og');
+const flip = rug.videos.find((v) => v.kind === 'flip');
+const workshop = rug.videos.find((v) => v.kind === 'workshop' || v.kind === 'walkthrough');
+const similar = similarRugs(rug, 4);
+const detailPhotos = rug.images.filter((i) =>
+  ['corner', 'fringe', 'macro', 'detail'].includes(i.kind),
+);
+const soldTooOld =
+  rug.status === 'sold' &&
+  rug.soldAt &&
+  Date.now() - new Date(rug.soldAt).getTime() > site.soldIndexDays * 86400000;
+const seoTitle = rug.seo?.title ?? `${title} · ${sizeFt(rug.sizeFt.w, rug.sizeFt.l)}`;
+const seoDesc =
+  rug.seo?.description ??
+  `${styleLabel(rug.style)} from ${rug.region}, ${sizeFt(rug.sizeFt.w, rug.sizeFt.l)}, ${rug.pileFiber}. One of one, filmed at the loom. Duties included, 30-day returns.`.slice(
+    0,
+    155,
+  );
+const descriptionHtml = await marked.parse(rug.description);
+const facts = [
+  { term: 'Rug ID', value: rug.id },
+  { term: 'Style', value: styleLabel(rug.style) },
+  { term: 'Condition', value: rug.condition.charAt(0).toUpperCase() + rug.condition.slice(1) },
+  {
+    term: 'Age / era',
+    value: rug.era ?? (rug.ageYears !== undefined ? `${rug.ageYears} years` : undefined),
+  },
+  { term: 'Size (ft)', value: sizeFt(rug.sizeFt.w, rug.sizeFt.l) },
+  { term: 'Size (cm)', value: sizeCm(rug.sizeCm.w, rug.sizeCm.l) },
+  { term: 'Size bucket', value: sizeBucketLabel(rug.sizeBucket) },
+  { term: 'Pile fiber', value: rug.pileFiber },
+  { term: 'Foundation', value: rug.foundationFiber },
+  { term: 'Fiber content label', value: rug.fiberContentLabel },
+  {
+    term: 'Construction',
+    value: rug.construction === 'hand-knotted' ? 'Hand-knotted (pile)' : 'Flatweave',
+  },
+  {
+    term: 'Knot type',
+    value: rug.knotType,
+    tooltip:
+      'Turkish (Ghiordes) knots are symmetrical: the yarn wraps both warps. Persian (Senneh) knots are asymmetrical. Neither is “better”; it’s a regional signature.',
+  },
+  {
+    term: 'KPSI',
+    value: rug.kpsi,
+    tooltip:
+      'Knots per square inch: horizontal knots × vertical knots in one inch. Village rugs run 30–60, workshop rugs 60–120, fine city rugs 150+. Higher isn’t always better; it means finer detail, not more durable.',
+  },
+  { term: 'Pile height', value: rug.pileHeightMm ? `${rug.pileHeightMm} mm` : undefined },
+  {
+    term: 'Dyes',
+    value: rug.dyeType.charAt(0).toUpperCase() + rug.dyeType.slice(1),
+    tooltip:
+      'Natural: plant and insect dyes (madder, indigo, weld). Synthetic: modern colorfast chemical dyes. Mixed: both. Unknown: I could not verify, so I say so.',
+  },
+  { term: 'Region', value: rug.region },
+  { term: 'Village', value: rug.village },
+  { term: 'Workshop', value: rug.workshop },
+  { term: 'Colors', value: rug.colors.map(colorLabel).join(', ') },
+  { term: 'Weight', value: `${rug.weightKg} kg (${Math.round(rug.weightKg * 2.205)} lb)` },
+  { term: 'Country of origin', value: 'Turkey (imported)' },
+  { term: 'Dealer', value: site.dealerName },
+  { term: 'Shipping', value: rug.shippingNote },
+  { term: 'Added', value: formatDate(rug.dateAdded) },
+];
+const jsonLd = [
+  productJsonLd(
+    rug,
+    showReviews ? { rating: { value: aggregateRating, count: approvedCount } } : {},
+  ),
+  ...videoJsonLd(rug),
+];
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDesc}
+  image={og.startsWith('http') ? og : `${site.url}${og}`}
+  imageAlt={front.alt}
+  type="product"
+  noindex={!!soldTooOld}
+  jsonLd={jsonLd}
+  bodyClass="pb-24 lg:pb-0"
+>
+  <div class="container-content pt-4">
+    <Breadcrumbs
+      items={[
+        { label: 'All rugs', href: '/rugs' },
+        { label: styleLabel(rug.style), href: `/collections/${rug.style}` },
+        { label: title },
+      ]}
+    />
+  </div>
+  <article
+    class="container-content mt-4 grid gap-8 lg:grid-cols-12 lg:gap-12"
+    data-product
+    data-rug-id={rug.id}
+  >
+    <div class="min-w-0 lg:col-span-7">
+      <Gallery rug={rug} />
+    </div>
+    <div class="min-w-0 lg:col-span-5">
+      <div class="lg:sticky lg:top-[calc(var(--header-h-compact)+16px)]">
+        <PurchasePanel rug={rug} />
+        <div class="mt-4 flex flex-wrap items-center gap-2 text-small text-stone">
+          <span>Share:</span>
+          <button
+            type="button"
+            class="hidden min-h-[36px] items-center gap-1 rounded-btn px-2 text-indigo hover:bg-sand"
+            data-share="native"
+          >
+            <Icon name="share-2" size={16} /> Share
+          </button>
+          <button
+            type="button"
+            class="inline-flex min-h-[36px] items-center gap-1 rounded-btn px-2 text-indigo hover:bg-sand"
+            data-share="copy"
+          >
+            <Icon name="copy" size={16} /> Copy link
+          </button>
+          <a
+            href={`https://pinterest.com/pin/create/button/?url=${encodeURIComponent(`${site.url}/rugs/${rug.slug}`)}&media=${encodeURIComponent(og.startsWith('http') ? og : `${site.url}${og}`)}&description=${encodeURIComponent(title)}`}
+            rel="noopener"
+            target="_blank"
+            class="inline-flex min-h-[36px] items-center gap-1 rounded-btn px-2 text-indigo no-underline hover:bg-sand"
+          >
+            <Icon name="pinterest" size={16} /> Save
+          </a>
+          <a
+            href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${site.url}/rugs/${rug.slug}`)}`}
+            class="inline-flex min-h-[36px] items-center gap-1 rounded-btn px-2 text-indigo no-underline hover:bg-sand"
+          >
+            <Icon name="mail" size={16} /> Email
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <div class="container-content mt-16 grid gap-16 lg:grid-cols-12">
+    <div class="flex min-w-0 flex-col gap-16 lg:col-span-8">
+      <!-- a. Flip test -->
+      <section id="flip-test" aria-labelledby="flip-title">
+        <h2 id="flip-title">The flip test</h2>
+        <p class="mt-2 text-body text-stone">
+          I turn every rug over on camera. This is {rug.id}, back side up.
+        </p>
+        {flip && (
+          <VideoEmbed
+            class="mt-4"
+            streamId={flip.streamId}
+            poster={flip.poster}
+            title={`Flip test: ${title}`}
+            caption={flip.caption}
+            transcript={flip.transcript}
+            kind="flip"
+            rugId={rug.id}
+          />
+        )}
+      </section>
+
+      <!-- Story -->
+      <section aria-labelledby="story-title">
+        <h2 id="story-title">About this rug</h2>
+        <div class="prose-brand mt-4 text-body-lg" set:html={descriptionHtml} />
+      </section>
+
+      <!-- b. Provenance -->
+      <section id="provenance" aria-labelledby="prov-title">
+        <h2 id="prov-title">Provenance</h2>
+        <div class="mt-4 grid gap-6 md:grid-cols-2">
+          <TurkeyMap region={rug.region} />
+          <div class="flex flex-col gap-3 text-body">
+            <p>
+              <span class="font-medium text-indigo">Region:</span> {rug.region}
+              {rug.village && <span> · {rug.village}</span>}
+            </p>
+            {rug.workshop && (
+              <p>
+                <span class="font-medium text-indigo">Workshop:</span> {rug.workshop}
+              </p>
+            )}
+            {rug.weaverNote && (
+              <p>
+                <span class="font-medium text-indigo">Weaver note:</span> {rug.weaverNote}
+              </p>
+            )}
+            {rug.sourcingNote && (
+              <blockquote class="border-l-3 border-saffron pl-4 font-display text-h4 text-indigo">
+                “{rug.sourcingNote}”
+                <footer class="mt-1 font-sans text-small text-stone">— {site.founder}</footer>
+              </blockquote>
+            )}
+          </div>
+        </div>
+        {workshop && (
+          <VideoEmbed
+            class="mt-6"
+            streamId={workshop.streamId}
+            poster={workshop.poster}
+            title={`Workshop: ${title}`}
+            caption={workshop.caption}
+            transcript={workshop.transcript}
+            kind={workshop.kind}
+            rugId={rug.id}
+          />
+        )}
+      </section>
+
+      <!-- c. Facts -->
+      <section id="facts" aria-labelledby="facts-title">
+        <h2 id="facts-title">The facts</h2>
+        <FactsTable rows={facts} class="mt-4" caption="Rug specifications" />
+      </section>
+
+      <!-- d. Condition -->
+      <section id="condition" aria-labelledby="cond-title">
+        <h2 id="cond-title">Condition</h2>
+        <p class="mt-3 text-body-lg">{rug.conditionNotes}</p>
+        {detailPhotos.length > 0 && (
+          <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {detailPhotos.map((img) => (
+              <li>
+                <button
+                  type="button"
+                  class="block w-full overflow-hidden rounded-card"
+                  data-open-lightbox={rug.images.indexOf(img)}
+                  aria-label={`Open detail photo: ${img.alt}`}
+                >
+                  <img
+                    src={imageUrl(img.id, 'card')}
+                    alt={img.alt}
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                    class="aspect-square w-full object-cover"
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <!-- e. Certificate -->
+      <section id="certificate" aria-labelledby="cert-title" class="rounded-card bg-sand p-6">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div class="flex size-24 shrink-0 items-center justify-center rounded-card border border-line bg-white text-indigo">
+            <Icon name="certificate" size={48} />
+          </div>
+          <div class="flex-1">
+            <h2 id="cert-title" class="text-h3">
+              Signed certificate of authenticity
+            </h2>
+            <p class="mt-1 text-body text-charcoal">
+              A PDF with this rug’s ID ({rug.id}), photo, size, fibers, region, and my signature. A
+              printed copy ships in the box.
+            </p>
+            <Button
+              href={rug.certificatePdf}
+              variant="secondary"
+              size="sm"
+              class="mt-3"
+              icon="download"
+              download
+            >
+              Download certificate ({rug.id}.pdf)
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <!-- f. Size guide -->
+      <section id="size-guide" aria-labelledby="size-title">
+        <h2 id="size-title">Will it fit?</h2>
+        <div class="mt-4">
+          <SizeGuide w={rug.sizeFt.w} l={rug.sizeFt.l} bucket={rug.sizeBucket} />
+        </div>
+      </section>
+
+      <!-- g/h. Shipping & care -->
+      <section aria-labelledby="ship-title">
+        <h2 id="ship-title">Shipping, duties, returns &amp; care</h2>
+        <Accordion class="mt-4" name="ship">
+          <AccordionItem title="Shipping & duties" open>
+            <p>
+              {rug.shippingNote} The price includes all import duties and US shipping; nothing is
+              collected at your door. You’ll get tracking by email.{' '}
+              <a href="/shipping-duties">Full shipping details</a>.
+            </p>
+          </AccordionItem>
+          <AccordionItem title="30-day returns">
+            <p>
+              Live with it for {site.returnsDays} days. If it isn’t right, start a return from the{' '}
+              <a href="/returns#start">returns page</a>. Return shipping: {site.returnShipping}.
+              Refund within 5 business days of receipt.
+            </p>
+          </AccordionItem>
+          <AccordionItem title="Authenticity guarantee">
+            <p>
+              If an independent appraiser finds that a rug isn’t what I described, I’ll refund you
+              in full, including return shipping. <a href="/authenticity">How I verify every rug</a>
+              .
+            </p>
+          </AccordionItem>
+          <AccordionItem title="Care">
+            <p>
+              {rug.careLevel ??
+                'Vacuum without the beater bar, rotate twice a year, blot spills immediately.'}{' '}
+              <a href="/care">Read the full care guide</a>.
+            </p>
+          </AccordionItem>
+        </Accordion>
+      </section>
+    </div>
+    <aside class="min-w-0 lg:col-span-4">
+      <div class="rounded-card border border-line bg-white p-6">
+        <h2 class="text-h4">Questions about {rug.id}?</h2>
+        <p class="mt-2 text-small text-charcoal">
+          I’ll unroll it on a video call and show you anything you want to see.
+        </p>
+        <Button
+          href={`/book?rug=${rug.id}`}
+          variant="secondary"
+          size="sm"
+          class="mt-3"
+          full
+          data-track="book_call"
+          data-track-params={JSON.stringify({ item_id: rug.id })}
+        >
+          Book a live look
+        </Button>
+        <Button href={`/contact?rug=${rug.id}`} variant="link" class="mt-3">
+          Or send a message
+        </Button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- i. Reviews (store-level) -->
+  {showReviews && (
+    <section class="container-content mt-16" aria-labelledby="rev-title">
+      <h2 id="rev-title">What customers say</h2>
+      <p class="mt-1 text-small text-stone">
+        Every rug is unique, so these are reviews of the store and the experience.
+      </p>
+      <div class="mt-4 grid gap-6 md:grid-cols-3">
+        {reviews.slice(0, 3).map((r) => (
+          <ReviewCard
+            rating={r.rating}
+            title={r.title}
+            body={r.body}
+            displayName={r.displayName}
+            city={r.city}
+            date={r.date}
+            verified={r.verified}
+          />
+        ))}
+      </div>
+      <p class="mt-4">
+        <a href="/reviews">Read all reviews</a>
+      </p>
+    </section>
+  )}
+
+  <!-- Sold: find similar -->
+  {rug.status === 'sold' && (
+    <section
+      id="find-similar"
+      class="container-content mt-16 scroll-mt-24"
+      aria-labelledby="sim-form-title"
+    >
+      <div class="mx-auto max-w-2xl rounded-card bg-sand p-6 md:p-8">
+        <h2 id="sim-form-title">Find me one like it</h2>
+        <p class="mt-2 text-body text-charcoal">
+          Tell me what you loved about {rug.id} and I’ll keep an eye out on the next trip. Size,
+          style, and colors are pre-filled.
+        </p>
+        <RequestForm
+          id="similar-request"
+          rugId={rug.id}
+          size={rug.sizeBucket}
+          style={rug.style}
+          colors={rug.colors}
+          class="mt-4"
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- j. Similar -->
+  {similar.length > 0 && (
+    <section id="similar" class="container-content mt-16 scroll-mt-24" aria-labelledby="sim-title">
+      <h2 id="sim-title">Similar rugs</h2>
+      <RugGrid rugs={similar} class="mt-6" listName="similar" />
+    </section>
+  )}
+
+  <!-- k. Recently viewed -->
+  <section class="container-content mt-16 mb-24" aria-labelledby="recent-title" data-recent hidden>
+    <h2 id="recent-title">Recently viewed</h2>
+    <ul class="mt-6 grid grid-cols-2 gap-6 lg:grid-cols-4"></ul>
+  </section>
+
+  <Modal id="room-modal" title="See it in my room">
+    <RoomPhotoForm rugId={rug.id} />
+  </Modal>
+  <StickyBuyBar rugId={rug.id} priceUsd={rug.priceUsd} status={rug.status} />
+</BaseLayout>
+<script>
+  import { initProduct } from '@/scripts/product';
+  initProduct();
+</script>

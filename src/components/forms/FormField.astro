@@ -1,0 +1,111 @@
+---
+/**
+ * Label + input/textarea + hint + error, with proper autocomplete & aria wiring (11.2).
+ * Props: name, label, type, required, hint, autocomplete, placeholder (never used alone), as: input|textarea,
+ * value, pattern, minlength, maxlength, inputmode, rows
+ */
+interface Props {
+  name: string;
+  label: string;
+  type?: astroHTML.JSX.HTMLInputTypeAttribute;
+  required?: boolean;
+  hint?: string;
+  autocomplete?: string;
+  placeholder?: string;
+  as?: 'input' | 'textarea';
+  value?: string;
+  rows?: number;
+  inputmode?: 'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search';
+  pattern?: string;
+  minlength?: number;
+  maxlength?: number;
+  class?: string;
+  id?: string;
+  accept?: string;
+  min?: number | string;
+  max?: number | string;
+  step?: number | string;
+  multiple?: boolean;
+}
+const {
+  name,
+  label,
+  type = 'text',
+  required = false,
+  hint,
+  autocomplete,
+  placeholder,
+  as = 'input',
+  value,
+  rows = 4,
+  inputmode,
+  pattern,
+  minlength,
+  maxlength,
+  class: className = '',
+  id = `f-${name}`,
+  accept,
+  min,
+  max,
+  step,
+  multiple = false,
+} = Astro.props;
+const describedBy = [hint ? `${id}-hint` : null, `${id}-error`].filter(Boolean).join(' ');
+const inputCls =
+  'w-full rounded-input border border-line bg-white px-3 py-2.5 text-body text-charcoal placeholder:text-stone/70 focus:border-indigo focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo aria-[invalid=true]:border-error min-h-[44px]';
+---
+
+<div class={`form-field flex flex-col gap-1.5 ${className}`} data-field={name}>
+  <label for={id} class="text-small font-medium text-charcoal">
+    {label}
+    {required ? (
+      <span class="text-error">
+        {' '}
+        * <span class="visually-hidden">(required)</span>
+      </span>
+    ) : (
+      <span class="text-stone"> (optional)</span>
+    )}
+  </label>
+  {hint && (
+    <p id={`${id}-hint`} class="text-caption text-stone">
+      {hint}
+    </p>
+  )}
+  {as === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      rows={rows}
+      required={required}
+      aria-describedby={describedBy}
+      autocomplete={autocomplete}
+      placeholder={placeholder}
+      minlength={minlength}
+      maxlength={maxlength}
+      class={inputCls}
+    >{value}</textarea>
+  ) : (
+    <input
+      id={id}
+      name={name}
+      type={type}
+      required={required}
+      aria-describedby={describedBy}
+      autocomplete={autocomplete}
+      placeholder={placeholder}
+      value={value}
+      inputmode={inputmode}
+      pattern={pattern}
+      minlength={minlength}
+      maxlength={maxlength}
+      accept={accept}
+      min={min}
+      max={max}
+      step={step}
+      multiple={multiple}
+      class={inputCls}
+    />
+  )}
+  <p id={`${id}-error`} class="field-error hidden text-small text-error" aria-live="polite"></p>
+</div>

@@ -1,0 +1,24 @@
+---
+import Button from '../ui/Button.astro';
+import { site } from '@lib/site';
+---
+
+<section class="container-content section-pad" aria-labelledby="trade-title">
+  <div class="grid items-center gap-8 rounded-card bg-indigo p-8 text-ivory md:grid-cols-[1fr_auto] md:p-12 on-dark">
+    <div>
+      <p class="text-small font-medium tracking-wide text-saffron uppercase">
+        For interior designers
+      </p>
+      <h2 id="trade-title" class="mt-2 text-ivory">
+        Designers: {site.tradeDiscountPct}% trade pricing, curated shortlists in 24 hours.
+      </h2>
+      <p class="mt-3 max-w-2xl text-body-lg text-ivory/85">
+        Send me the room, the size, and the palette. I’ll send back a video shortlist from what’s in
+        stock and what’s on the looms, with memo terms for approved accounts.
+      </p>
+    </div>
+    <Button href="/trade" size="lg" variant="accent">
+      Apply for trade
+    </Button>
+  </div>
+</section>

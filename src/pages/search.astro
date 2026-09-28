@@ -1,0 +1,99 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { POPULAR_SEARCHES } from '@lib/catalog-constants';
+---
+
+<BaseLayout
+  title="Search"
+  description="Search rugs by title, style, region, color, size, or rug ID."
+  noindex
+>
+  <div class="container-content pt-6 pb-24">
+    <h1>Search</h1>
+    <form
+      action="/search"
+      method="get"
+      role="search"
+      class="mt-6 flex max-w-xl gap-2"
+      data-search-page-form
+    >
+      <label for="q" class="visually-hidden">
+        Search rugs and guides
+      </label>
+      <input
+        id="q"
+        name="q"
+        type="search"
+        autocomplete="off"
+        placeholder="8x10 Oushak, runner, blue, TR-0042…"
+        class="min-h-[48px] flex-1 rounded-input border border-line bg-white px-3 py-2 text-body-lg"
+      />
+      <Button type="submit" variant="secondary">
+        Search
+      </Button>
+    </form>
+    <p class="mt-4 text-small text-stone" aria-live="polite" data-search-summary></p>
+    <div class="mt-8" data-search-page-results></div>
+    <div class="mt-8 rounded-card bg-sand p-6" data-search-noresults hidden>
+      <p class="font-medium text-indigo">No results. Try one of these:</p>
+      <ul class="mt-2 flex flex-wrap gap-2">
+        {POPULAR_SEARCHES.map((s) => (
+          <li>
+            <a
+              href={`/search?q=${encodeURIComponent(s)}`}
+              class="inline-flex min-h-[36px] items-center rounded-full border border-line bg-white px-3 text-small no-underline hover:border-indigo"
+            >
+              {s}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-4 text-small">
+        Or <a href="/book">book a live look</a> and I’ll pull options for you.
+      </p>
+    </div>
+  </div>
+  <script>
+    import { loadIndex, search } from '@/scripts/search';
+    import { track } from '@/scripts/analytics';
+    const q = new URLSearchParams(location.search).get('q') ?? '';
+    const input = document.getElementById('q') as HTMLInputElement;
+    const results = document.querySelector<HTMLElement>('[data-search-page-results]')!;
+    const summary = document.querySelector<HTMLElement>('[data-search-summary]')!;
+    const nores = document.querySelector<HTMLElement>('[data-search-noresults]')!;
+    input.value = q;
+    const hash = document.documentElement.dataset.cfImages || '';
+    const img = (id: string) =>
+      id.startsWith('sample-') || !hash
+        ? `/placeholders/${id}.svg`
+        : `https://imagedelivery.net/${hash}/${id}/card`;
+    const esc = (s: string) =>
+      s.replace(
+        /[&<>"']/g,
+        (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!,
+      );
+    if (q) {
+      void loadIndex().then(() => {
+        const res = search(q, { rugs: 48, guides: 10 });
+        if (res.exactRug) location.replace(`/rugs/${res.exactRug.slug}`);
+        const total = res.rugs.length + res.guides.length;
+        summary.textContent = total
+          ? `${total} result${total === 1 ? '' : 's'} for “${q}”`
+          : `No results for “${q}”`;
+        nores.hidden = total > 0;
+        results.innerHTML = `${
+          res.rugs.length
+            ? `<h2 class="mb-4">Rugs</h2><ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">${res.rugs
+                .map(
+                  (d) =>
+                    `<li><a href="/rugs/${d.slug}" class="group block no-underline"><img src="${img(d.image!)}" alt="${esc(d.title)}" width="800" height="1000" loading="lazy" class="aspect-[4/5] w-full rounded-card bg-sand object-cover" /><span class="mt-2 block font-medium text-indigo group-hover:underline">${esc(d.title)}</span><span class="block text-small text-stone">${esc(d.style ?? '')} · ${esc(d.region ?? '')}</span></a></li>`,
+                )
+                .join('')}</ul>`
+            : ''
+        }${res.guides.length ? `<h2 class="mt-10 mb-4">Guides</h2><ul class="flex flex-col gap-3">${res.guides.map((d) => `<li><a href="${d.href}" class="block rounded-card border border-line bg-white p-4 no-underline hover:border-indigo"><span class="block font-medium text-indigo">${esc(d.title)}</span><span class="block text-small text-stone">${esc(d.summary ?? '')}</span></a></li>`).join('')}</ul>` : ''}`;
+        track('search', { search_term: q, result_count: total });
+      });
+    }
+  </script>
+</BaseLayout>

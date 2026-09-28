@@ -1,0 +1,38 @@
+---
+import NewsletterForm from '../forms/NewsletterForm.astro';
+import { isWaitlistMode } from '@lib/site';
+---
+
+<section id="waitlist" class="scroll-mt-24 bg-sand" aria-labelledby="waitlist-title">
+  <div class="container-content section-pad grid gap-10 lg:grid-cols-2">
+    <div>
+      <p class="text-small font-medium tracking-wide text-madder uppercase">The drop list</p>
+      <h2 id="waitlist-title" class="mt-2">
+        {isWaitlistMode
+          ? 'The first drop goes to the list first.'
+          : 'Get the next drop before it hits the site.'}
+      </h2>
+      <ul class="mt-4 flex flex-col gap-2 text-body text-charcoal">
+        <li class="flex gap-2">
+          <span class="text-madder" aria-hidden="true">
+            ✓
+          </span>{' '}
+          48 hours of early access to every drop
+        </li>
+        <li class="flex gap-2">
+          <span class="text-madder" aria-hidden="true">
+            ✓
+          </span>{' '}
+          The flip videos and prices, in your inbox
+        </li>
+        <li class="flex gap-2">
+          <span class="text-madder" aria-hidden="true">
+            ✓
+          </span>{' '}
+          One email per drop. That’s it.
+        </li>
+      </ul>
+    </div>
+    <NewsletterForm variant="full" id="home-waitlist" />
+  </div>
+</section>

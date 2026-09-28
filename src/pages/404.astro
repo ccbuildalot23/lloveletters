@@ -1,0 +1,50 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import RugGrid from '@/components/product/RugGrid.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { byNewest } from '@lib/catalog';
+const suggested = byNewest.filter((p) => p.status === 'available').slice(0, 4);
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This rug has wandered off. Search the collection or browse the latest drop."
+  noindex
+>
+  <section class="container-content section-pad">
+    <p class="text-small font-medium tracking-wide text-madder uppercase">404</p>
+    <h1 class="mt-2">This rug has wandered off.</h1>
+    <p class="mt-4 text-body-lg text-stone">
+      The page you asked for isn’t here. It may have sold, moved, or never existed. Try a search, or
+      start with the newest rugs below.
+    </p>
+    <form action="/search" method="get" role="search" class="mt-6 flex max-w-lg gap-2">
+      <label for="nf-search" class="visually-hidden">
+        Search rugs
+      </label>
+      <input
+        id="nf-search"
+        name="q"
+        type="search"
+        placeholder="Search by size, style, color, or rug ID"
+        class="min-h-[44px] flex-1 rounded-input border border-line bg-white px-3 py-2 text-body"
+      />
+      <Button type="submit" variant="secondary">
+        Search
+      </Button>
+    </form>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <Button href="/collections/new-arrivals">Latest drop</Button>
+      <Button href="/rugs" variant="ghost">
+        All rugs
+      </Button>
+    </div>
+  </section>
+  {suggested.length > 0 && (
+    <section class="container-content pb-24">
+      <SectionHeader title="A few you might like" />
+      <RugGrid rugs={suggested} listName="404" />
+    </section>
+  )}
+</BaseLayout>

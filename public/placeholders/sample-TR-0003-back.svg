@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2000" viewBox="0 0 1600 2000"><defs><pattern id="k" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#9E2B25"/><rect x="1" y="1" width="6" height="6" fill="#3E5A86" opacity=".7"/><rect x="7" y="7" width="6" height="6" fill="#F3EDE1" opacity=".5"/></pattern></defs>
+<rect width="1600" height="2000" fill="#F6F1E9"/>
+<rect x="128" y="128" width="1344" height="1744" fill="#F3EDE1"/><rect x="256" y="256" width="1088" height="1488" fill="url(#k)"/>
+<g font-family="Inter, Arial, sans-serif" text-anchor="middle"><rect x="630" y="966" width="340" height="68" rx="8" fill="#2B2B2B" opacity=".82"/><text x="800" y="994" font-size="26" fill="#F6F1E9" font-weight="600">SAMPLE IMAGE</text><text x="800" y="1022" font-size="20" fill="#D9A441">TR-0003 · back</text></g></svg>

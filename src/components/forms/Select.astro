@@ -1,0 +1,67 @@
+---
+import Icon from '../ui/Icon.astro';
+interface Props {
+  name: string;
+  label: string;
+  options: Array<{ value: string; label: string; selected?: boolean }>;
+  required?: boolean;
+  hint?: string;
+  class?: string;
+  id?: string;
+  placeholder?: string;
+  autocomplete?: string;
+}
+const {
+  name,
+  label,
+  options,
+  required = false,
+  hint,
+  class: className = '',
+  id = `f-${name}`,
+  placeholder,
+  autocomplete,
+} = Astro.props;
+---
+
+<div class={`form-field flex flex-col gap-1.5 ${className}`} data-field={name}>
+  <label for={id} class="text-small font-medium text-charcoal">
+    {label}
+    {required ? (
+      <span class="text-error">
+        {' '}
+        * <span class="visually-hidden">(required)</span>
+      </span>
+    ) : (
+      <span class="text-stone"> (optional)</span>
+    )}
+  </label>
+  {hint && (
+    <p id={`${id}-hint`} class="text-caption text-stone">
+      {hint}
+    </p>
+  )}
+  <div class="relative">
+    <select
+      id={id}
+      name={name}
+      required={required}
+      autocomplete={autocomplete}
+      aria-describedby={`${hint ? `${id}-hint ` : ''}${id}-error`}
+      class="min-h-[44px] w-full appearance-none rounded-input border border-line bg-white px-3 py-2.5 pr-10 text-body text-charcoal focus:border-indigo focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo aria-[invalid=true]:border-error"
+    >
+      {placeholder && <option value="">{placeholder}</option>}
+      {options.map((o) => (
+        <option value={o.value} selected={o.selected}>
+          {o.label}
+        </option>
+      ))}
+    </select>
+    <Icon
+      name="chevron-down"
+      size={20}
+      class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-stone"
+    />
+  </div>
+  <p id={`${id}-error`} class="field-error hidden text-small text-error" aria-live="polite"></p>
+</div>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CollectionPage from '@/components/collection/CollectionPage.astro';
+import { SIZE_PAGES } from '@lib/catalog-constants';
+import { byNewest } from '@lib/catalog';
+import { collectionJsonLd } from '@lib/jsonld';
+import { site } from '@lib/site';
+
+export function getStaticPaths() {
+  return SIZE_PAGES.map((s) => ({ params: { size: s.slug }, props: { page: s } }));
+}
+const { page } = Astro.props;
+const rugs = byNewest.filter((p) => p.sizeBucket === page.bucket);
+const intro = `${page.room}. Sizes are the rug’s actual measurements, in feet and centimeters, not a rounded label. Duties and US shipping included.`;
+---
+
+<BaseLayout
+  title={`${page.label} · hand-knotted Turkish rugs`}
+  description={`One-of-a-kind ${page.label.toLowerCase()} from Turkey, filmed at the loom. ${page.room}. Duties included, 30-day returns.`}
+  jsonLd={[collectionJsonLd(page.label, `${site.url}/sizes/${page.slug}`, rugs)]}
+>
+  <CollectionPage
+    title={page.label}
+    intro={intro}
+    rugs={rugs}
+    baseHref={`/sizes/${page.slug}`}
+    crumbs={[
+      { label: 'All rugs', href: '/rugs' },
+      { label: page.label, href: `/sizes/${page.slug}` },
+    ]}
+    lock={{ size: page.bucket }}
+    listName={`size_${page.slug}`}
+  />
+</BaseLayout>

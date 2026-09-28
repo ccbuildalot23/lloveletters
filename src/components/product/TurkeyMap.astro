@@ -1,0 +1,65 @@
+---
+/** 7.6b Static SVG map of Turkey with a pin on the rug's region. Coordinates are approximate. */
+interface Props {
+  region: string;
+  class?: string;
+}
+const { region, class: className = '' } = Astro.props;
+const pins: Record<string, { x: number; y: number }> = {
+  Uşak: { x: 170, y: 200 },
+  Isparta: { x: 210, y: 250 },
+  Milas: { x: 135, y: 265 },
+  Konya: { x: 300, y: 250 },
+  Kayseri: { x: 400, y: 215 },
+  Kars: { x: 640, y: 125 },
+  'Anatolian (unspecified)': { x: 360, y: 200 },
+};
+const pin = pins[region] ?? pins['Anatolian (unspecified)']!;
+const outline =
+  'M40 210 L80 160 L130 150 L170 130 L230 120 L300 110 L370 100 L440 95 L520 90 L590 85 L660 95 L700 120 L690 170 L660 210 L610 250 L560 280 L500 300 L430 310 L360 305 L300 315 L250 330 L200 320 L150 310 L100 290 L60 260 Z';
+---
+
+<figure class={`turkey-map ${className}`}>
+  <svg
+    viewBox="0 0 740 360"
+    role="img"
+    aria-label={`Map of Turkey with a pin on ${region}`}
+    class="w-full"
+  >
+    <path d={outline} fill="#E9DFCF" stroke="#23395B" stroke-width="1.5" stroke-linejoin="round" />
+    <path d="M40 210 L60 260 L100 290" fill="none" stroke="#3E5A86" stroke-width="2" opacity=".4" />
+    {Object.entries(pins)
+      .filter(([r]) => !r.includes('unspecified'))
+      .map(([r, p]) => (
+        <g>
+          <circle
+            cx={p.x}
+            cy={p.y}
+            r="4"
+            fill={r === region ? '#9E2B25' : '#6E6A64'}
+            opacity={r === region ? 1 : 0.5}
+          />
+          <text
+            x={p.x + 8}
+            y={p.y + 4}
+            font-size="14"
+            font-family="Inter, sans-serif"
+            fill="#2B2B2B"
+            opacity={r === region ? 1 : 0.6}
+          >
+            {r}
+          </text>
+        </g>
+      ))}
+    <g transform={`translate(${pin.x} ${pin.y})`}>
+      <path
+        d="M0 -34 C-12 -34 -18 -24 -18 -16 C-18 -4 0 8 0 8 C0 8 18 -4 18 -16 C18 -24 12 -34 0 -34Z"
+        fill="#9E2B25"
+        stroke="#F6F1E9"
+        stroke-width="2"
+      />
+      <circle cx="0" cy="-17" r="5" fill="#F6F1E9" />
+    </g>
+  </svg>
+  <figcaption class="mt-1 text-caption text-stone">Approximate location of {region}.</figcaption>
+</figure>

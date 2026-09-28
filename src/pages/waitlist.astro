@@ -1,0 +1,51 @@
+---
+/** 4.1 /waitlist: standalone landing page for ads. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import NewsletterForm from '@/components/forms/NewsletterForm.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { imageUrl } from '@lib/images';
+import { site } from '@lib/site';
+const bullets = [
+  { icon: 'flip', text: 'Every rug flipped on camera so you see the knots before you buy.' },
+  {
+    icon: 'duties',
+    text: 'One honest price with duties and US shipping included. No customs bill.',
+  },
+  { icon: 'returns', text: '30 days to live with it. Full refund if it isn’t right.' },
+];
+---
+
+<BaseLayout
+  title="Join the drop list"
+  description="Get 48 hours of early access to every drop of one-of-a-kind, hand-knotted Turkish rugs, verified at the loom."
+>
+  <section class="container-content grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
+    <div>
+      <p class="text-small font-medium tracking-wide text-madder uppercase">The drop list</p>
+      <h1 class="mt-2">Real Turkish rugs, verified at the loom. First drop goes to the list.</h1>
+      <ul class="mt-6 flex flex-col gap-4">
+        {bullets.map((b) => (
+          <li class="flex gap-3 text-body-lg">
+            <Icon name={b.icon} size={32} class="shrink-0 text-madder" />
+            <span>{b.text}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-8 rounded-card bg-sand p-6">
+        <NewsletterForm variant="full" id="landing-waitlist" />
+      </div>
+      <p class="mt-4 text-caption text-stone">
+        {site.dealerName} · {site.address} · <a href="/privacy">Privacy</a>
+      </p>
+    </div>
+    <img
+      src={imageUrl('sample-hero-poster', 'gallery')}
+      alt="Hands knotting a rug on a wooden loom in a Turkish workshop [EDIT: real photo]"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+      decoding="async"
+      class="aspect-[4/5] w-full rounded-card object-cover lg:aspect-auto lg:h-full"
+    />
+  </section>
+</BaseLayout>

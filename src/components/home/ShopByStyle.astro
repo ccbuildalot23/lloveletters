@@ -1,0 +1,40 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import { stylesInStock, products } from '@lib/catalog';
+import { imageUrl } from '@lib/images';
+const tiles = stylesInStock.map((s) => {
+  const rug = products.find((p) => p.style === s.value)!;
+  const img = rug.images.find((i) => i.kind === 'macro') ?? rug.images[0]!;
+  return { ...s, img, count: products.filter((p) => p.style === s.value).length };
+});
+---
+
+{tiles.length > 0 && (
+  <section class="container-content pb-16 lg:pb-24" aria-labelledby="style-title">
+    <SectionHeader id="style-title" title="Shop by style" />
+    <ul class="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+      {tiles.map((t) => (
+        <li>
+          <a
+            href={`/collections/${t.value}`}
+            class="group block overflow-hidden rounded-card bg-sand no-underline"
+          >
+            <img
+              src={imageUrl(t.img.id, 'card')}
+              alt={t.img.alt}
+              width="400"
+              height="400"
+              loading="lazy"
+              decoding="async"
+              class="aspect-square w-full object-cover transition-transform duration-page ease-brand group-hover:scale-[1.03]"
+            />
+            <span class="flex items-center justify-between p-3 text-small font-medium text-indigo">
+              <span class="group-hover:underline">{t.label}</span>
+              <span class="tnum text-stone">{t.count}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

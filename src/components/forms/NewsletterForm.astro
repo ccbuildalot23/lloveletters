@@ -1,0 +1,142 @@
+---
+/** Waitlist / newsletter form (5.11, 11.1). variant: inline (footer) | full (home + /waitlist) */
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Checkbox from './Checkbox.astro';
+import Turnstile from './Turnstile.astro';
+import { SIZE_BUCKETS, STYLES } from '@lib/catalog-constants';
+import { site } from '@lib/site';
+interface Props {
+  variant?: 'inline' | 'full';
+  id?: string;
+  class?: string;
+  dark?: boolean;
+  heading?: string;
+}
+const {
+  variant = 'full',
+  id = 'waitlist-form',
+  class: className = '',
+  dark = false,
+  heading,
+} = Astro.props;
+---
+
+<form
+  id={id}
+  class={`newsletter-form flex flex-col gap-4 ${dark ? 'on-dark' : ''} ${className}`}
+  method="post"
+  action="/api/forms/waitlist"
+  data-form="waitlist"
+  data-track="generate_lead"
+  data-form-type="waitlist"
+  novalidate
+>
+  {heading && (
+    <h3 class={`font-sans text-h4 font-semibold ${dark ? 'text-ivory' : 'text-indigo'}`}>
+      {heading}
+    </h3>
+  )}
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="source" value="" data-utm />
+  {variant === 'full' ? (
+    <>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <FormField name="first_name" label="First name" autocomplete="given-name" />
+        <FormField
+          name="email"
+          label="Email"
+          type="email"
+          required
+          autocomplete="email"
+          inputmode="email"
+        />
+      </div>
+      <fieldset>
+        <legend class="mb-1 text-small font-medium text-charcoal">Sizes you’re looking for</legend>
+        <div class="flex flex-wrap gap-x-4">
+          {SIZE_BUCKETS.map((s) => (
+            <Checkbox
+              name="interests"
+              value={`size:${s.value}`}
+              label={s.label}
+              class="min-h-[40px] py-1"
+            />
+          ))}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="mb-1 text-small font-medium text-charcoal">Styles</legend>
+        <div class="flex flex-wrap gap-x-4">
+          {STYLES.map((s) => (
+            <Checkbox
+              name="interests"
+              value={`style:${s.value}`}
+              label={s.label}
+              class="min-h-[40px] py-1"
+            />
+          ))}
+        </div>
+      </fieldset>
+      <Turnstile action="waitlist" />
+      <Button type="submit" size="lg" loadingText="Adding you…">
+        Join the drop list
+      </Button>
+      <p class="text-caption text-stone">
+        One email when a new drop lands. Unsubscribe any time. <a href="/privacy">Privacy</a>.
+      </p>
+    </>
+  ) : (
+    <>
+      <div class="flex flex-col gap-2 sm:flex-row">
+        <label for={`${id}-email`} class="visually-hidden">
+          Email
+        </label>
+        <input
+          id={`${id}-email`}
+          name="email"
+          type="email"
+          required
+          autocomplete="email"
+          inputmode="email"
+          placeholder="you@example.com"
+          aria-describedby={`${id}-email-error`}
+          class="min-h-[44px] flex-1 rounded-input border border-line bg-white px-3 py-2 text-body text-charcoal"
+        />
+        <Button type="submit" variant="primary" loadingText="Adding…">
+          Join
+        </Button>
+      </div>
+      <p
+        id={`${id}-email-error`}
+        class="field-error hidden text-small text-saffron"
+        data-field-error="email"
+      ></p>
+      <Turnstile action="waitlist" />
+    </>
+  )}
+  <div class="form-success hidden rounded-card bg-white/90 p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      You’re on the list. I’ll email you when the next drop lands.
+    </p>
+    <p class="mt-1 text-small">
+      Until then,{' '}
+      <a href={site.social.instagram} rel="noopener">
+        follow the sourcing trip on Instagram
+      </a>
+      .
+    </p>
+  </div>
+</form>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  name: string;
+  legend: string;
+  options: Array<{ value: string; label: string; checked?: boolean; description?: string }>;
+  required?: boolean;
+  class?: string;
+  inline?: boolean;
+}
+const {
+  name,
+  legend,
+  options,
+  required = false,
+  class: className = '',
+  inline = false,
+} = Astro.props;
+---
+
+<fieldset class={`radio-group ${className}`} data-field={name}>
+  <legend class="mb-1 text-small font-medium text-charcoal">
+    {legend}
+    {required && (
+      <span class="text-error">
+        {' '}
+        * <span class="visually-hidden">(required)</span>
+      </span>
+    )}
+  </legend>
+  <div class={inline ? 'flex flex-wrap gap-x-6' : 'flex flex-col'}>
+    {options.map((o) => (
+      <label class="flex min-h-[44px] cursor-pointer items-start gap-3 py-2 text-body">
+        <input
+          type="radio"
+          name={name}
+          value={o.value}
+          checked={o.checked}
+          required={required}
+          class="mt-1 size-5 shrink-0 accent-madder"
+        />
+        <span>
+          {o.label}
+          {o.description && <span class="block text-caption text-stone">{o.description}</span>}
+        </span>
+      </label>
+    ))}
+  </div>
+  <p id={`f-${name}-error`} class="field-error hidden text-small text-error" aria-live="polite"></p>
+</fieldset>

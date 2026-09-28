@@ -1,0 +1,45 @@
+---
+/** Loading placeholder. kind: card | text | facts | review */
+interface Props {
+  kind?: 'card' | 'text' | 'facts' | 'review';
+  lines?: number;
+  class?: string;
+}
+const { kind = 'text', lines = 3, class: className = '' } = Astro.props;
+---
+
+<div class={`skeleton-wrap ${className}`} aria-hidden="true">
+  {kind === 'card' && (
+    <div class="flex flex-col gap-3">
+      <div class="skeleton aspect-[4/5] w-full" />
+      <div class="skeleton h-4 w-3/4" />
+      <div class="skeleton h-4 w-1/2" />
+      <div class="skeleton h-5 w-1/3" />
+    </div>
+  )}
+  {kind === 'text' && (
+    <div class="flex flex-col gap-2">
+      {Array.from({ length: lines }).map((_, i) => (
+        <div class="skeleton h-4" style={`width:${[92, 78, 85, 60, 70][i % 5]}%`} />
+      ))}
+    </div>
+  )}
+  {kind === 'facts' && (
+    <div class="grid grid-cols-[1fr_2fr] gap-3">
+      {Array.from({ length: 6 }).map(() => (
+        <>
+          <div class="skeleton h-4" />
+          <div class="skeleton h-4" />
+        </>
+      ))}
+    </div>
+  )}
+  {kind === 'review' && (
+    <div class="flex flex-col gap-3 rounded-card border border-line p-5">
+      <div class="skeleton h-4 w-24" />
+      <div class="skeleton h-5 w-2/3" />
+      <div class="skeleton h-4" />
+      <div class="skeleton h-4 w-5/6" />
+    </div>
+  )}
+</div>

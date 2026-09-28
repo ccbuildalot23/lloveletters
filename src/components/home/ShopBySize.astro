@@ -1,0 +1,78 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import { SIZE_PAGES } from '@lib/catalog-constants';
+/** Relative-size tile: a scaled rectangle for the rug plus a room hint. */
+const scale: Record<string, { w: number; h: number }> = {
+  '4x6': { w: 40, h: 60 },
+  '5x8': { w: 50, h: 80 },
+  '6x9': { w: 60, h: 90 },
+  '8x10': { w: 80, h: 100 },
+  '9x12': { w: 90, h: 120 },
+  runner: { w: 26, h: 100 },
+};
+---
+
+<section class="container-content section-pad" aria-labelledby="size-title">
+  <SectionHeader
+    id="size-title"
+    title="Shop by size"
+    intro="Not sure? The rule of thumb: front legs of the sofa on the rug, or all legs on for dining."
+  />
+  <ul class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+    {SIZE_PAGES.map((s) => {
+      const d = scale[s.slug]!;
+      return (
+        <li>
+          <a
+            href={`/sizes/${s.slug}`}
+            class="group flex h-full flex-col items-center gap-3 rounded-card border border-line bg-white p-4 text-center no-underline hover:border-indigo"
+          >
+            <svg
+              viewBox="0 0 120 130"
+              width="96"
+              height="104"
+              aria-hidden="true"
+              class="text-indigo"
+            >
+              <rect
+                x="6"
+                y="6"
+                width="108"
+                height="118"
+                rx="4"
+                fill="none"
+                stroke="currentColor"
+                stroke-dasharray="3 3"
+                opacity=".35"
+              />
+              <rect
+                x={60 - d.w / 2}
+                y={65 - d.h / 2}
+                width={d.w}
+                height={d.h}
+                rx="2"
+                fill="#E9DFCF"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <rect
+                x={60 - d.w / 2 + 5}
+                y={65 - d.h / 2 + 5}
+                width={Math.max(4, d.w - 10)}
+                height={Math.max(4, d.h - 10)}
+                fill="none"
+                stroke="#9E2B25"
+                stroke-width="1"
+                opacity=".6"
+              />
+            </svg>
+            <span class="font-sans text-body font-semibold text-indigo group-hover:underline">
+              {s.label}
+            </span>
+            <span class="text-caption text-stone">{s.hint}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>

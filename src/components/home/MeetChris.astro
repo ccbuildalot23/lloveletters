@@ -1,0 +1,52 @@
+---
+import VideoEmbed from '../ui/VideoEmbed.astro';
+import Button from '../ui/Button.astro';
+import { imageUrl } from '@lib/images';
+import { site } from '@lib/site';
+const founderStreamId = import.meta.env.PUBLIC_FOUNDER_STREAM_ID || 'sample-founder-video'; // [FOUNDER STREAM ID]
+---
+
+<section class="bg-sand" aria-labelledby="meet-title">
+  <div class="container-content section-pad grid items-center gap-10 lg:grid-cols-2">
+    <VideoEmbed
+      streamId={founderStreamId}
+      poster="sample-founder"
+      title="Meet Chris: why I flip every rug"
+      caption="60 seconds on how this started. [EDIT: replace with the real founder video]"
+      transcript="[SAMPLE TRANSCRIPT — EDIT] I'm Chris. I fell for Anatolian rugs on a trip and then watched a shop try the same script on me that they try on everyone: a huge price, a dramatic discount, a certificate that meant nothing. So I go to the workshops myself now, film the back of every rug, and sell them at one honest price."
+      aspect="4/5"
+      kind="founder"
+    />
+    <div>
+      <p class="text-small font-medium tracking-wide text-madder uppercase">Meet {site.founder}</p>
+      <h2 id="meet-title" class="mt-2">
+        I fell for these rugs, and for how badly people get treated buying them.
+      </h2>
+      <p class="mt-4 text-body-lg text-charcoal">
+        So I go to the workshops myself. I film the back of every rug, meet the people who made it,
+        and write down exactly what it is. No haggling, no “for you, special price.”
+      </p>
+      <p class="mt-3 text-body-lg text-charcoal">
+        Just real rugs, honest prices, duties included, and a 30-day return guarantee from a US
+        business that answers the phone.
+      </p>
+      <img
+        src={imageUrl('sample-signature', 'thumb')}
+        alt={`${site.founder}'s signature`}
+        width="240"
+        height="80"
+        loading="lazy"
+        decoding="async"
+        class="mt-6 h-16 w-auto"
+      />
+      <div class="mt-6 flex flex-wrap gap-3">
+        <Button href="/book" variant="secondary" data-track="book_call">
+          Book a live video look
+        </Button>
+        <Button href="/about" variant="link">
+          More about the sourcing trips
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

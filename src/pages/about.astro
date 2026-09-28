@@ -1,0 +1,190 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import TurkeyMap from '@/components/product/TurkeyMap.astro';
+import { imageUrl } from '@lib/images';
+import { site } from '@lib/site';
+const wall = [
+  'sample-workshop-1',
+  'sample-workshop-2',
+  'sample-workshop-3',
+  'sample-room-1',
+  'sample-room-2',
+  'sample-room-3',
+];
+const different = [
+  {
+    icon: 'flip',
+    title: 'I flip every rug on camera',
+    body: 'The back of a rug tells the truth. You get the video, not my word.',
+  },
+  {
+    icon: 'duties',
+    title: 'One price, duties included',
+    body: 'No “special price for you.” No customs bill at the door. The number on the page is the number.',
+  },
+  {
+    icon: 'returns',
+    title: '30 days to live with it',
+    body: 'Rugs look different in your light than on a screen. Take a month. Send it back if it’s wrong.',
+  },
+  {
+    icon: 'us-support',
+    title: 'A US business that answers',
+    body: 'Text, call, or book a video look. You’re dealing with me, not a ticket queue.',
+  },
+];
+---
+
+<BaseLayout
+  title="About · why I flip every rug"
+  description="Chris sources and films every rug on location in Turkey. The story, the sourcing map, and why prices are fixed and honest."
+>
+  <div class="container-content pt-6">
+    <Breadcrumbs items={[{ label: 'About' }]} />
+  </div>
+  <section class="container-content mt-6 grid items-center gap-10 lg:grid-cols-2">
+    <img
+      src={imageUrl('sample-founder', 'gallery')}
+      alt={`${site.founder} standing beside a loom in a Turkish workshop [EDIT: real photo]`}
+      width="1200"
+      height="1500"
+      fetchpriority="high"
+      decoding="async"
+      class="aspect-[4/5] w-full rounded-card object-cover"
+    />
+    <div>
+      <p class="text-small font-medium tracking-wide text-madder uppercase">About {site.name}</p>
+      <h1 class="mt-2">
+        I fell for Anatolian rugs, and for how badly most people get treated buying them.
+      </h1>
+      <div class="prose-brand mt-6 text-body-lg">
+        <p>
+          [EDIT] The first rug I bought in Turkey came with a story, a certificate, a dramatic
+          discount, and a price that was still three times what it was worth. The second one I
+          bought from the woman who made it, in a village outside Uşak, after she flipped it over
+          and showed me the knots. That’s when it clicked.
+        </p>
+        <p>
+          [EDIT] So now I go to the workshops myself. I film the back of every rug, meet the people
+          who made it, burn-test the fibers, and write down exactly what it is: size to the inch,
+          fibers, dyes, knots, age, and every repair. Then I sell it at one honest price that
+          already includes the duties and the shipping.
+        </p>
+        <p>
+          [EDIT] No haggling. No “for you, special price.” Just real rugs, verified at the loom,
+          from a US business that answers the phone.
+        </p>
+      </div>
+      <img
+        src={imageUrl('sample-signature', 'thumb')}
+        alt={`${site.founder}'s signature`}
+        width="240"
+        height="80"
+        loading="lazy"
+        class="mt-6 h-14 w-auto"
+      />
+    </div>
+  </section>
+
+  <section class="container-content section-pad" aria-labelledby="diff-title">
+    <h2 id="diff-title">What we do differently</h2>
+    <ul class="mt-8 grid gap-6 md:grid-cols-2">
+      {different.map((d) => (
+        <li class="flex gap-4 rounded-card bg-sand p-6">
+          <Icon name={d.icon} size={32} class="shrink-0 text-madder" />
+          <div>
+            <h3 class="font-sans text-h4 font-semibold text-indigo">{d.title}</h3>
+            <p class="mt-1 text-body">{d.body}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bg-sand" aria-labelledby="map-title">
+    <div class="container-content section-pad grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <h2 id="map-title">Where the rugs come from</h2>
+        <p class="mt-3 text-body-lg">
+          Uşak for Oushaks with that glossy, low pile. Konya and Kars for bold village weaving.
+          Milas for kilims. Isparta and Kayseri for workshop pieces. And the Istanbul wholesale
+          district, where the good dealers buy from all of them.
+        </p>
+        <p class="mt-3 text-body-lg">
+          I avoid the cruise-port shops entirely. Their prices carry a guide’s commission and their
+          certificates carry nothing.
+        </p>
+      </div>
+      <TurkeyMap region="Anatolian (unspecified)" />
+    </div>
+  </section>
+
+  <section class="container-content section-pad" aria-labelledby="wall-title">
+    <h2 id="wall-title">From the workshops</h2>
+    <p class="mt-2 text-body text-stone">[EDIT: replace with real trip photos and Stream clips]</p>
+    <ul class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+      {wall.map((id, i) => (
+        <li>
+          <img
+            src={imageUrl(id, 'card')}
+            alt={`Sourcing trip photo ${i + 1} [EDIT]`}
+            width="800"
+            height="600"
+            loading="lazy"
+            decoding="async"
+            class="aspect-[4/3] w-full rounded-card object-cover"
+          />
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="container-content pb-16" aria-labelledby="fixed-title">
+    <div class="grid gap-10 lg:grid-cols-2">
+      <div>
+        <h2 id="fixed-title">Why fixed prices</h2>
+        <div class="prose-brand mt-4 text-body-lg">
+          <p>
+            Haggling only works for the person who does it every day. Fixed prices mean the designer
+            in Denver and the couple on their honeymoon pay the same, and that number already
+            includes the costs most sellers spring on you later.
+          </p>
+          <p>
+            Here’s what’s in the price: the rug, the weaver’s and dealer’s margins, insured express
+            shipping, US import duties and tariffs, customs clearance, and a returns reserve so I
+            can actually honor 30 days. Nothing else.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h2>Values, short version</h2>
+        <ul class="mt-4 flex flex-col gap-3 text-body-lg">
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="mt-1 shrink-0 text-olive" /> Say exactly what a rug
+            is, including “unknown.”
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="mt-1 shrink-0 text-olive" /> Pay weavers and dealers
+            fairly, in writing, by bank transfer.
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="mt-1 shrink-0 text-olive" /> No fake scarcity. “One
+            of one” is simply true.
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="mt-1 shrink-0 text-olive" /> Answer the phone.
+          </li>
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button href="/contact">Get in touch</Button>
+          <Button href="/book" variant="ghost">
+            Book a live look
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

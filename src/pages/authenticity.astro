@@ -1,0 +1,190 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import { imageUrl } from '@lib/images';
+import { faqJsonLd } from '@lib/jsonld';
+const toc = [
+  { id: 'hand-vs-machine', label: 'Hand-knotted vs machine-made' },
+  { id: 'knots', label: 'Knot types' },
+  { id: 'kpsi', label: 'What KPSI means' },
+  { id: 'silk', label: 'Silk vs art silk' },
+  { id: 'dyes', label: 'Natural vs synthetic dyes' },
+  { id: 'age', label: 'New, vintage, antique' },
+  { id: 'certificate', label: 'What the certificate means' },
+  { id: 'guarantee', label: 'The guarantee' },
+  { id: 'faq', label: 'FAQ' },
+];
+const faq = [
+  {
+    q: 'Can I verify a rug myself after it arrives?',
+    a: 'Yes, and I hope you do. Flip it and compare the back to the video. Pull one loose fiber from the fringe and burn it: wool smells like burning hair and leaves a brittle black bead. Measure it. Count knots in one inch, across and down.',
+  },
+  {
+    q: 'Do you use the word “handmade” loosely?',
+    a: 'No. Everything here is hand-knotted (pile) or hand-woven (kilim) on a loom by a person. “Hand-tufted” rugs, which are shot through a canvas with a tufting gun and glued, are not sold here.',
+  },
+  {
+    q: 'Why do you list dyes as “unknown” sometimes?',
+    a: 'Because sometimes I can’t tell. Well-made synthetic dyes from the 1980s onward can look natural. If a dealer’s claim can’t be backed up by what I see, I write “unknown” rather than guess.',
+  },
+];
+---
+
+<ContentLayout
+  title="Authenticity guide · spot a real hand-knotted rug"
+  description="How to tell hand-knotted from machine-made, silk from art silk, what KPSI means, natural vs synthetic dyes, and what a certificate should actually mean."
+  h1="How to tell a real rug from a script"
+  intro="Everything I check before I buy a rug, written down so you can check it too. [EDIT: expand to 1,500–2,500 words with real photos]"
+  updated="2026-09-28"
+  toc={toc}
+  jsonLd={[faqJsonLd(faq)]}
+>
+  <section id="hand-vs-machine" class="scroll-mt-24">
+    <h2>Hand-knotted vs machine-made</h2>
+    <p>
+      <strong>Flip it.</strong> That is the whole test. On a hand-knotted rug, the back shows the
+      design clearly, in slightly softer colors, and each knot is a small, slightly irregular
+      square. Rows wobble a little. The fringe is the ends of the warp threads that run through the
+      whole rug, not a strip sewn on afterward.
+    </p>
+    <p>
+      A machine-made rug shows a mechanically perfect grid on the back, often with a stiff latex or
+      canvas backing, and the fringe is stitched on. Tufted rugs have a glued canvas back that hides
+      everything, which is why they hide everything.
+    </p>
+    <img
+      src={imageUrl('sample-guide-knots', 'gallery')}
+      alt="Comparison of the back of a hand-knotted rug showing irregular knots beside a machine-made rug showing a uniform grid [EDIT: real comparison photo]"
+      width="1600"
+      height="900"
+      loading="lazy"
+      decoding="async"
+      class="my-6 rounded-card"
+    />
+    <p>
+      Two more tells: look at the edges. Hand-knotted rugs are rarely perfect rectangles. And press
+      your thumb into the pile; a good wool pile springs back.
+    </p>
+  </section>
+
+  <section id="knots" class="scroll-mt-24">
+    <h2>Knot types</h2>
+    <p>
+      Turkish rugs use the <strong>symmetrical (Ghiordes) knot</strong>: the yarn wraps around two
+      warps and the two ends come up between them. Persian rugs mostly use the{' '}
+      <strong>asymmetrical (Senneh) knot</strong>, wrapped around one warp and looped under the
+      other. On the back, symmetrical knots look like two little bumps side by side, asymmetrical
+      knots like one. Neither is better; it’s a regional signature and a good clue to where a rug is
+      from.
+    </p>
+  </section>
+
+  <section id="kpsi" class="scroll-mt-24">
+    <h2>What KPSI means</h2>
+    <p>
+      Knots per square inch. Count the knots across one inch on the back, then down one inch, and
+      multiply. Village rugs run 30–60. Workshop Oushaks 50–100. Fine city rugs 150 and up. Higher
+      means finer detail and more months on the loom, not a longer life. A 40-KPSI village rug with
+      good wool will outlast a 200-KPSI rug with poor wool.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>KPSI</th>
+          <th>Typical of</th>
+          <th>What it means for you</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>30–60</td>
+          <td>Village, tribal, most vintage Oushaks</td>
+          <td>Bold drawing, thick pile, very durable</td>
+        </tr>
+        <tr>
+          <td>60–120</td>
+          <td>Workshop rugs, new Oushaks</td>
+          <td>Cleaner curves, mid pile</td>
+        </tr>
+        <tr>
+          <td>120+</td>
+          <td>City workshops, Hereke, fine antiques</td>
+          <td>Detailed, low pile, priced by the hour</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="silk" class="scroll-mt-24">
+    <h2>Silk vs art silk</h2>
+    <p>
+      The most common tourist-shop trick is selling <strong>viscose</strong> (“art silk,” “bamboo
+      silk,” “banana silk”) as silk. Viscose is a processed plant cellulose; it looks shiny and
+      wears badly. The burn test settles it: pull one loose fiber from the fringe and burn it.{' '}
+      <strong>Real silk</strong> smells like burning hair and leaves a crushable black ash.{' '}
+      <strong>Viscose</strong> smells like burning paper and leaves a soft gray ash. Wool also
+      smells like hair, so combine the burn with a look: silk has a cool, deep luster; viscose a
+      flat, plasticky shine.
+    </p>
+    <p>
+      On this site the word “silk” only appears in a listing when the fiber content says so, and I
+      have burned a fiber to check.
+    </p>
+  </section>
+
+  <section id="dyes" class="scroll-mt-24">
+    <h2>Natural vs synthetic dyes</h2>
+    <p>
+      Natural dyes (madder root for reds, indigo for blues, weld and onion skin for yellows, walnut
+      for browns) sit unevenly in the wool. That unevenness is called <strong>abrash</strong>: soft
+      horizontal bands where the dye lot changed. Natural dyes also fade gently and evenly.
+      Synthetic dyes are flatter, more saturated, and, in cheap versions, can bleed when wet.
+    </p>
+    <p>
+      Neither is wrong. A good modern rug with colorfast synthetic dyes is a good rug. What matters
+      is that the seller tells you. I list every rug as natural, synthetic, mixed, or unknown.
+    </p>
+  </section>
+
+  <section id="age" class="scroll-mt-24">
+    <h2>New, vintage, antique</h2>
+    <p>
+      I use three plain buckets. <strong>New</strong>: made in the last five years.{' '}
+      <strong>Vintage</strong>: roughly 20–50 years old, often with softened colors and low, even
+      pile. <strong>Antique</strong>: 100 years or more, priced as collector pieces and photographed
+      with every worn area. Dealers’ age claims get downgraded when I can’t back them up.
+    </p>
+  </section>
+
+  <section id="certificate" class="scroll-mt-24">
+    <h2>What the certificate means</h2>
+    <p>
+      Every tourist shop hands out a “certificate of authenticity.” Most are a printed word. Mine is
+      a record of what I checked: rug ID, photo, size in feet and centimeters, pile and foundation
+      fibers, dye type, knot count, region, age bucket, condition notes, and my signature. The ID on
+      the certificate matches the page you bought from, and that page never disappears. If the
+      certificate and the rug ever disagree, the guarantee below applies.
+    </p>
+  </section>
+
+  <section id="guarantee" class="scroll-mt-24">
+    <h2>The guarantee</h2>
+    <blockquote>
+      If an independent appraiser finds that a rug isn’t what we described, we’ll refund you in
+      full, including return shipping.
+    </blockquote>
+    <p>
+      That’s the whole policy. It’s on every product page and in the{' '}
+      <a href="/terms">terms of sale</a>.
+    </p>
+  </section>
+
+  <section id="faq" class="scroll-mt-24">
+    <h2>Authenticity FAQ</h2>
+    <Accordion items={faq.map((f) => ({ title: f.q, content: `<p>${f.a}</p>` }))} name="auth-faq" />
+  </section>
+  <p class="mt-10">
+    Ready to see the real thing? <a href="/rugs">Browse the collection</a> or read about{' '}
+    <a href="/collections/oushak">Oushak rugs</a>.
+  </p>
+</ContentLayout>

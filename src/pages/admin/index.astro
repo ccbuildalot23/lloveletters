@@ -1,0 +1,65 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Inventory">
+  <p class="text-small text-stone">
+    Live status comes from KV; build status from products.json. Mark sold / release / relist write
+    KV and the audit log.
+  </p>
+  <table class="mt-4 w-full text-small" data-table>
+    <thead>
+      <tr class="border-b border-line text-left">
+        <th class="py-2">ID</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Build</th>
+        <th>Live</th>
+        <th>Hold</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    const say = (window as unknown as { adminSay: (m: string) => void }).adminSay;
+    const tbody = document.querySelector('tbody')!;
+    async function load() {
+      const r = await fetch('/api/admin/inventory').then(
+        (x) =>
+          x.json() as Promise<{
+            rugs: Array<{
+              id: string;
+              slug: string;
+              title: string;
+              priceUsd: number;
+              buildStatus: string;
+              liveStatus: string;
+              hold: { session_id: string; expires_at: number } | null;
+            }>;
+          }>,
+      );
+      tbody.innerHTML = r.rugs
+        .map(
+          (x) =>
+            `<tr class="border-b border-line"><td class="py-2 font-mono">${x.id}</td><td><a href="/rugs/${x.slug}">${x.title}</a></td><td class="tnum">$${x.priceUsd.toLocaleString()}</td><td>${x.buildStatus}</td><td><strong>${x.liveStatus}</strong></td><td>${x.hold ? `${x.hold.session_id.slice(0, 14)}… until ${new Date(x.hold.expires_at).toLocaleTimeString()}` : '—'}</td><td class="flex gap-1 py-1">${['sold', 'release', 'relist'].map((a) => `<button type="button" class="rounded-btn border border-line px-2 py-1 hover:bg-sand" data-act="${a}" data-id="${x.id}">${a === 'sold' ? 'Mark sold' : a === 'release' ? 'Release hold' : 'Relist'}</button>`).join('')}</td></tr>`,
+        )
+        .join('');
+    }
+    tbody.addEventListener('click', async (e) => {
+      const b = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-act]');
+      if (!b) return;
+      if (!confirm(`${b.textContent} ${b.dataset.id}?`)) return;
+      await fetch('/api/admin/inventory', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ id: b.dataset.id, action: b.dataset.act }),
+      });
+      say(
+        `${b.dataset.id}: ${b.dataset.act} done. Live status updates within 10 seconds; rebuild to update static pages.`,
+      );
+      void load();
+    });
+    void load();
+  </script>
+</AdminLayout>

@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  title: string;
+  body?: string;
+  icon?: string;
+  class?: string;
+  level?: 2 | 3;
+}
+const { title, body, icon = 'search-x', class: className = '', level = 2 } = Astro.props;
+const H = `h${level}` as 'h2' | 'h3';
+---
+
+<div
+  class={`empty-state flex flex-col items-center gap-3 rounded-card border border-dashed border-line px-6 py-12 text-center ${className}`}
+  role="status"
+>
+  <Icon name={icon} size={40} class="text-stone" />
+  <H class="font-sans text-h4 font-semibold text-indigo">{title}</H>
+  {body && <p class="text-body text-stone">{body}</p>}
+  <div class="mt-2 flex flex-wrap justify-center gap-3">
+    <slot />
+  </div>
+</div>

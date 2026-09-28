@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import { site, telLink } from '@lib/site';
+interface Props {
+  title?: string;
+  body?: string;
+  retry?: boolean;
+  class?: string;
+}
+const {
+  title = 'Something went wrong on our end',
+  body = 'Give it another try. If it keeps happening, text or call me and I’ll sort it out.',
+  retry = true,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  class={`error-state flex flex-col items-start gap-3 rounded-card border border-error/40 bg-white p-6 ${className}`}
+  role="alert"
+>
+  <div class="flex items-center gap-2 text-error">
+    <Icon name="triangle-alert" size={24} />
+    <h3 class="font-sans text-h4 font-semibold">{title}</h3>
+  </div>
+  <p class="text-body text-charcoal">{body}</p>
+  <div class="flex flex-wrap gap-3">
+    {retry && (
+      <Button variant="secondary" size="sm" data-retry>
+        Try again
+      </Button>
+    )}
+    <Button variant="link" href={telLink}>
+      {site.phone}
+    </Button>
+    <Button variant="link" href={`mailto:${site.email}`}>
+      {site.email}
+    </Button>
+  </div>
+  <slot />
+</div>

@@ -1,0 +1,32 @@
+---
+/**
+ * Native <details> accordion (works without JS). Pass `items` or use named slots via AccordionItem.
+ * Props: items [{title, content(html), open}], name (exclusive group), class
+ */
+import Icon from './Icon.astro';
+interface Props {
+  items?: Array<{ title: string; content: string; open?: boolean; id?: string }>;
+  name?: string;
+  class?: string;
+  headingLevel?: 2 | 3 | 4;
+}
+const { items = [], name, class: className = '', headingLevel = 3 } = Astro.props;
+const H = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
+---
+
+<div class={`accordion divide-y divide-line border-y border-line ${className}`}>
+  {items.map((item) => (
+    <details class="group" name={name} open={item.open} id={item.id}>
+      <summary class="flex min-h-[48px] items-center justify-between gap-4 py-3 text-left">
+        <H class="font-sans text-body font-semibold text-indigo">{item.title}</H>
+        <Icon
+          name="chevron-down"
+          size={20}
+          class="text-indigo transition-transform duration-drawer ease-brand group-open:rotate-180"
+        />
+      </summary>
+      <div class="prose-brand pb-4 text-charcoal" set:html={item.content} />
+    </details>
+  ))}
+  <slot />
+</div>

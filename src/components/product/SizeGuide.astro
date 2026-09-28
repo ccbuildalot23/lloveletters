@@ -1,0 +1,106 @@
+---
+/** 7.6f Footprint visual: rug rectangle in a typical room layout with sofa/bed silhouettes. */
+import { sizeFt } from '@lib/format';
+interface Props {
+  w: number;
+  l: number;
+  bucket: string;
+}
+const { w, l, bucket } = Astro.props;
+// Room 16 x 14 ft rendered at 20px per ft
+const S = 18;
+const roomW = 18,
+  roomL = 14;
+const rw = Math.min(w, roomW - 1) * S;
+const rl = Math.min(l, roomL - 1) * S;
+const isRunner = bucket === 'runner';
+---
+
+<figure class="size-guide">
+  <svg
+    viewBox={`0 0 ${roomW * S + 40} ${roomL * S + 40}`}
+    class="w-full max-w-lg rounded-card bg-white"
+    role="img"
+    aria-label={`${sizeFt(w, l)} rug drawn to scale inside an ${roomW} by ${roomL} foot room`}
+  >
+    <rect x="20" y="20" width={roomW * S} height={roomL * S} fill="#F6F1E9" stroke="#D8CFC0" />
+    {isRunner ? (
+      <>
+        <rect x="30" y="30" width={roomW * S - 20} height="44" fill="#E9DFCF" />
+        <text x="40" y="58" font-size="12" fill="#6E6A64">
+          Hallway
+        </text>
+        <rect
+          x={30 + (roomW * S - 20 - rl) / 2}
+          y={30 + (44 - rw) / 2}
+          width={rl}
+          height={rw}
+          fill="#9E2B25"
+          opacity=".85"
+          rx="2"
+        />
+      </>
+    ) : (
+      <>
+        <rect
+          x={20 + (roomW * S - rw) / 2}
+          y={20 + (roomL * S - rl) / 2}
+          width={rw}
+          height={rl}
+          fill="#9E2B25"
+          opacity=".85"
+          rx="2"
+        />
+        <rect
+          x={20 + (roomW * S - 7 * S) / 2}
+          y={20 + roomL * S - 3 * S - 10}
+          width={7 * S}
+          height={3 * S}
+          fill="#E9DFCF"
+          stroke="#6E6A64"
+          rx="6"
+        />
+        <text
+          x={20 + (roomW * S) / 2}
+          y={20 + roomL * S - 1.3 * S - 10}
+          font-size="12"
+          fill="#6E6A64"
+          text-anchor="middle"
+        >
+          Sofa (7 ft)
+        </text>
+        <rect
+          x={20 + (roomW * S - 4 * S) / 2}
+          y={20 + (roomL * S - 2 * S) / 2}
+          width={4 * S}
+          height={2 * S}
+          fill="#F6F1E9"
+          stroke="#6E6A64"
+          rx="3"
+        />
+        <text
+          x={20 + (roomW * S) / 2}
+          y={20 + (roomL * S) / 2 + 4}
+          font-size="11"
+          fill="#6E6A64"
+          text-anchor="middle"
+        >
+          Coffee table
+        </text>
+      </>
+    )}
+    <text
+      x={20 + (roomW * S) / 2}
+      y={roomL * S + 34}
+      font-size="12"
+      fill="#6E6A64"
+      text-anchor="middle"
+    >
+      Room shown: {roomW} × {roomL} ft · rug {sizeFt(w, l)}
+    </text>
+  </svg>
+  <figcaption class="mt-2 text-small text-stone">
+    Rule of thumb: front sofa legs on the rug for living rooms; all chair legs on for dining. Order
+    a rug pad ½ inch smaller on each side; it stops slipping and adds years to the pile.
+  </figcaption>
+</figure>

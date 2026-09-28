@@ -1,0 +1,96 @@
+---
+/** Plain, functional, accessible admin shell (18.3). Protected by Cloudflare Access + Functions middleware. */
+import '@/styles/global.css';
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+const nav = [
+  { href: '/admin', label: 'Inventory' },
+  { href: '/admin/orders', label: 'Orders' },
+  { href: '/admin/leads', label: 'Waitlist & leads' },
+  { href: '/admin/reviews', label: 'Reviews' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title} · Admin</title>
+  </head>
+  <body class="min-h-dvh bg-ivory text-charcoal">
+    <a
+      href="#main"
+      class="skip-link visually-hidden focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-btn focus:bg-madder focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to main content
+    </a>
+    <header class="border-b border-line bg-white">
+      <div class="container-content flex flex-wrap items-center justify-between gap-3 py-3">
+        <a href="/admin" class="font-display text-h4 text-indigo no-underline">
+          Admin
+        </a>
+        <nav aria-label="Admin">
+          <ul class="flex flex-wrap gap-1">
+            {nav.map((n) => (
+              <li>
+                <a
+                  href={n.href}
+                  aria-current={Astro.url.pathname === n.href ? 'page' : undefined}
+                  class="inline-flex min-h-[40px] items-center rounded-btn px-3 text-small font-medium text-indigo no-underline hover:bg-sand aria-[current=page]:bg-sand"
+                >
+                  {n.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            class="inline-flex min-h-[40px] items-center rounded-btn bg-madder px-3 text-small font-medium text-white"
+            data-rebuild
+          >
+            Rebuild site
+          </button>
+          <a href="/" class="text-small">
+            View site
+          </a>
+        </div>
+      </div>
+    </header>
+    <main id="main" class="container-content py-8" tabindex="-1">
+      <h1 class="text-h2">{title}</h1>
+      <p
+        class="mt-1 hidden rounded-card bg-sand p-3 text-small"
+        role="status"
+        data-admin-status
+      ></p>
+      <div class="mt-6">
+        <slot />
+      </div>
+    </main>
+    <script>
+      const status = document.querySelector<HTMLElement>('[data-admin-status]')!;
+      (window as unknown as { adminSay: (m: string) => void }).adminSay = (m: string) => {
+        status.textContent = m;
+        status.classList.remove('hidden');
+      };
+      document.querySelector('[data-rebuild]')?.addEventListener('click', async () => {
+        const r = await fetch('/api/admin/rebuild', { method: 'POST' }).then(
+          (x) => x.json() as Promise<{ result: string }>,
+        );
+        status.textContent =
+          r.result === 'triggered'
+            ? 'Rebuild triggered. Live in about 2 minutes.'
+            : r.result === 'debounced'
+              ? 'A rebuild ran less than 5 minutes ago; try again shortly.'
+              : 'DEPLOY_HOOK_URL is not configured.';
+        status.classList.remove('hidden');
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+---
+import Button from '../ui/Button.astro';
+import Turnstile from './Turnstile.astro';
+interface Props {
+  rugId: string;
+  id?: string;
+}
+const { rugId, id = 'notify-form' } = Astro.props;
+---
+
+<form
+  id={id}
+  class="notify-form flex flex-col gap-3"
+  method="post"
+  action="/api/forms/notify"
+  data-form="notify"
+  data-form-type="notify"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-3 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="rug_id" value={rugId} />
+  <input type="hidden" name="source" value="" data-utm />
+  <div class="flex flex-col gap-2 sm:flex-row">
+    <div class="form-field flex-1" data-field="email">
+      <label for={`${id}-email`} class="visually-hidden">
+        Email
+      </label>
+      <input
+        id={`${id}-email`}
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        inputmode="email"
+        placeholder="you@example.com"
+        class="min-h-[44px] w-full rounded-input border border-line bg-white px-3 py-2 text-body"
+        aria-describedby={`${id}-email-error`}
+      />
+      <p
+        id={`${id}-email-error`}
+        class="field-error hidden text-small text-error"
+        aria-live="polite"
+      ></p>
+    </div>
+    <Button type="submit" variant="secondary" loadingText="Saving…">
+      Notify me if it frees up
+    </Button>
+  </div>
+  <Turnstile action="notify" />
+  <div class="form-success hidden rounded-card bg-sand p-3 text-small text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">Done. If this rug comes back, you’ll hear first.</p>
+  </div>
+</form>

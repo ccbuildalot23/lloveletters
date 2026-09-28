@@ -1,0 +1,41 @@
+# Cloudflare Pages project configuration.
+# Secrets (STRIPE_SECRET_KEY etc.) are NOT set here. Locally they live in .dev.vars;
+# in production use `wrangler pages secret put NAME` or the Pages dashboard.
+name = "rug-store"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Public, non-secret configuration. Anything prefixed PUBLIC_ is also exposed to the browser.
+PUBLIC_SITE_URL = "https://example.com"          # [DOMAIN]
+PUBLIC_BRAND_NAME = "Loom Letters"                # [BRAND NAME] — placeholder working name
+PUBLIC_DEALER_NAME = "Loom Letters LLC"           # [DEALER NAME] shown for FTC disclosure
+PUBLIC_PHONE = "+1 (202) 555-0100"               # [PHONE]
+PUBLIC_WHATSAPP = "12025550100"                   # [WHATSAPP NUMBER] digits only
+PUBLIC_EMAIL = "hello@example.com"                # [CHRIS EMAIL] public support address
+PUBLIC_ADDRESS = "1234 Placeholder Ave NW, Suite 100, Washington, DC 20001" # [ADDRESS]
+PUBLIC_BOOKING_URL = "https://cal.com/placeholder/live-look"  # [Cal.com or Calendly URL]
+PUBLIC_INSTAGRAM = "https://instagram.com/placeholder"
+PUBLIC_TIKTOK = "https://tiktok.com/@placeholder"
+PUBLIC_PINTEREST = "https://pinterest.com/placeholder"
+PUBLIC_YOUTUBE = "https://youtube.com/@placeholder"
+PUBLIC_GOOGLE_REVIEW_URL = "https://g.page/r/placeholder/review"
+LAUNCH_MODE = "waitlist"                          # "waitlist" | "live"
+SOLD_INDEX_DAYS = "90"                            # sold rugs stay indexed this long
+EMAIL_PROVIDER = "kit"                            # kit | klaviyo | none
+ADMIN_EMAIL_PROVIDER = "resend"                   # resend | postmark | mailchannels | none
+RATE_LIMIT_PER_MINUTE = "10"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "rug-store"
+database_id = "00000000-0000-0000-0000-000000000000" # [D1_DATABASE_ID] from `wrangler d1 create rug-store`
+
+[[kv_namespaces]]
+binding = "RUG_STATUS"
+id = "0000000000000000000000000000dead"            # [KV_NAMESPACE_ID] from `wrangler kv namespace create RUG_STATUS`
+
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "rug-store-uploads"

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><defs><pattern id="k" width="120" height="120" patternUnits="userSpaceOnUse"><rect width="120" height="120" fill="#9E2B25"/><path d="M60 10l50 50-50 50-50-50z" fill="#F3EDE1" opacity=".85"/><circle cx="60" cy="60" r="16" fill="#3E5A86" opacity=".8"/></pattern></defs>
+<rect width="1200" height="630" fill="#F6F1E9"/>
+<rect x="50" y="50" width="1100" height="530" fill="#3E5A86"/><rect x="100" y="100" width="1000" height="430" fill="url(#k)"/>
+<g font-family="Inter, Arial, sans-serif" text-anchor="middle"><rect x="430" y="281" width="340" height="68" rx="8" fill="#2B2B2B" opacity=".82"/><text x="600" y="309" font-size="26" fill="#F6F1E9" font-weight="600">SAMPLE IMAGE</text><text x="600" y="337" font-size="20" fill="#D9A441">Real Turkish rugs. Verified at the loom.</text></g></svg>

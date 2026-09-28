@@ -1,0 +1,130 @@
+---
+/** Shared collection layout (6.1): H1 + intro, count, sort, filters, grid, pagination, empty state. */
+import Breadcrumbs from '../ui/Breadcrumbs.astro';
+import RugGrid from '../product/RugGrid.astro';
+import FilterPanel from './FilterPanel.astro';
+import Drawer from '../ui/Drawer.astro';
+import Button from '../ui/Button.astro';
+import EmptyState from '../ui/EmptyState.astro';
+import RequestForm from '../forms/RequestForm.astro';
+import Pagination from '../ui/Pagination.astro';
+import type { Product } from '@lib/schema';
+interface Props {
+  title: string;
+  intro: string;
+  rugs: Product[];
+  baseHref: string;
+  crumbs: Array<{ label: string; href?: string }>;
+  lock?: Record<string, string>;
+  listName?: string;
+}
+const { title, intro, rugs, baseHref, crumbs, lock = {}, listName = 'collection' } = Astro.props;
+const PAGE = 24;
+const page = Math.max(1, Number(Astro.url.searchParams.get('page') || 1));
+const availableCount = rugs.filter((r) => r.status === 'available').length;
+const totalPages = Math.max(1, Math.ceil(rugs.length / PAGE));
+---
+
+<div class="container-content pt-6 pb-24">
+  <Breadcrumbs items={crumbs} />
+  <header class="mt-4 mb-6 max-w-3xl">
+    <h1>{title}</h1>
+    <p class="mt-3 text-body-lg text-stone">{intro}</p>
+  </header>
+  <div class="flex flex-wrap items-center justify-between gap-3 border-y border-line py-3">
+    <p
+      class="tnum text-small text-charcoal"
+      aria-live="polite"
+      aria-atomic="true"
+      data-result-count
+    >
+      <span data-count-total>{rugs.length}</span> {rugs.length === 1 ? 'rug' : 'rugs'} ·{' '}
+      <span data-count-available>{availableCount}</span> available
+    </p>
+    <div class="flex items-center gap-2">
+      <label for="sort" class="text-small text-stone">
+        Sort
+      </label>
+      <select
+        id="sort"
+        name="sort"
+        class="min-h-[44px] rounded-input border border-line bg-white px-3 text-small"
+        data-sort
+      >
+        <option value="newest">Newest</option>
+        <option value="price-asc">Price low–high</option>
+        <option value="price-desc">Price high–low</option>
+        <option value="size-asc">Size small–large</option>
+      </select>
+      <Button
+        type="button"
+        variant="ghost"
+        size="sm"
+        icon="sliders-horizontal"
+        class="lg:hidden"
+        data-open-drawer="filter-drawer"
+      >
+        Filters
+      </Button>
+    </div>
+  </div>
+  <div
+    class="mb-4 flex flex-wrap items-center gap-2 empty:hidden"
+    data-chips
+    aria-label="Applied filters"
+  ></div>
+  <div class="grid gap-10 lg:grid-cols-[260px_1fr]">
+    <aside class="hidden lg:block" aria-label="Filters" data-filter-sidebar>
+      <div class="sticky top-[calc(var(--header-h-compact)+16px)] max-h-[calc(100dvh-var(--header-h-compact)-32px)] overflow-y-auto pr-2">
+        <FilterPanel lock={lock} />
+      </div>
+    </aside>
+    <div>
+      <h2 class="visually-hidden">Results</h2>
+      <RugGrid rugs={rugs} columns={4} listName={listName} id="collection-grid" eagerCount={2} />
+      <div class="mt-8 flex flex-col items-center gap-4" data-load-more-wrap hidden>
+        <Button type="button" variant="secondary" size="lg" data-load-more>
+          Load more rugs
+        </Button>
+      </div>
+      <Pagination current={page} total={totalPages} baseHref={baseHref} class="js-hidden" />
+      <div hidden data-empty>
+        <EmptyState
+          title="No rugs match those filters."
+          body="Try loosening one, or tell me what you're after and I'll email you when something like it arrives."
+          icon="search-x"
+        >
+          <Button type="button" variant="secondary" size="sm" data-clear-last>
+            Clear last filter
+          </Button>
+          <Button type="button" variant="ghost" size="sm" data-clear-all-empty>
+            Clear all
+          </Button>
+        </EmptyState>
+        <div class="mx-auto mt-8 max-w-xl rounded-card border border-line bg-white p-6">
+          <h2 class="font-sans text-h4 font-semibold text-indigo">
+            Tell me when a rug like this arrives
+          </h2>
+          <RequestForm id="filter-request" compact />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<Drawer id="filter-drawer" title="Filters" side="left" width="max-w-md">
+  <div class="px-5 py-4" data-filter-slot></div>
+  <div slot="footer" class="border-t border-line bg-white px-5 py-3 safe-bottom">
+    <Button type="button" size="lg" full data-close-drawer data-apply-filters>
+      Apply
+    </Button>
+  </div>
+</Drawer>
+<script>
+  import { initCollection } from '@/scripts/filters';
+  initCollection();
+</script>
+<style>
+  :global(.js) .js-hidden {
+    display: none;
+  }
+</style>

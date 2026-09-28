@@ -1,0 +1,18 @@
+---
+/** Cloudflare Turnstile widget (non-interactive; 3.3.8). Loaded lazily on form focus. */
+import { site } from '@lib/site';
+interface Props {
+  action?: string;
+  class?: string;
+}
+const { action = 'form', class: className = '' } = Astro.props;
+---
+
+<div
+  class={`cf-turnstile ${className}`}
+  data-sitekey={site.turnstileSiteKey}
+  data-action={action}
+  data-size="flexible"
+  data-appearance="interaction-only"
+  data-turnstile
+></div>

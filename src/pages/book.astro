@@ -1,0 +1,98 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Button from '@/components/ui/Button.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { site, whatsappLink } from '@lib/site';
+---
+
+<BaseLayout
+  title="Book a live video look"
+  description="A 15-minute video call where Chris unrolls the rug, flips it, and answers your questions. Free, no pressure."
+>
+  <div class="container-content pt-6 pb-24">
+    <Breadcrumbs items={[{ label: 'Book a live look' }]} />
+    <div class="mt-4 grid gap-12 lg:grid-cols-[1fr_1.2fr]">
+      <header>
+        <h1>See it before you buy it. Live.</h1>
+        <p class="mt-3 text-body-lg text-stone">
+          Fifteen minutes on video. I unroll the rug in daylight, flip it, zoom into anything you
+          want, and answer questions. No pressure, no script.
+        </p>
+        <ul class="mt-6 flex flex-col gap-3 text-body">
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="shrink-0 text-olive" /> Pick a slot; you’ll get a
+            Zoom or WhatsApp link.
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="shrink-0 text-olive" /> Tell me the rug ID(s) so I
+            have them ready. <span class="tnum font-medium" data-rug-label hidden></span>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="check" size={24} class="shrink-0 text-olive" /> Designers: bring the client.
+            I’ll pull two or three alternates too.
+          </li>
+        </ul>
+        <p class="mt-8 text-body">
+          Prefer to text?{' '}
+          <a
+            href={whatsappLink('Hi Chris, I’d like a live look at a rug.')}
+            rel="noopener"
+            data-whatsapp
+          >
+            WhatsApp {site.phone}
+          </a>
+          .
+        </p>
+      </header>
+      <section aria-labelledby="sched-title" class="rounded-card border border-line bg-white p-6">
+        <h2 id="sched-title" class="text-h4">
+          Pick a time
+        </h2>
+        <p class="mt-1 text-small text-stone">
+          The scheduler loads when you click, to keep this page fast.
+        </p>
+        <div class="mt-4" data-scheduler data-url={site.bookingUrl}>
+          <Button type="button" size="lg" data-load-scheduler data-track="book_call">
+            Open the scheduler
+          </Button>
+          <p class="mt-2 text-caption text-stone">
+            Or open it in a new tab:{' '}
+            <a href={site.bookingUrl} rel="noopener" target="_blank" data-scheduler-link>
+              {site.bookingUrl.replace(/^https?:\/\//, '')}
+            </a>
+          </p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const rug = (params.get('rug') ?? '').toUpperCase();
+    const wrap = document.querySelector<HTMLElement>('[data-scheduler]')!;
+    let url = wrap.dataset.url!;
+    if (rug) {
+      const label = document.querySelector<HTMLElement>('[data-rug-label]')!;
+      label.textContent = `(Prefilled: ${rug})`;
+      label.hidden = false;
+      url += `${url.includes('?') ? '&' : '?'}notes=${encodeURIComponent(`Rug ${rug}`)}&rug=${encodeURIComponent(rug)}`;
+      const link = document.querySelector<HTMLAnchorElement>('[data-scheduler-link]');
+      if (link) link.href = url;
+      const wa = document.querySelector<HTMLAnchorElement>('[data-whatsapp]');
+      if (wa)
+        wa.href = wa.href.replace(
+          /text=.*$/,
+          `text=${encodeURIComponent(`Hi Chris, I'd like a live look at rug ${rug}.`)}`,
+        );
+    }
+    document.querySelector('[data-load-scheduler]')?.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = url;
+      iframe.title = 'Scheduling calendar';
+      iframe.className = 'h-[720px] w-full rounded-card border border-line';
+      iframe.loading = 'lazy';
+      wrap.replaceChildren(iframe);
+      iframe.focus();
+    });
+  </script>
+</BaseLayout>

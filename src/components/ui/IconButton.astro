@@ -1,0 +1,35 @@
+---
+/** Icon-only button. `label` is required (aria-label). */
+import Icon from './Icon.astro';
+interface Props {
+  icon: string;
+  label: string;
+  href?: string;
+  size?: 20 | 24;
+  variant?: 'plain' | 'outline' | 'solid';
+  class?: string;
+  type?: 'button' | 'submit';
+  [key: string]: unknown;
+}
+const {
+  icon,
+  label,
+  href,
+  size = 24,
+  variant = 'plain',
+  class: className = '',
+  type = 'button',
+  ...rest
+} = Astro.props;
+const variants = {
+  plain: 'text-indigo hover:bg-sand',
+  outline: 'text-indigo border border-line hover:border-indigo',
+  solid: 'bg-indigo text-ivory hover:bg-indigo-light',
+};
+const cls = `icon-btn inline-flex items-center justify-center tap-target rounded-btn transition-colors duration-hover ease-brand ${variants[variant]} ${className}`;
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag class={cls} aria-label={label} title={label} {...(href ? { href } : { type })} {...rest}>
+  <Icon name={icon} size={size} />
+</Tag>

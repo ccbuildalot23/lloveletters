@@ -1,0 +1,11 @@
+# Legacy URL redirects. Format: /old  /new  301
+# Cloudflare Pages normalizes trailing slashes for static files automatically.
+/products/*        /rugs/:splat        301
+/collection/*      /collections/:splat 301
+/shop              /rugs               301
+/shop/*            /rugs/:splat        301
+/join              /waitlist           301
+/drop-list         /waitlist           301
+/authentic         /authenticity       301
+/book-a-call       /book               301
+/index.html        /                   301

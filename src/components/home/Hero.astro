@@ -1,0 +1,129 @@
+---
+/** 5.1 Hero: Stream loop (muted, playsinline), poster fallback, pause/play, reduced-motion & save-data aware, waitlist mode. */
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { imageUrl } from '@lib/images';
+import { isWaitlistMode } from '@lib/site';
+const streamId = import.meta.env.PUBLIC_HERO_STREAM_ID || ''; // [HERO STREAM ID]
+const poster = imageUrl('sample-hero-poster', 'gallery'); // [HERO POSTER IMAGE ID]
+---
+
+<section
+  class="hero relative -mt-[var(--header-h)] flex min-h-[min(92dvh,900px)] items-end overflow-hidden bg-charcoal text-ivory"
+  aria-labelledby="hero-title"
+  data-hero
+>
+  <img
+    src={poster}
+    alt=""
+    width="1920"
+    height="1080"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover"
+    data-hero-poster
+  />
+  {streamId && (
+    <video
+      class="absolute inset-0 hidden h-full w-full object-cover"
+      muted
+      playsinline
+      loop
+      preload="none"
+      poster={poster}
+      aria-hidden="true"
+      data-hero-video
+      data-stream-id={streamId}
+    >
+      <source
+        src={`https://videodelivery.net/${streamId}/manifest/video.m3u8`}
+        type="application/x-mpegURL"
+      />
+      <source
+        src={`https://videodelivery.net/${streamId}/downloads/default.mp4`}
+        type="video/mp4"
+      />
+    </video>
+  )}
+  <div class="absolute inset-0 scrim-bottom" aria-hidden="true"></div>
+  <div class="container-content relative z-10 pt-40 pb-16 md:pb-24">
+    <h1 id="hero-title" class="max-w-3xl font-display text-display text-ivory">
+      Real Turkish rugs. Verified at the loom.
+    </h1>
+    <p class="mt-4 max-w-2xl text-body-lg text-ivory/90">
+      Hand-knotted, one of one, filmed at the source. Duties included. 30-day returns.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {isWaitlistMode ? (
+        <>
+          <Button href="#waitlist" size="lg">
+            Join the drop list
+          </Button>
+          <Button
+            href="/rugs"
+            size="lg"
+            variant="ghost"
+            class="border-ivory text-ivory hover:bg-ivory hover:text-indigo"
+          >
+            Preview the collection
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button href="/rugs" size="lg">
+            Shop the collection
+          </Button>
+          <Button
+            href="#waitlist"
+            size="lg"
+            variant="ghost"
+            class="border-ivory text-ivory hover:bg-ivory hover:text-indigo"
+          >
+            Join the drop list
+          </Button>
+        </>
+      )}
+    </div>
+  </div>
+  {streamId && (
+    <button
+      type="button"
+      class="absolute right-4 bottom-4 z-10 hidden tap-target items-center justify-center rounded-full bg-charcoal/60 text-ivory hover:bg-charcoal/80"
+      aria-label="Pause background video"
+      aria-pressed="false"
+      data-hero-toggle
+    >
+      <Icon name="pause" size={20} />
+    </button>
+  )}
+</section>
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const video = hero?.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const toggle = hero?.querySelector<HTMLButtonElement>('[data-hero-toggle]');
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+  const reduced =
+    matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    matchMedia('(prefers-reduced-data: reduce)').matches ||
+    !!conn?.saveData;
+  if (video && toggle && !reduced) {
+    video.classList.remove('hidden');
+    toggle.classList.remove('hidden');
+    toggle.classList.add('flex');
+    video.play().catch(() => video.classList.add('hidden'));
+    let playing = true;
+    toggle.addEventListener('click', () => {
+      playing = !playing;
+      if (playing) void video.play();
+      else video.pause();
+      toggle.setAttribute('aria-pressed', String(!playing));
+      toggle.setAttribute(
+        'aria-label',
+        playing ? 'Pause background video' : 'Play background video',
+      );
+      toggle.innerHTML = playing
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 4l14 8-14 8z"/></svg>';
+    });
+  }
+</script>

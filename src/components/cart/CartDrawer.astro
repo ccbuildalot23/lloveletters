@@ -1,0 +1,244 @@
+---
+/** Cart drawer (8.1–8.4). Lines render client-side from /rugs-index.json + live status. */
+import Drawer from '../ui/Drawer.astro';
+import Button from '../ui/Button.astro';
+import TrustBar from '../ui/TrustBar.astro';
+import { site } from '@lib/site';
+---
+
+<Drawer id="cart-drawer" title="Your cart">
+  <div class="px-5 py-4" data-cart-root>
+    <div class="cart-empty" data-cart-empty>
+      <p class="text-body-lg text-indigo">Your cart is empty.</p>
+      <p class="mt-1 text-small text-stone">
+        Every rug is one of one, so if you like something, it’s worth moving.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <Button href="/collections/new-arrivals" variant="secondary" size="sm">
+          Latest drop
+        </Button>
+        <Button href="/book" variant="ghost" size="sm">
+          Book a live look
+        </Button>
+      </div>
+    </div>
+    <ul class="cart-lines hidden divide-y divide-line" data-cart-lines aria-live="polite"></ul>
+    <div
+      class="cart-warning mt-3 hidden rounded-card border border-saffron bg-white p-3 text-small text-charcoal"
+      data-cart-warning
+      role="alert"
+    ></div>
+  </div>
+  <div
+    slot="footer"
+    class="cart-footer hidden border-t border-line bg-white px-5 py-4 safe-bottom"
+    data-cart-footer
+  >
+    <div class="flex items-center justify-between text-body">
+      <span class="font-medium text-charcoal">Subtotal</span>
+      <span class="tnum font-display text-h4 text-indigo" data-cart-subtotal>
+        $0
+      </span>
+    </div>
+    <ul class="mt-1 text-caption text-stone">
+      <li>Duties &amp; US shipping included</li>
+      <li>Sales tax calculated at checkout</li>
+      <li>Trade members: enter your code at checkout</li>
+    </ul>
+    <Button
+      type="button"
+      size="lg"
+      full
+      class="mt-4"
+      data-cart-checkout
+      loadingText="Reserving your rugs…"
+    >
+      Checkout
+    </Button>
+    <p class="mt-2 hidden text-small text-error" data-cart-error role="alert"></p>
+    <TrustBar variant="mini" class="mt-4" />
+    <p class="mt-3 text-caption text-stone">Trouble checking out? Text {site.phone}.</p>
+  </div>
+</Drawer>
+<template id="cart-line-template">
+  <li class="cart-line flex gap-3 py-3" data-line>
+    <a class="line-link shrink-0" href="#">
+      <img
+        class="line-img aspect-[4/5] w-20 rounded bg-sand object-cover"
+        alt=""
+        width="80"
+        height="100"
+      />
+    </a>
+    <div class="flex flex-1 flex-col gap-0.5">
+      <a
+        class="line-title text-body font-medium text-indigo no-underline hover:underline"
+        href="#"
+      ></a>
+      <span class="line-meta tnum text-small text-stone"></span>
+      <span class="line-status text-small"></span>
+      <span class="line-price tnum font-medium text-charcoal"></span>
+    </div>
+    <button
+      type="button"
+      class="line-remove self-start rounded p-2 text-stone hover:bg-sand hover:text-error"
+      aria-label="Remove"
+    >
+      ✕
+    </button>
+  </li>
+</template>
+<script>
+  import {
+    getCart,
+    removeFromCart,
+    loadIndex,
+    fetchStatus,
+    startCheckout,
+    formatUsd,
+    ftIn,
+    addToCart,
+  } from '@/scripts/cart';
+  import { track } from '@/scripts/analytics';
+
+  const root = document.querySelector<HTMLElement>('[data-cart-root]');
+  const drawer = document.getElementById('cart-drawer') as HTMLDialogElement | null;
+  if (root && drawer) {
+    const lines = root.querySelector<HTMLElement>('[data-cart-lines]')!;
+    const empty = root.querySelector<HTMLElement>('[data-cart-empty]')!;
+    const warning = root.querySelector<HTMLElement>('[data-cart-warning]')!;
+    const footer = document.querySelector<HTMLElement>('[data-cart-footer]')!;
+    const subtotalEl = footer.querySelector<HTMLElement>('[data-cart-subtotal]')!;
+    const checkoutBtn = footer.querySelector<HTMLButtonElement>('[data-cart-checkout]')!;
+    const errorEl = footer.querySelector<HTMLElement>('[data-cart-error]')!;
+    const tpl = document.getElementById('cart-line-template') as HTMLTemplateElement;
+    const countEls = document.querySelectorAll<HTMLElement>('[data-cart-count]');
+    const hash = document.documentElement.dataset.cfImages || '';
+    const img = (id: string) =>
+      id.startsWith('sample-') || !hash
+        ? `/placeholders/${id}.svg`
+        : `https://imagedelivery.net/${hash}/${id}/thumb`;
+
+    const updateCount = () => {
+      const n = getCart().length;
+      countEls.forEach((el) => {
+        el.textContent = String(n);
+        el.classList.toggle('hidden', n === 0);
+      });
+    };
+
+    async function render() {
+      const ids = getCart();
+      updateCount();
+      empty.hidden = ids.length > 0;
+      lines.classList.toggle('hidden', ids.length === 0);
+      footer.classList.toggle('hidden', ids.length === 0);
+      warning.classList.add('hidden');
+      if (!ids.length) return;
+      const [index, live] = await Promise.all([loadIndex(), fetchStatus(ids)]);
+      lines.innerHTML = '';
+      let subtotal = 0;
+      let blocked = 0;
+      for (const id of ids) {
+        const rug = index.find((r) => r.id === id);
+        if (!rug) {
+          removeFromCart(id);
+          continue;
+        }
+        const status = live[id] ?? rug.status;
+        const li = (tpl.content.firstElementChild as HTMLElement).cloneNode(true) as HTMLElement;
+        li.querySelectorAll<HTMLAnchorElement>('.line-link,.line-title').forEach(
+          (a) => (a.href = `/rugs/${rug.slug}`),
+        );
+        const im = li.querySelector<HTMLImageElement>('.line-img')!;
+        im.src = img(rug.image);
+        im.alt = rug.title;
+        li.querySelector('.line-title')!.textContent = rug.title.replace('SAMPLE · ', '');
+        li.querySelector('.line-meta')!.textContent =
+          `${rug.id} · ${ftIn(rug.sizeFt.w)} × ${ftIn(rug.sizeFt.l)}`;
+        li.querySelector('.line-price')!.textContent = formatUsd(rug.priceUsd);
+        const st = li.querySelector<HTMLElement>('.line-status')!;
+        if (status === 'available') {
+          st.textContent = 'Available — one of one';
+          st.className = 'line-status text-small text-olive-dark';
+          subtotal += rug.priceUsd;
+        } else {
+          st.textContent =
+            status === 'sold'
+              ? 'Just sold — removed from checkout'
+              : 'In someone else’s cart — check back in 30 min';
+          st.className = 'line-status text-small text-error';
+          li.classList.add('opacity-70');
+          blocked++;
+        }
+        li.querySelector<HTMLButtonElement>('.line-remove')!.setAttribute(
+          'aria-label',
+          `Remove ${rug.title} from cart`,
+        );
+        li.querySelector('.line-remove')!.addEventListener('click', () => {
+          removeFromCart(id);
+          void render();
+        });
+        lines.appendChild(li);
+      }
+      subtotalEl.textContent = formatUsd(subtotal);
+      if (blocked) {
+        warning.textContent = `${blocked} rug${blocked > 1 ? 's' : ''} in your cart ${blocked > 1 ? 'are' : 'is'} no longer available and will be left out of checkout.`;
+        warning.classList.remove('hidden');
+      }
+      checkoutBtn.disabled = subtotal === 0;
+    }
+
+    checkoutBtn.addEventListener('click', async () => {
+      errorEl.classList.add('hidden');
+      const ids = getCart();
+      const live = await fetchStatus(ids);
+      const buyable = ids.filter((id) => (live[id] ?? 'available') === 'available');
+      if (!buyable.length) return void render();
+      checkoutBtn.disabled = true;
+      checkoutBtn.setAttribute('aria-busy', 'true');
+      const label = checkoutBtn.innerHTML;
+      checkoutBtn.innerHTML = `<span class="size-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span> ${checkoutBtn.dataset.loadingText}`;
+      const res = await startCheckout(buyable);
+      if (res.ok) {
+        window.location.assign(res.url);
+        return;
+      }
+      checkoutBtn.innerHTML = label;
+      checkoutBtn.disabled = false;
+      checkoutBtn.removeAttribute('aria-busy');
+      if (res.status === 409) {
+        const sold = res.unavailable?.filter((u) => u.status === 'sold') ?? [];
+        errorEl.textContent = sold.length
+          ? 'One of these just sold. I’ve updated your cart — here are similar rugs on the collection page.'
+          : 'Someone’s checking out with one of these rugs right now. We’ll hold your spot: use “Notify me” on the rug page to get an email if it frees up.';
+      } else if (res.status === 503) {
+        errorEl.textContent = `Checkout is temporarily unavailable. Text us at ${document.documentElement.dataset.phone ?? ''} to reserve this rug.`;
+      } else {
+        errorEl.textContent =
+          res.message === 'network'
+            ? 'Couldn’t reach checkout — check your connection and try again.'
+            : 'Something went wrong starting checkout. Please try again.';
+      }
+      errorEl.classList.remove('hidden');
+      void render();
+    });
+
+    drawer.addEventListener('dialog:open', () => void render());
+    window.addEventListener('cart:change', () => void render());
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && drawer.open) void render();
+    });
+    document.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-add-to-cart]');
+      if (!btn) return;
+      const id = btn.dataset.addToCart!;
+      addToCart(id);
+      track('add_to_cart', { item_id: id, price: Number(btn.dataset.price ?? 0) });
+      drawer.showModal();
+      drawer.dispatchEvent(new CustomEvent('dialog:open'));
+      document.documentElement.style.overflow = 'hidden';
+    });
+    updateCount();
+  }
+</script>

@@ -1,0 +1,40 @@
+---
+import ReviewCard from '../ui/ReviewCard.astro';
+import StarRating from '../ui/StarRating.astro';
+import SectionHeader from '../ui/SectionHeader.astro';
+import { reviews, showReviews, aggregateRating, approvedCount } from '@lib/reviews';
+import { getById } from '@lib/catalog';
+---
+
+{showReviews && (
+  <section class="bg-sand" aria-labelledby="reviews-title">
+    <div class="container-content section-pad">
+      <SectionHeader id="reviews-title" title="What customers say">
+        <div class="mt-3 flex items-center gap-3">
+          <StarRating rating={aggregateRating} count={approvedCount} size={20} />
+          <a href="/reviews" class="text-small">
+            Read all reviews
+          </a>
+        </div>
+      </SectionHeader>
+      <div class="grid gap-6 md:grid-cols-3">
+        {reviews.slice(0, 3).map((r) => {
+          const rug = r.rugId ? getById(r.rugId) : undefined;
+          return (
+            <ReviewCard
+              rating={r.rating}
+              title={r.title}
+              body={r.body}
+              displayName={r.displayName}
+              city={r.city}
+              date={r.date}
+              verified={r.verified}
+              rugTitle={rug?.title}
+              rugHref={rug ? `/rugs/${rug.slug}` : undefined}
+            />
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}

@@ -1,0 +1,84 @@
+---
+/** Full-height drawer with accordion sections and contact info (4.5). */
+import Drawer from '../ui/Drawer.astro';
+import Icon from '../ui/Icon.astro';
+import { mainNav, megaColumns } from '@lib/nav';
+import { site, telLink, whatsappLink } from '@lib/site';
+---
+
+<Drawer id="mobile-menu" title="Menu" side="left" width="max-w-sm">
+  <nav aria-label="Mobile" class="flex flex-col py-2">
+    <details class="border-b border-line" open>
+      <summary class="flex min-h-[48px] items-center justify-between px-5 text-body font-medium text-indigo">
+        Shop rugs <Icon name="chevron-down" size={20} />
+      </summary>
+      <div class="grid grid-cols-2 gap-x-4 px-5 pb-4">
+        {megaColumns.map((col) => (
+          <div class="mb-3">
+            <h3 class="mb-1 font-sans text-caption font-semibold tracking-wide text-stone uppercase">
+              {col.title}
+            </h3>
+            <ul>
+              {col.links.map((l) => (
+                <li>
+                  <a
+                    href={l.href}
+                    class="block min-h-[44px] py-2.5 text-body text-charcoal no-underline"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </details>
+    {mainNav
+      .filter((n) => !n.mega)
+      .map((n) => (
+        <a
+          href={n.href}
+          class="flex min-h-[48px] items-center border-b border-line px-5 text-body font-medium text-indigo no-underline"
+        >
+          {n.label}
+        </a>
+      ))}
+    <a
+      href="/book"
+      class="flex min-h-[48px] items-center border-b border-line px-5 text-body font-medium text-indigo no-underline"
+    >
+      Book a live look
+    </a>
+    <a
+      href="/waitlist"
+      class="flex min-h-[48px] items-center border-b border-line px-5 text-body font-medium text-madder no-underline"
+    >
+      Join the drop list
+    </a>
+  </nav>
+  <div
+    slot="footer"
+    class="border-t border-line bg-sand px-5 py-4 text-small text-charcoal safe-bottom"
+  >
+    <p class="font-medium text-indigo">Questions? I answer the phone.</p>
+    <p class="mt-1 flex flex-col gap-1">
+      <a href={telLink} class="inline-flex min-h-[44px] items-center gap-2">
+        <Icon name="phone" size={20} />
+        {site.phone}
+      </a>
+      <a
+        href={whatsappLink('Hi Chris, I have a question about a rug.')}
+        class="inline-flex min-h-[44px] items-center gap-2"
+        rel="noopener"
+      >
+        <Icon name="whatsapp" size={20} />
+        WhatsApp
+      </a>
+      <a href={`mailto:${site.email}`} class="inline-flex min-h-[44px] items-center gap-2">
+        <Icon name="mail" size={20} />
+        {site.email}
+      </a>
+    </p>
+  </div>
+</Drawer>

@@ -1,0 +1,9 @@
+{
+  "name": "Rug store",
+  "short_name": "Rugs",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }],
+  "theme_color": "#F6F1E9",
+  "background_color": "#F6F1E9",
+  "display": "browser",
+  "start_url": "/"
+}

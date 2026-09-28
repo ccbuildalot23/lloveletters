@@ -1,0 +1,121 @@
+---
+/**
+ * Rug card (6.7): 4:5 image with desktop hover swap, badges, title, size ft/cm, region,
+ * price w/ duties note, wishlist heart. The whole card is one link; the heart is separate.
+ */
+import Badge from '../ui/Badge.astro';
+import PriceTag from '../ui/PriceTag.astro';
+import Icon from '../ui/Icon.astro';
+import { imageUrl, imageSrcset } from '@lib/images';
+import { sizeFt, sizeCm, isNew } from '@lib/format';
+import type { Product } from '@lib/schema';
+interface Props {
+  rug: Product;
+  eager?: boolean;
+  position?: number;
+  listName?: string;
+  class?: string;
+}
+const {
+  rug,
+  eager = false,
+  position = 0,
+  listName = 'collection',
+  class: className = '',
+} = Astro.props;
+const front = rug.images.find((i) => i.kind === 'front') ?? rug.images[0]!;
+const hover = rug.images.find((i) => i.kind === 'back' || i.kind === 'room');
+const title = rug.title.replace('SAMPLE · ', '');
+const sizes = '(min-width: 1280px) 300px, (min-width: 1024px) 33vw, (min-width: 480px) 50vw, 100vw';
+---
+
+<article
+  class={`rug-card group relative flex flex-col ${rug.status === 'sold' ? 'is-sold' : ''} ${className}`}
+  data-rug-card
+  data-rug-id={rug.id}
+  data-status={rug.status}
+  data-style={rug.style}
+  data-region={rug.region}
+  data-colors={rug.colors.join(',')}
+  data-size-bucket={rug.sizeBucket}
+  data-w={rug.sizeFt.w}
+  data-l={rug.sizeFt.l}
+  data-area={(rug.sizeFt.w * rug.sizeFt.l).toFixed(1)}
+  data-price={rug.priceUsd}
+  data-condition={rug.condition}
+  data-construction={rug.construction}
+  data-date={rug.dateAdded}
+  data-collection={rug.collection.join(',')}
+>
+  <a
+    href={`/rugs/${rug.slug}`}
+    class="flex flex-col gap-3 text-charcoal no-underline"
+    data-track="select_item"
+    data-track-params={JSON.stringify({ item_id: rug.id, list_name: listName, position })}
+  >
+    <div class="relative aspect-[4/5] overflow-hidden rounded-card bg-sand">
+      <img
+        src={imageUrl(front.id, 'card')}
+        srcset={imageSrcset(front.id) || undefined}
+        sizes={sizes}
+        alt={front.alt}
+        width="800"
+        height="1000"
+        loading={eager ? 'eager' : 'lazy'}
+        fetchpriority={eager ? 'high' : undefined}
+        decoding="async"
+        class="h-full w-full object-cover transition-opacity duration-page ease-brand lg:group-hover:opacity-0"
+      />
+      {hover && (
+        <img
+          src={imageUrl(hover.id, 'card')}
+          srcset={imageSrcset(hover.id) || undefined}
+          sizes={sizes}
+          alt=""
+          width="800"
+          height="1000"
+          loading="lazy"
+          decoding="async"
+          aria-hidden="true"
+          class="absolute inset-0 hidden h-full w-full object-cover opacity-0 transition-opacity duration-page ease-brand lg:block lg:group-hover:opacity-100"
+        />
+      )}
+      <div class="absolute top-2 left-2 flex flex-wrap gap-1" data-badges>
+        {rug.sample && <Badge kind="sample" />}
+        {rug.status === 'sold' ? (
+          <Badge kind="sold" />
+        ) : rug.status === 'reserved' ? (
+          <Badge kind="reserved" />
+        ) : (
+          <Badge kind="one-of-one" />
+        )}
+        {rug.status !== 'sold' && isNew(rug.dateAdded) && <Badge kind="new" />}
+        {rug.condition === 'vintage' && <Badge kind="vintage" />}
+        {rug.condition === 'antique' && <Badge kind="antique" />}
+      </div>
+    </div>
+    <div class="flex flex-col gap-1 pr-10">
+      <h3 class="font-sans text-body font-semibold text-indigo group-hover:underline">{title}</h3>
+      <p class="tnum text-small text-stone">
+        {sizeFt(rug.sizeFt.w, rug.sizeFt.l)} <span class="text-line">·</span>{' '}
+        {sizeCm(rug.sizeCm.w, rug.sizeCm.l)}
+      </p>
+      <p class="text-small text-stone">{rug.region}</p>
+      <PriceTag
+        priceUsd={rug.priceUsd}
+        dutiesIncluded={rug.dutiesIncluded}
+        status={rug.status}
+        size="sm"
+      />
+    </div>
+  </a>
+  <button
+    type="button"
+    class="wishlist-btn absolute right-0 bottom-0 flex tap-target items-center justify-center rounded-btn text-indigo hover:bg-sand aria-pressed:text-madder"
+    aria-label={`Save ${title} to wishlist`}
+    aria-pressed="false"
+    data-wishlist={rug.id}
+  >
+    <Icon name="heart" size={20} />
+  </button>
+</article>

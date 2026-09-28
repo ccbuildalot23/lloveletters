@@ -1,0 +1,141 @@
+---
+/**
+ * Dual-thumb range with min/max number inputs (2.5.7 dragging alternative).
+ * Emits `range:change` {min,max} on the root. Props: name, label, min, max, step, valueMin, valueMax, unit, format ("usd" | "ft")
+ */
+interface Props {
+  name: string;
+  label: string;
+  min: number;
+  max: number;
+  step?: number;
+  valueMin?: number;
+  valueMax?: number;
+  unit?: string;
+  format?: 'usd' | 'plain';
+  class?: string;
+}
+const {
+  name,
+  label,
+  min,
+  max,
+  step = 1,
+  valueMin = min,
+  valueMax = max,
+  unit = '',
+  format = 'plain',
+  class: className = '',
+} = Astro.props;
+---
+
+<fieldset
+  class={`range-slider ${className}`}
+  data-range
+  data-name={name}
+  data-min={min}
+  data-max={max}
+  data-format={format}
+>
+  <legend class="mb-2 text-small font-medium text-charcoal">{label}</legend>
+  <div class="relative mb-3 h-6" data-track-wrap>
+    <div class="absolute top-1/2 right-0 left-0 h-1 -translate-y-1/2 rounded-full bg-line"></div>
+    <div
+      class="absolute top-1/2 h-1 -translate-y-1/2 rounded-full bg-madder"
+      data-track-fill
+      style="left:0;right:0"
+    ></div>
+    <input
+      type="range"
+      name={`${name}_min`}
+      aria-label={`${label} minimum`}
+      min={min}
+      max={max}
+      step={step}
+      value={valueMin}
+      data-thumb="min"
+      class="range-thumb absolute inset-0 w-full appearance-none bg-transparent"
+    />
+    <input
+      type="range"
+      name={`${name}_max`}
+      aria-label={`${label} maximum`}
+      min={min}
+      max={max}
+      step={step}
+      value={valueMax}
+      data-thumb="max"
+      class="range-thumb absolute inset-0 w-full appearance-none bg-transparent"
+    />
+  </div>
+  <div class="grid grid-cols-2 gap-3">
+    <label class="flex flex-col gap-1 text-caption text-stone">
+      Min{unit && ` (${unit})`}
+      <input
+        type="number"
+        name={`${name}_min_input`}
+        min={min}
+        max={max}
+        step={step}
+        value={valueMin}
+        data-input="min"
+        inputmode="numeric"
+        class="tnum min-h-[44px] rounded-input border border-line bg-white px-3 py-2 text-body text-charcoal"
+      />
+    </label>
+    <label class="flex flex-col gap-1 text-caption text-stone">
+      Max{unit && ` (${unit})`}
+      <input
+        type="number"
+        name={`${name}_max_input`}
+        min={min}
+        max={max}
+        step={step}
+        value={valueMax}
+        data-input="max"
+        inputmode="numeric"
+        class="tnum min-h-[44px] rounded-input border border-line bg-white px-3 py-2 text-body text-charcoal"
+      />
+    </label>
+  </div>
+</fieldset>
+<style>
+  .range-thumb {
+    pointer-events: none;
+    height: 24px;
+  }
+  .range-thumb::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 24px;
+  }
+  .range-thumb::-moz-range-track {
+    background: transparent;
+  }
+  .range-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-white);
+    border: 2px solid var(--color-indigo);
+    cursor: pointer;
+  }
+  .range-thumb::-moz-range-thumb {
+    pointer-events: auto;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-white);
+    border: 2px solid var(--color-indigo);
+    cursor: pointer;
+  }
+  .range-thumb:focus-visible::-webkit-slider-thumb {
+    outline: 2px solid var(--color-indigo);
+    outline-offset: 2px;
+  }
+</style>
+<script>
+  import { initRangeSliders } from '@/scripts/range-slider';
+  initRangeSliders();
+</script>

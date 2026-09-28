@@ -1,0 +1,44 @@
+---
+/** Breadcrumb trail with BreadcrumbList JSON-LD (4.7 / 14.2). */
+import { site } from '@lib/site';
+interface Props {
+  items: Array<{ label: string; href?: string }>;
+  class?: string;
+}
+const { items, class: className = '' } = Astro.props;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [{ label: 'Home', href: '/' }, ...items].map((it, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: it.label,
+    ...(it.href ? { item: `${site.url}${it.href}` } : {}),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class={`breadcrumbs text-small text-stone ${className}`}>
+  <ol class="flex flex-wrap items-center gap-1">
+    <li>
+      <a href="/" class="text-stone no-underline hover:text-madder hover:underline">
+        Home
+      </a>
+    </li>
+    {items.map((it, i) => (
+      <li class="flex items-center gap-1">
+        <span aria-hidden="true">/</span>
+        {it.href && i < items.length - 1 ? (
+          <a href={it.href} class="text-stone no-underline hover:text-madder hover:underline">
+            {it.label}
+          </a>
+        ) : (
+          <span aria-current="page" class="text-charcoal">
+            {it.label}
+          </span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

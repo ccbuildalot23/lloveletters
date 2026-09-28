@@ -1,0 +1,53 @@
+---
+/** Two-column definition list with optional tooltips per row (7.6c). Empty values are skipped. */
+import Icon from './Icon.astro';
+interface Props {
+  rows: Array<{ term: string; value?: string | number | null; tooltip?: string; html?: boolean }>;
+  class?: string;
+  caption?: string;
+}
+const { rows, class: className = '', caption } = Astro.props;
+const visible = rows.filter((r) => r.value !== undefined && r.value !== null && r.value !== '');
+---
+
+<dl
+  class={`facts-table grid grid-cols-1 gap-x-8 sm:grid-cols-[max-content_1fr] ${className}`}
+  aria-label={caption}
+>
+  {visible.map((r) => (
+    <div class="contents">
+      <dt class="flex items-center gap-1 border-t border-line pt-3 text-small font-medium text-stone sm:pb-3">
+        {r.term}
+        {r.tooltip && (
+          <span class="tooltip relative inline-flex">
+            <button
+              type="button"
+              class="tooltip-trigger inline-flex size-6 items-center justify-center rounded-full text-indigo hover:bg-sand"
+              aria-label={`What is ${r.term}?`}
+              aria-describedby={`tip-${r.term.replace(/\W+/g, '-').toLowerCase()}`}
+            >
+              <Icon name="info" size={16} />
+            </button>
+            <span
+              role="tooltip"
+              id={`tip-${r.term.replace(/\W+/g, '-').toLowerCase()}`}
+              class="tooltip-body pointer-events-none absolute bottom-full left-1/2 z-10 mb-1 w-64 -translate-x-1/2 rounded-card bg-charcoal p-3 text-caption font-normal text-white opacity-0 shadow-elevation transition-opacity duration-hover"
+            >
+              {r.tooltip}
+            </span>
+          </span>
+        )}
+      </dt>
+      <dd class="tnum pb-3 text-body text-charcoal sm:border-t sm:border-line sm:pt-3">
+        {r.html ? <Fragment set:html={String(r.value)} /> : String(r.value)}
+      </dd>
+    </div>
+  ))}
+</dl>
+<style>
+  .tooltip:hover .tooltip-body,
+  .tooltip:focus-within .tooltip-body {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>

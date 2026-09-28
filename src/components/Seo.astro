@@ -1,0 +1,50 @@
+---
+/** Per-page metadata (14.1): title ≤60, description ≤155, canonical, OG/Twitter, robots. */
+import { site } from '@lib/site';
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+}
+const {
+  title,
+  description,
+  canonical,
+  image = `${site.url}/placeholders/sample-og-default.svg`,
+  imageAlt = site.tagline,
+  type = 'website',
+  noindex = false,
+} = Astro.props;
+const fullTitle = title.includes(site.name) ? title : `${title} · ${site.name}`;
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site.url).href;
+if (import.meta.env.DEV) {
+  if (fullTitle.length > 60)
+    console.warn(`[seo] title >60 chars on ${Astro.url.pathname}: "${fullTitle}"`);
+  if (description.length > 155)
+    console.warn(`[seo] description >155 chars on ${Astro.url.pathname}`);
+}
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+)}
+<meta property="og:site_name" content={site.name} />
+<meta property="og:type" content={type === 'product' ? 'product' : type} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:image" content={image} />
+<meta property="og:image:alt" content={imageAlt} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />

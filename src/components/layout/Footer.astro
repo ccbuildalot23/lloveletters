@@ -1,0 +1,109 @@
+---
+import NewsletterForm from '../forms/NewsletterForm.astro';
+import Icon from '../ui/Icon.astro';
+import { footerColumns, legalLinks } from '@lib/nav';
+import { site, telLink } from '@lib/site';
+const year = new Date().getFullYear();
+const socials = [
+  { name: 'Instagram', icon: 'instagram', href: site.social.instagram },
+  { name: 'TikTok', icon: 'tiktok', href: site.social.tiktok },
+  { name: 'Pinterest', icon: 'pinterest', href: site.social.pinterest },
+  { name: 'YouTube', icon: 'youtube', href: site.social.youtube },
+];
+const payments = ['visa', 'mastercard', 'amex', 'apple-pay', 'google-pay', 'affirm', 'klarna'];
+---
+
+<footer class="site-footer on-dark bg-indigo text-ivory" role="contentinfo">
+  <div class="container-content grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
+    {footerColumns.map((col) => (
+      <nav aria-label={`${col.title} links`}>
+        <h2 class="mb-3 font-sans text-small font-semibold tracking-wide text-saffron uppercase">
+          {col.title}
+        </h2>
+        <ul class="flex flex-col gap-1">
+          {col.links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="inline-flex min-h-[36px] items-center text-body text-ivory no-underline hover:underline"
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+    <div class="lg:col-span-2">
+      <h2 class="mb-3 font-sans text-small font-semibold tracking-wide text-saffron uppercase">
+        New from the loom
+      </h2>
+      <p class="mb-3 text-small text-ivory/80">
+        One email per drop. Sizes, prices, and the flip videos, before they hit the site.
+      </p>
+      <NewsletterForm variant="inline" id="footer-waitlist" dark />
+    </div>
+  </div>
+  <div class="border-t border-ivory/15">
+    <div class="container-content flex flex-col gap-6 py-8 text-small text-ivory/85">
+      <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <address class="not-italic">
+          <strong class="text-ivory">{site.dealerName}</strong>
+          <br />
+          {site.address}
+          <br />
+          <a href={telLink} class="text-ivory">
+            {site.phone}
+          </a>{' '}
+          ·{' '}
+          <a href={`mailto:${site.email}`} class="text-ivory">
+            {site.email}
+          </a>
+        </address>
+        <ul class="flex gap-1" aria-label="Social media">
+          {socials.map((s) => (
+            <li>
+              <a
+                href={s.href}
+                rel="noopener"
+                class="inline-flex tap-target items-center justify-center rounded-btn text-ivory hover:bg-white/10"
+                aria-label={s.name}
+              >
+                <Icon name={s.icon} size={24} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <ul class="flex flex-wrap gap-2" aria-label="Accepted payment methods">
+        {payments.map((p) => (
+          <li class="rounded-input border border-ivory/25 px-2 py-1">
+            <Icon name={p} size={24} label={p.replace('-', ' ')} />
+          </li>
+        ))}
+        <li class="inline-flex items-center gap-1 px-2 py-1">
+          <Icon name="lock" size={16} /> Secure checkout by Stripe
+        </li>
+      </ul>
+      <p class="max-w-none text-caption text-ivory/70">
+        All rugs are imported from Turkey. Fiber content, country of origin, and dealer identity are
+        stated on every product page in accordance with the US Textile Fiber Products Identification
+        Act. Dealer: {site.dealerName}.
+      </p>
+      <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+        <p class="max-w-none">
+          © {year} {site.dealerName}. All rights reserved.
+        </p>
+        <ul class="flex flex-wrap gap-4">
+          {legalLinks.map((l) => (
+            <li>
+              <a href={l.href} class="text-ivory">
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

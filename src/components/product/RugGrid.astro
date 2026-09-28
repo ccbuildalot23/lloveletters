@@ -1,0 +1,33 @@
+---
+import RugCard from './RugCard.astro';
+import type { Product } from '@lib/schema';
+interface Props {
+  rugs: Product[];
+  columns?: 3 | 4;
+  eagerCount?: number;
+  listName?: string;
+  class?: string;
+  id?: string;
+}
+const {
+  rugs,
+  columns = 4,
+  eagerCount = 0,
+  listName = 'collection',
+  class: className = '',
+  id,
+} = Astro.props;
+const cols =
+  columns === 4 ? 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'sm:grid-cols-2 lg:grid-cols-3';
+---
+
+<div
+  id={id}
+  class={`rug-grid grid grid-cols-1 gap-x-6 gap-y-10 ${cols} ${className}`}
+  data-rug-grid
+  data-list-name={listName}
+>
+  {rugs.map((r, i) => (
+    <RugCard rug={r} eager={i < eagerCount} position={i + 1} listName={listName} />
+  ))}
+</div>

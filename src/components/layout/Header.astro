@@ -1,0 +1,128 @@
+---
+/** Sticky, shrinking header (4.3, 4.4, 4.5). transparent=true on the home hero. */
+import MegaMenu from './MegaMenu.astro';
+import IconButton from '../ui/IconButton.astro';
+import Icon from '../ui/Icon.astro';
+import { mainNav } from '@lib/nav';
+import { site, isWaitlistMode } from '@lib/site';
+interface Props {
+  transparent?: boolean;
+}
+const { transparent = false } = Astro.props;
+---
+
+<header
+  id="site-header"
+  class={`site-header sticky top-0 z-40 transition-[background-color,box-shadow,height] duration-drawer ease-brand ${transparent ? 'is-transparent' : 'bg-ivory'}`}
+  data-header
+  data-transparent={transparent ? '1' : undefined}
+>
+  <div
+    class="container-content flex h-[var(--header-h)] items-center justify-between gap-4 transition-[height] duration-drawer ease-brand"
+    data-header-inner
+  >
+    <div class="flex items-center gap-1 lg:hidden">
+      <IconButton icon="menu" label="Open menu" data-open-drawer="mobile-menu" class="header-fg" />
+    </div>
+    <a
+      href="/"
+      class="logo font-display text-h3 text-indigo no-underline header-fg"
+      aria-label={`${site.name} home`}
+    >
+      {site.name}
+    </a>
+    <nav aria-label="Main" class="hidden items-center gap-1 lg:flex">
+      {mainNav.map((n) =>
+        n.mega ? (
+          <MegaMenu />
+        ) : (
+          <a
+            href={n.href}
+            class="nav-link header-fg inline-flex min-h-[44px] items-center rounded-btn px-3 text-body font-medium text-indigo no-underline hover:bg-sand"
+          >
+            {n.label}
+          </a>
+        ),
+      )}
+    </nav>
+    <div class="flex items-center gap-1">
+      <a
+        href="/book"
+        class="header-fg hidden min-h-[44px] items-center rounded-btn px-3 text-small font-medium text-indigo no-underline hover:bg-sand xl:inline-flex"
+      >
+        Book a live look
+      </a>
+      <IconButton
+        icon="search"
+        label="Search rugs"
+        data-open-modal="search-overlay"
+        class="header-fg"
+      />
+      {!isWaitlistMode && (
+        <button
+          type="button"
+          class="header-fg icon-btn relative inline-flex tap-target items-center justify-center rounded-btn text-indigo hover:bg-sand"
+          aria-label="Open cart"
+          data-open-drawer="cart-drawer"
+          data-cart-button
+        >
+          <Icon name="shopping-bag" size={24} />
+          <span
+            class="cart-count absolute top-1 right-1 hidden min-w-5 rounded-full bg-madder px-1 text-center text-caption font-semibold text-white"
+            data-cart-count
+            aria-live="polite"
+          ></span>
+        </button>
+      )}
+    </div>
+  </div>
+</header>
+<style>
+  .site-header.is-transparent:not(.is-scrolled) {
+    background: transparent;
+  }
+  .site-header.is-transparent:not(.is-scrolled) .header-fg {
+    color: var(--color-ivory);
+  }
+  .site-header.is-transparent:not(.is-scrolled) .header-fg:hover {
+    background: rgb(255 255 255 / 0.12);
+  }
+  .site-header.is-scrolled {
+    background: var(--color-ivory);
+    box-shadow: 0 1px 0 var(--color-line);
+  }
+  .site-header.is-scrolled [data-header-inner] {
+    height: var(--header-h-compact);
+  }
+</style>
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 80);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+  // Mega menu
+  document.querySelectorAll<HTMLElement>('[data-mega]').forEach((wrap) => {
+    const btn = wrap.querySelector<HTMLButtonElement>('[data-mega-trigger]')!;
+    const panel = wrap.querySelector<HTMLElement>('[data-mega-panel]')!;
+    const set = (open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) panel.setAttribute('data-open', '');
+      else panel.removeAttribute('data-open');
+    };
+    btn.addEventListener('click', () => set(btn.getAttribute('aria-expanded') !== 'true'));
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target as Node)) set(false);
+    });
+    wrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        set(false);
+        btn.focus();
+      }
+    });
+    wrap.addEventListener('focusout', (e) => {
+      if (!wrap.contains(e.relatedTarget as Node)) set(false);
+    });
+  });
+</script>

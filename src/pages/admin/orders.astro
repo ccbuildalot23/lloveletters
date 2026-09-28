@@ -1,0 +1,54 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Orders">
+  <p class="text-small">
+    <a href="/api/admin/orders?format=csv">Export CSV</a>
+  </p>
+  <table class="mt-4 w-full text-small">
+    <thead>
+      <tr class="border-b border-line text-left">
+        <th class="py-2">#</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Rugs</th>
+        <th>Total</th>
+        <th>Trade</th>
+        <th>Status</th>
+        <th>Tracking</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    const tbody = document.querySelector('tbody')!;
+    const statuses = ['paid', 'packed', 'shipped', 'delivered', 'refunded'];
+    async function load() {
+      const r = await fetch('/api/admin/orders').then(
+        (x) => x.json() as Promise<{ orders: Array<Record<string, string | number | null>> }>,
+      );
+      tbody.innerHTML = r.orders
+        .map(
+          (o) =>
+            `<tr class="border-b border-line align-top"><td class="py-2">${o.id}</td><td>${String(o.created_at).slice(0, 10)}</td><td>${o.name ?? ''}<br><span class="text-stone">${o.email ?? ''}</span></td><td>${JSON.parse(String(o.rug_ids)).join(', ')}</td><td class="tnum">$${((Number(o.amount_total) || 0) / 100).toFixed(2)}</td><td>${o.is_trade ? 'yes' : ''}</td><td><select data-id="${o.id}" data-status class="rounded-input border border-line bg-white px-1 py-1">${statuses.map((s) => `<option ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}</select></td><td><input data-id="${o.id}" data-tracking value="${o.tracking ?? ''}" placeholder="tracking #" class="w-40 rounded-input border border-line bg-white px-1 py-1" /></td></tr>`,
+        )
+        .join('');
+    }
+    tbody.addEventListener('change', async (e) => {
+      const t = e.target as HTMLInputElement | HTMLSelectElement;
+      const body = t.hasAttribute('data-status')
+        ? { id: Number(t.dataset.id), status: t.value }
+        : { id: Number(t.dataset.id), tracking: t.value };
+      await fetch('/api/admin/orders', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      (window as unknown as { adminSay: (m: string) => void }).adminSay(
+        `Order ${t.dataset.id} updated.`,
+      );
+    });
+    void load();
+  </script>
+</AdminLayout>

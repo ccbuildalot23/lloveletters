@@ -1,0 +1,36 @@
+---
+/** Color swatches as labelled checkboxes (never color alone, 13.6). */
+import { COLOR_SWATCHES } from '@lib/catalog-constants';
+interface Props {
+  name?: string;
+  selected?: string[];
+  class?: string;
+  legend?: string;
+}
+const { name = 'color', selected = [], class: className = '', legend = 'Color' } = Astro.props;
+---
+
+<fieldset class={`color-swatches ${className}`} data-facet={name}>
+  <legend class="mb-2 text-small font-medium text-charcoal">{legend}</legend>
+  <div class="grid grid-cols-2 gap-1 sm:grid-cols-3 lg:grid-cols-2">
+    {COLOR_SWATCHES.map((c) => (
+      <label class="flex min-h-[44px] cursor-pointer items-center gap-2 rounded-input px-1 text-small hover:bg-sand has-[:checked]:bg-sand">
+        <input
+          type="checkbox"
+          name={name}
+          value={c.value}
+          checked={selected.includes(c.value)}
+          class="visually-hidden peer"
+        />
+        <span
+          class="inline-block size-6 shrink-0 rounded-full border border-line peer-checked:ring-2 peer-checked:ring-indigo peer-checked:ring-offset-2 peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-indigo"
+          style={`background:${c.hex}`}
+          aria-hidden="true"
+        ></span>
+        <span>
+          {c.label} <span class="tnum text-stone" data-count={c.value}></span>
+        </span>
+      </label>
+    ))}
+  </div>
+</fieldset>

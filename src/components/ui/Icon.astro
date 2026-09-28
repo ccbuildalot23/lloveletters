@@ -1,0 +1,60 @@
+---
+/**
+ * Inline SVG icon. Uses Lucide (lucide-static) or a custom brand icon by name.
+ * Props:
+ *  - name: lucide icon name (e.g. "search") or custom ("knot", "flip", "certificate", "duties", "returns", "us-support")
+ *  - size: 16 | 20 | 24 | 32 | 48 (20 = UI, 24 = nav)
+ *  - label: accessible name. Omit for decorative icons (aria-hidden is set).
+ *  - strokeWidth: default 1.5
+ */
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { customIcons } from '../icons/custom';
+
+interface Props {
+  name: string;
+  size?: 16 | 20 | 24 | 32 | 40 | 48;
+  label?: string;
+  strokeWidth?: number;
+  class?: string;
+}
+const { name, size = 20, label, strokeWidth = 1.5, class: className = '' } = Astro.props;
+
+const OPEN_TAG = '<' + 'svg';
+// Built from strings: the Astro compiler tokenizes an HTML comment literal inside frontmatter.
+const COMMENT_RE = new RegExp('<' + '!--[\\s\\S]*?--' + '>', 'g');
+let svg = customIcons[name];
+if (!svg) {
+  const require = createRequire(import.meta.url);
+  try {
+    svg = readFileSync(require.resolve(`lucide-static/icons/${name}.svg`), 'utf8');
+  } catch {
+    throw new Error(`Icon "${name}" not found in lucide-static or custom icons`);
+  }
+}
+const a11y = label
+  ? 'role="img" aria-label="' + label.replace(/"/g, '&quot;') + '"'
+  : 'aria-hidden="true" focusable="false"';
+const attrs =
+  'width="' +
+  size +
+  '" height="' +
+  size +
+  '" stroke-width="' +
+  strokeWidth +
+  '" class="icon shrink-0 ' +
+  className +
+  '" ' +
+  a11y;
+svg = svg
+  .replace(COMMENT_RE, '')
+  .replace(/\s+class="[^"]*"/, '')
+  .replace(/\s+width="[^"]*"/, '')
+  .replace(/\s+height="[^"]*"/, '')
+  .replace(/\s+stroke-width="[^"]*"/, '')
+  .replace(OPEN_TAG, OPEN_TAG + ' ' + attrs)
+  .replace(/\n\s*/g, ' ')
+  .trim();
+---
+
+<Fragment set:html={svg} />

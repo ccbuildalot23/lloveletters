@@ -1,0 +1,73 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+---
+
+<BaseLayout
+  title="Checkout cancelled"
+  description="No problem, your rug is held for a few more minutes."
+  noindex
+>
+  <section class="container-content section-pad max-w-2xl">
+    <h1>No problem — your rug is held for a few more minutes.</h1>
+    <p class="mt-3 text-body-lg text-stone">
+      Your hold lasts 30 minutes from when you started checkout.{' '}
+      <span class="tnum font-medium text-charcoal" data-remaining>
+        Calculating…
+      </span>
+    </p>
+    <p class="mt-2 hidden text-body text-error" data-expired role="status">
+      The hold has expired. The rug is back on the site; you can start again from your cart.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button type="button" size="lg" data-resume loadingText="Reopening checkout…">
+        Return to checkout
+      </Button>
+      <Button href="/cart" variant="ghost" size="lg">
+        Back to cart
+      </Button>
+    </div>
+    <p class="mt-6 text-small text-stone">
+      Changed your mind? Nothing to do. The hold releases itself.
+    </p>
+  </section>
+  <script>
+    import { startCheckout } from '@/scripts/cart';
+    const p = new URLSearchParams(location.search);
+    const exp = Number(p.get('exp') ?? 0);
+    const ids = (p.get('ids') ?? '').split(',').filter(Boolean);
+    const hold = p.get('hold') ?? '';
+    const rem = document.querySelector<HTMLElement>('[data-remaining]')!;
+    const expired = document.querySelector<HTMLElement>('[data-expired]')!;
+    const btn = document.querySelector<HTMLButtonElement>('[data-resume]')!;
+    const tick = () => {
+      const ms = exp - Date.now();
+      if (!exp || ms <= 0) {
+        rem.textContent = '';
+        expired.classList.remove('hidden');
+        btn.disabled = true;
+        return;
+      }
+      rem.textContent = `${Math.floor(ms / 60000)}:${String(Math.floor((ms % 60000) / 1000)).padStart(2, '0')} remaining.`;
+      setTimeout(tick, 1000);
+    };
+    tick();
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({ rugIds: ids, resume_token: hold }),
+      })
+        .then((r) => r.json() as Promise<{ ok: boolean; url?: string }>)
+        .catch((): { ok: boolean; url?: string } => ({ ok: false }));
+      if (res.ok && res.url) location.assign(res.url);
+      else {
+        btn.disabled = false;
+        const r2 = await startCheckout(ids);
+        if (r2.ok) location.assign(r2.url);
+        else location.assign('/cart');
+      }
+    });
+  </script>
+</BaseLayout>

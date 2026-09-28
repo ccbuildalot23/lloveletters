@@ -1,0 +1,117 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import TradeForm from '@/components/forms/TradeForm.astro';
+import { site } from '@lib/site';
+import { faqJsonLd } from '@lib/jsonld';
+const benefits = [
+  {
+    icon: 'percent',
+    title: `${site.tradeDiscountPct}% trade pricing`,
+    body: 'Applied with your trade code at checkout, on every rug, every time.',
+  },
+  {
+    icon: 'clock',
+    title: 'Curated shortlists in 24 hours',
+    body: 'Send me the room, size, and palette. I send back a video shortlist from stock and from what’s on the looms in Turkey.',
+  },
+  {
+    icon: 'file-text',
+    title: 'Memo / on approval',
+    body: 'For approved accounts, rugs can ship on memo so your client sees it in the room before committing.',
+  },
+  {
+    icon: 'star',
+    title: 'First look at every drop',
+    body: '48 hours before the public. Holds on request.',
+  },
+];
+const steps = [
+  'Apply (2 minutes)',
+  'Approved within 48h',
+  'Shortlists on request',
+  'Memo / approval',
+  'Order with your code',
+];
+const faq = [
+  {
+    q: 'Who qualifies?',
+    a: 'Interior designers, architects, stagers, and hospitality buyers with a working website or portfolio. No minimum order.',
+  },
+  {
+    q: 'How does the discount work?',
+    a: `Approved members get a personal promotion code worth ${site.tradeDiscountPct}% off, entered at Stripe checkout. It’s tied to your email where Stripe allows it.`,
+  },
+  {
+    q: 'Can I get custom sizes?',
+    a: 'Yes, for new hand-knotted pieces, with a 4–6 month lead time and a deposit. Email me the spec and I’ll quote from the workshop directly.',
+  },
+  {
+    q: 'Do trade orders have the same return policy?',
+    a: 'Yes, 30 days from delivery. Memo terms are agreed per project.',
+  },
+];
+---
+
+<BaseLayout
+  title="Trade program · 15% pricing, shortlists in 24h"
+  description="For interior designers: 15% trade pricing, curated video shortlists within 24 hours, memo terms, and first look at every drop. Apply in two minutes."
+  jsonLd={[faqJsonLd(faq)]}
+>
+  <div class="container-content pt-6 pb-24">
+    <Breadcrumbs items={[{ label: 'Trade program' }]} />
+    <header class="mt-4 max-w-3xl">
+      <p class="text-small font-medium tracking-wide text-madder uppercase">
+        For designers &amp; the trade
+      </p>
+      <h1 class="mt-2">
+        Rug pulls in 24 hours. {site.tradeDiscountPct}% off. No haggling on your behalf either.
+      </h1>
+      <p class="mt-3 text-body-lg text-stone">
+        Fast approvals, honest condition reports, and a real person on the phone. Everything a
+        client meeting needs.
+      </p>
+    </header>
+    <ul class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {benefits.map((b) => (
+        <li class="rounded-card bg-sand p-6">
+          <Icon name={b.icon} size={32} class="text-madder" />
+          <h2 class="mt-3 font-sans text-h4 font-semibold text-indigo">{b.title}</h2>
+          <p class="mt-1 text-small text-charcoal">{b.body}</p>
+        </li>
+      ))}
+    </ul>
+    <section class="mt-16" aria-labelledby="how-title">
+      <h2 id="how-title">How it works</h2>
+      <ol class="mt-6 grid gap-4 sm:grid-cols-5">
+        {steps.map((s, i) => (
+          <li class="flex items-start gap-3 sm:flex-col">
+            <span class="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo text-small font-semibold text-ivory">
+              {i + 1}
+            </span>
+            <span class="text-body font-medium text-charcoal">{s}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+    <div class="mt-16 grid gap-12 lg:grid-cols-[1fr_360px]">
+      <section aria-labelledby="apply-title">
+        <h2 id="apply-title">Apply</h2>
+        <p class="mt-2 text-body text-stone">Two minutes. I review every application myself.</p>
+        <div class="mt-6 rounded-card border border-line bg-white p-6">
+          <TradeForm />
+        </div>
+      </section>
+      <aside>
+        <h2 class="text-h3">Trade FAQ</h2>
+        <Accordion
+          class="mt-4"
+          items={faq.map((f) => ({ title: f.q, content: `<p>${f.a}</p>` }))}
+          name="trade-faq"
+        />
+      </aside>
+    </div>
+  </div>
+</BaseLayout>

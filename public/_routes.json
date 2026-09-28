@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "description": "Only these paths invoke Pages Functions; everything else is served as static assets.",
+  "include": ["/api/*", "/admin", "/admin/*", "/rugs/TR-*", "/rugs/tr-*"],
+  "exclude": []
+}

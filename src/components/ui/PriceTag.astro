@@ -1,0 +1,50 @@
+---
+/**
+ * Price with "Duties included" microcopy. Honors LAUNCH_MODE=waitlist (hides price).
+ * Never shows compare-at / strike-through "was" prices (forbidden by 7.1).
+ */
+import { formatUsd } from '@lib/format';
+import { isWaitlistMode, site } from '@lib/site';
+interface Props {
+  priceUsd: number;
+  dutiesIncluded?: boolean;
+  status?: 'available' | 'reserved' | 'sold';
+  size?: 'sm' | 'md' | 'lg';
+  showBnpl?: boolean;
+  class?: string;
+}
+const {
+  priceUsd,
+  dutiesIncluded = true,
+  status = 'available',
+  size = 'md',
+  showBnpl = false,
+  class: className = '',
+} = Astro.props;
+const sizes = { sm: 'text-body', md: 'text-h4', lg: 'text-h3' };
+const hidden = isWaitlistMode;
+const bnplMonthly = Math.ceil(priceUsd / 12);
+---
+
+<div class={`price-tag ${className}`} data-price={priceUsd} data-status={status}>
+  {hidden ? (
+    <p class="font-medium text-indigo">Price revealed at launch</p>
+  ) : status === 'sold' ? (
+    <p class={`tnum font-display ${sizes[size]} text-stone`}>
+      <span class="visually-hidden">Sold for </span>
+      <s aria-hidden="true">{formatUsd(priceUsd)}</s>
+      <span class="ml-2 text-small font-sans not-italic">Sold</span>
+    </p>
+  ) : (
+    <p class={`tnum font-display ${sizes[size]} text-indigo`}>{formatUsd(priceUsd)}</p>
+  )}
+  {!hidden && dutiesIncluded && status !== 'sold' && (
+    <p class="text-small text-stone">Duties &amp; US shipping included</p>
+  )}
+  {!hidden && showBnpl && site.bnplEnabled && status === 'available' && (
+    <p class="text-small text-stone">
+      As low as <span class="tnum font-medium text-charcoal">{formatUsd(bnplMonthly)}/mo</span> with
+      Affirm or Klarna at checkout.
+    </p>
+  )}
+</div>

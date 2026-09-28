@@ -1,0 +1,127 @@
+---
+/** "Find me one like this" / filter request (11.1). Prefill via props; criteria JSON travels in a hidden field. */
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Select from './Select.astro';
+import Checkbox from './Checkbox.astro';
+import Turnstile from './Turnstile.astro';
+import { SIZE_BUCKETS, STYLES, COLOR_SWATCHES } from '@lib/catalog-constants';
+interface Props {
+  id?: string;
+  compact?: boolean;
+  rugId?: string;
+  size?: string;
+  style?: string;
+  colors?: string[];
+  class?: string;
+}
+const {
+  id = 'request-form',
+  compact = false,
+  rugId,
+  size,
+  style,
+  colors = [],
+  class: className = '',
+} = Astro.props;
+---
+
+<form
+  id={id}
+  class={`request-form flex flex-col gap-4 ${className}`}
+  method="post"
+  action="/api/forms/request"
+  data-form="request"
+  data-form-type="request"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <input type="hidden" name="source" value="" data-utm />
+  <input type="hidden" name="criteria" value="" data-criteria />
+  {rugId && <input type="hidden" name="rug_id" value={rugId} />}
+  <FormField
+    name="email"
+    label="Email"
+    type="email"
+    required
+    autocomplete="email"
+    inputmode="email"
+  />
+  <div class="grid gap-4 sm:grid-cols-2">
+    <Select
+      name="size"
+      label="Size"
+      placeholder="Any size"
+      options={SIZE_BUCKETS.map((s) => ({
+        value: s.value,
+        label: s.label,
+        selected: s.value === size,
+      }))}
+    />
+    <Select
+      name="style"
+      label="Style"
+      placeholder="Any style"
+      options={STYLES.filter((s) => s.value !== 'silk').map((s) => ({
+        value: s.value,
+        label: s.label,
+        selected: s.value === style,
+      }))}
+    />
+  </div>
+  {!compact && (
+    <fieldset>
+      <legend class="mb-1 text-small font-medium text-charcoal">Colors</legend>
+      <div class="flex flex-wrap gap-x-4">
+        {COLOR_SWATCHES.map((c) => (
+          <Checkbox
+            name="colors"
+            value={c.value}
+            label={c.label}
+            checked={colors.includes(c.value)}
+            class="min-h-[40px] py-1"
+          />
+        ))}
+      </div>
+    </fieldset>
+  )}
+  <Select
+    name="budget"
+    label="Budget"
+    placeholder="Prefer not to say"
+    options={[
+      { value: 'under-1000', label: 'Under $1,000' },
+      { value: '1000-2000', label: '$1,000–2,000' },
+      { value: '2000-3000', label: '$2,000–3,000' },
+      { value: '3000-plus', label: '$3,000+' },
+    ]}
+  />
+  <FormField
+    name="notes"
+    label="Anything else?"
+    as="textarea"
+    rows={3}
+    hint="Room, palette, what you liked about the sold one."
+  />
+  <Turnstile action="request" />
+  <Button type="submit" variant="secondary" loadingText="Sending…">
+    Tell me when it arrives
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      Got it. I’ll email you when something close comes through the workshop door.
+    </p>
+  </div>
+</form>

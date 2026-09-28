@@ -1,0 +1,79 @@
+---
+import Button from '../ui/Button.astro';
+import FormField from './FormField.astro';
+import Select from './Select.astro';
+import Turnstile from './Turnstile.astro';
+---
+
+<form
+  id="return-form"
+  class="return-form flex flex-col gap-4"
+  method="post"
+  action="/api/forms/return"
+  enctype="multipart/form-data"
+  data-form="return"
+  data-form-type="return"
+  novalidate
+>
+  <div
+    class="form-summary hidden rounded-card border border-error bg-white p-4 text-small text-error"
+    role="alert"
+    tabindex="-1"
+  ></div>
+  <input
+    type="text"
+    name="website_url"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+    class="hidden"
+  />
+  <div class="grid gap-4 sm:grid-cols-2">
+    <FormField
+      name="order_email"
+      label="Email used at checkout"
+      type="email"
+      required
+      autocomplete="email"
+      inputmode="email"
+    />
+    <FormField name="order_number" label="Order number" required hint="On your Stripe receipt." />
+    <FormField
+      name="rug_id"
+      label="Rug ID"
+      required
+      placeholder="TR-0042"
+      pattern="^[Tt][Rr]-\d{4}$"
+    />
+    <Select
+      name="reason"
+      label="Reason"
+      placeholder="Pick one"
+      options={[
+        'Colors look different in my room',
+        'Size doesn’t work',
+        'Changed my mind',
+        'Arrived damaged',
+        'Not as described',
+        'Other',
+      ].map((v) => ({ value: v, label: v }))}
+    />
+  </div>
+  <FormField
+    name="photos"
+    label="Photos (optional, up to 4)"
+    type="file"
+    accept="image/jpeg,image/png,image/heic"
+    multiple
+    hint="Helpful for damage claims."
+  />
+  <Turnstile action="return" />
+  <Button type="submit" size="lg" loadingText="Starting return…">
+    Start my return
+  </Button>
+  <div class="form-success hidden rounded-card bg-sand p-4 text-charcoal" role="status">
+    <p class="font-medium text-olive-dark">
+      Return started. You’ll get a prepaid label and instructions by email within one business day.
+    </p>
+  </div>
+</form>

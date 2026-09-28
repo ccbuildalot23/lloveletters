@@ -1,0 +1,69 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import { site } from '@lib/site';
+---
+
+<ContentLayout
+  title="Terms of sale"
+  description="Terms of sale: one-of-a-kind items, pricing with duties included, 30-day returns, the authenticity guarantee, and trade terms."
+  h1="Terms of sale"
+  updated="2026-09-28"
+  toc={[
+    { id: 'items', label: 'One-of-a-kind items' },
+    { id: 'pricing', label: 'Pricing & tax' },
+    { id: 'returns', label: 'Returns' },
+    { id: 'guarantee', label: 'Authenticity guarantee' },
+    { id: 'trade', label: 'Trade accounts' },
+    { id: 'liability', label: 'Liability' },
+  ]}
+>
+  <p>
+    [EDIT: have a lawyer review before launch.] These terms apply to every purchase from{' '}
+    {site.dealerName}.
+  </p>
+  <section id="items" class="scroll-mt-24">
+    <h2>One-of-a-kind items</h2>
+    <p>
+      Every rug is a single, unique item. Checkout holds a rug for 30 minutes while you pay; if
+      payment isn’t completed the hold releases automatically. In the rare case two orders complete
+      for the same rug because of a technical fault, the earlier payment wins and the other is
+      refunded in full immediately.
+    </p>
+  </section>
+  <section id="pricing" class="scroll-mt-24">
+    <h2>Pricing &amp; tax</h2>
+    <p>
+      Prices are in US dollars and include insured shipping to US addresses and all import duties
+      and tariffs. Sales tax is calculated and added at checkout where required. Prices are fixed;
+      we do not negotiate and we do not run fake discounts.
+    </p>
+  </section>
+  <section id="returns" class="scroll-mt-24">
+    <h2>Returns</h2>
+    <p>
+      See the <a href="/returns">returns page</a>: 30 days from delivery, original condition, refund
+      within 5 business days of receipt. Return shipping: {site.returnShipping}.
+    </p>
+  </section>
+  <section id="guarantee" class="scroll-mt-24">
+    <h2>Authenticity guarantee</h2>
+    <p>
+      If an independent appraiser finds that a rug isn’t what we described on its product page and
+      certificate, we refund you in full, including return shipping.
+    </p>
+  </section>
+  <section id="trade" class="scroll-mt-24">
+    <h2>Trade accounts</h2>
+    <p>
+      Trade pricing is for approved design professionals and is applied by promotion code. Memo
+      terms are agreed in writing per project.
+    </p>
+  </section>
+  <section id="liability" class="scroll-mt-24">
+    <h2>Liability</h2>
+    <p>
+      Our liability for any order is limited to the amount you paid for it. Nothing here limits
+      rights you have under law.
+    </p>
+  </section>
+</ContentLayout>

@@ -1,0 +1,55 @@
+---
+/**
+ * Consent banner (15.2). Only rendered when PUBLIC_CONSENT_BANNER=true. Respects GPC/DNT
+ * by never loading marketing tags (handled in analytics.ts) regardless of this banner.
+ */
+import Button from '../ui/Button.astro';
+---
+
+<div
+  id="cookie-notice"
+  class="fixed inset-x-4 bottom-4 z-50 mx-auto max-w-xl rounded-card border border-line bg-white p-4 shadow-elevation safe-bottom"
+  role="dialog"
+  aria-labelledby="cookie-title"
+  aria-describedby="cookie-desc"
+  hidden
+>
+  <h2 id="cookie-title" class="font-sans text-body font-semibold text-indigo">
+    Cookies, briefly
+  </h2>
+  <p id="cookie-desc" class="mt-1 text-small text-charcoal">
+    I use cookieless analytics always, and marketing pixels only if you say yes.{' '}
+    <a href="/privacy">Privacy policy</a>.
+  </p>
+  <div class="mt-3 flex flex-wrap gap-2">
+    <Button size="sm" data-consent="granted">
+      Allow marketing
+    </Button>
+    <Button size="sm" variant="ghost" data-consent="denied">
+      Essential only
+    </Button>
+  </div>
+</div>
+<script>
+  const box = document.getElementById('cookie-notice');
+  if (box) {
+    let stored: string | null = null;
+    try {
+      stored = localStorage.getItem('consent_marketing');
+    } catch {
+      /* noop */
+    }
+    if (!stored) box.hidden = false;
+    box.querySelectorAll<HTMLElement>('[data-consent]').forEach((b) =>
+      b.addEventListener('click', () => {
+        try {
+          localStorage.setItem('consent_marketing', b.dataset.consent!);
+        } catch {
+          /* noop */
+        }
+        box.hidden = true;
+        window.dispatchEvent(new CustomEvent('consent:change', { detail: b.dataset.consent }));
+      }),
+    );
+  }
+</script>

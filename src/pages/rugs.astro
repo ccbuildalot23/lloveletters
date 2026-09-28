@@ -1,0 +1,22 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CollectionPage from '@/components/collection/CollectionPage.astro';
+import { byNewest } from '@lib/catalog';
+import { collectionJsonLd } from '@lib/jsonld';
+import { site } from '@lib/site';
+---
+
+<BaseLayout
+  title="All rugs · One-of-a-kind hand-knotted Turkish rugs"
+  description="Every hand-knotted Turkish rug in stock, filmed at the loom. Filter by size, style, region, color and price. Duties included, 30-day returns."
+  jsonLd={[collectionJsonLd('All rugs', `${site.url}/rugs`, byNewest)]}
+>
+  <CollectionPage
+    title="All rugs"
+    intro="Every rug here is one of one, hand-knotted or hand-woven in Turkey, and flipped on camera before I bought it. Prices include duties and US shipping."
+    rugs={byNewest}
+    baseHref="/rugs"
+    crumbs={[{ label: 'All rugs', href: '/rugs' }]}
+    listName="all_rugs"
+  />
+</BaseLayout>

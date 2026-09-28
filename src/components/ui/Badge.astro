@@ -1,0 +1,49 @@
+---
+/** Status/marketing badge. kind: one-of-one | new | vintage | antique | sold | reserved | trade | sample | info */
+interface Props {
+  kind?:
+    | 'one-of-one'
+    | 'new'
+    | 'vintage'
+    | 'antique'
+    | 'sold'
+    | 'reserved'
+    | 'trade'
+    | 'sample'
+    | 'info'
+    | 'available';
+  class?: string;
+}
+const { kind = 'info', class: className = '' } = Astro.props;
+const styles: Record<string, string> = {
+  'one-of-one': 'bg-indigo text-ivory',
+  new: 'bg-saffron text-charcoal',
+  vintage: 'bg-sand text-indigo border border-line',
+  antique: 'bg-sand text-indigo border border-line',
+  sold: 'bg-charcoal text-white',
+  reserved: 'bg-white text-indigo border border-indigo',
+  trade: 'bg-olive text-white',
+  available: 'bg-olive text-white',
+  sample: 'bg-error text-white',
+  info: 'bg-white text-charcoal border border-line',
+};
+const labels: Record<string, string> = {
+  'one-of-one': 'One of one',
+  new: 'New arrival',
+  vintage: 'Vintage',
+  antique: 'Antique',
+  sold: 'Sold',
+  reserved: 'In someone’s cart',
+  trade: 'Trade',
+  available: 'Available',
+  sample: 'Sample',
+  info: '',
+};
+---
+
+<span
+  class={`badge inline-flex items-center rounded-input px-2 py-0.5 text-caption font-medium uppercase tracking-wide ${styles[kind]} ${className}`}
+  data-badge={kind}
+>
+  <slot>{labels[kind]}</slot>
+</span>

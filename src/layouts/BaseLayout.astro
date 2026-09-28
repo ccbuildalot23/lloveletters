@@ -1,0 +1,136 @@
+---
+/**
+ * Base layout: skip link, announcement bar, header, main, footer, overlays, analytics.
+ * Props: title, description, canonical, image, type, noindex, transparentHeader, bodyClass, jsonLd (array of objects)
+ */
+import '@/styles/global.css';
+import Seo from '@/components/Seo.astro';
+import SkipLink from '@/components/layout/SkipLink.astro';
+import AnnouncementBar from '@/components/layout/AnnouncementBar.astro';
+import Header from '@/components/layout/Header.astro';
+import MobileMenu from '@/components/layout/MobileMenu.astro';
+import Footer from '@/components/layout/Footer.astro';
+import CookieNotice from '@/components/layout/CookieNotice.astro';
+import SearchOverlay from '@/components/search/SearchOverlay.astro';
+import CartDrawer from '@/components/cart/CartDrawer.astro';
+import Toast from '@/components/ui/Toast.astro';
+import { site, isWaitlistMode } from '@lib/site';
+import { organizationJsonLd } from '@lib/jsonld';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: 'website' | 'article' | 'product';
+  noindex?: boolean;
+  transparentHeader?: boolean;
+  bodyClass?: string;
+  jsonLd?: Record<string, unknown>[];
+  hideFooter?: boolean;
+}
+const {
+  title,
+  description,
+  canonical,
+  image,
+  imageAlt,
+  type,
+  noindex,
+  transparentHeader = false,
+  bodyClass = '',
+  jsonLd = [],
+  hideFooter = false,
+} = Astro.props;
+const consentBanner = (import.meta.env.PUBLIC_CONSENT_BANNER || 'false') === 'true';
+const analyticsConfig = { ga4Id: site.ga4Id, pixelId: site.metaPixelId, consentBanner };
+const allJsonLd = [organizationJsonLd(), ...jsonLd];
+---
+
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#F6F1E9" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo
+      title={title}
+      description={description}
+      canonical={canonical}
+      image={image}
+      imageAlt={imageAlt}
+      type={type}
+      noindex={noindex}
+    />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-opsz-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/inter-latin-wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} product feed`}
+      href="/feed.xml"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {allJsonLd.map((obj) => (
+      <script type="application/ld+json" set:html={JSON.stringify(obj)} />
+    ))}
+    <script is:inline define:vars={{ analyticsConfig, isWaitlistMode }}>
+      window.__analyticsConfig = analyticsConfig;
+      window.__launchMode = isWaitlistMode ? 'waitlist' : 'live';
+    </script>
+    <slot name="head" />
+  </head>
+  <body class={`flex min-h-dvh flex-col bg-ivory text-charcoal ${bodyClass}`}>
+    <SkipLink />
+    <AnnouncementBar />
+    <Header transparent={transparentHeader} />
+    <main id="main" class="flex-1" tabindex="-1">
+      <slot />
+    </main>
+    {!hideFooter && <Footer />}
+    <MobileMenu />
+    <SearchOverlay />
+    {!isWaitlistMode && <CartDrawer />}
+    <Toast />
+    {consentBanner && <CookieNotice />}
+    {site.cfBeaconToken && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon={`{"token": "${site.cfBeaconToken}"}`}
+      />
+    )}
+    <script>
+      import { initOverlays } from '@/scripts/overlays';
+      import { initForms } from '@/scripts/forms';
+      import { captureUtm } from '@/scripts/utm';
+      import { initAnalytics } from '@/scripts/analytics';
+      import { initWishlist } from '@/scripts/wishlist';
+      import { initUnitToggle } from '@/scripts/units';
+      captureUtm();
+      initOverlays();
+      initForms();
+      initWishlist();
+      initUnitToggle();
+      initAnalytics();
+    </script>
+  </body>
+</html>

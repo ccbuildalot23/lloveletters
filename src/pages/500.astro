@@ -1,0 +1,23 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ErrorState from '@/components/ui/ErrorState.astro';
+---
+
+<BaseLayout
+  title="Something went wrong"
+  description="A server error occurred. Try again or contact us."
+  noindex
+>
+  <section class="container-content section-pad">
+    <p class="text-small font-medium tracking-wide text-madder uppercase">500</p>
+    <h1 class="mt-2">Well, that knot slipped.</h1>
+    <p class="mt-4 text-body-lg text-stone">
+      Something broke on our side, not yours. The error has been logged (without any of your
+      details).
+    </p>
+    <ErrorState class="mt-8" />
+  </section>
+  <script>
+    document.querySelector('[data-retry]')?.addEventListener('click', () => location.reload());
+  </script>
+</BaseLayout>

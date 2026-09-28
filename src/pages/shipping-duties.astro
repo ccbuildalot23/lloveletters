@@ -1,0 +1,82 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+---
+
+<ContentLayout
+  title="Shipping & duties · all included"
+  description="Every price includes insured express shipping to any US address and all import duties and tariffs. Delivery in 5–10 business days with tracking."
+  h1="Shipping &amp; duties"
+  intro="The price on the page is the price at your door."
+  updated="2026-09-28"
+  toc={[
+    { id: 'included', label: 'What’s included' },
+    { id: 'times', label: 'Delivery times' },
+    { id: 'tariffs', label: 'Tariffs, honestly' },
+    { id: 'delivery', label: 'On delivery day' },
+  ]}
+>
+  <section id="included" class="scroll-mt-24">
+    <h2>What’s included</h2>
+    <ul>
+      <li>Insured express courier shipping from Turkey to any address in the 50 US states.</li>
+      <li>
+        All US import duties, tariffs, merchandise processing fees, and customs brokerage. Shipments
+        are sent Delivered Duty Paid.
+      </li>
+      <li>Tracking by email the moment it ships, and a text if you want one.</li>
+    </ul>
+    <p>
+      Not included: sales tax, which Stripe calculates at checkout where required by your state.
+    </p>
+  </section>
+  <section id="times" class="scroll-mt-24">
+    <h2>Delivery times</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Size</th>
+          <th>Ships within</th>
+          <th>Arrives in</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Up to 6×9</td>
+          <td>2 business days</td>
+          <td>5–8 business days</td>
+        </tr>
+        <tr>
+          <td>8×10 and 9×12</td>
+          <td>2 business days</td>
+          <td>6–10 business days</td>
+        </tr>
+        <tr>
+          <td>10×14 and up</td>
+          <td>3 business days</td>
+          <td>7–12 business days</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Each product page shows the note for that specific rug. Holidays in Turkey (Eid, Republic Day)
+      can add a day or two; I’ll tell you if they will.
+    </p>
+  </section>
+  <section id="tariffs" class="scroll-mt-24">
+    <h2>Tariffs, honestly</h2>
+    <p>
+      US tariff policy on Turkish goods has changed several times recently. Whatever it is on the
+      day your rug clears customs, I pay it. If a rug is already sold to you and a tariff goes up
+      before it ships, that’s my cost, not yours. [EDIT: keep this paragraph current with the
+      Section 301 status.]
+    </p>
+  </section>
+  <section id="delivery" class="scroll-mt-24">
+    <h2>On delivery day</h2>
+    <p>
+      Rugs ship rolled in a heavy bag inside a box or sleeve. Check the outside for damage before
+      signing if you can. Unroll it, let it lie flat for a day, and vacuum once (no beater bar). Any
+      shipping damage: photos within 48 hours and I’ll handle the claim; you won’t.
+    </p>
+  </section>
+</ContentLayout>

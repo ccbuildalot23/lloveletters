@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  title: string;
+  open?: boolean;
+  name?: string;
+  id?: string;
+  headingLevel?: 2 | 3 | 4;
+}
+const { title, open = false, name, id, headingLevel = 3 } = Astro.props;
+const H = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
+---
+
+<details class="group" name={name} open={open} id={id}>
+  <summary class="flex min-h-[48px] items-center justify-between gap-4 py-3 text-left">
+    <H class="font-sans text-body font-semibold text-indigo">{title}</H>
+    <Icon
+      name="chevron-down"
+      size={20}
+      class="text-indigo transition-transform duration-drawer ease-brand group-open:rotate-180"
+    />
+  </summary>
+  <div class="prose-brand pb-4 text-charcoal">
+    <slot />
+  </div>
+</details>

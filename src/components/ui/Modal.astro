@@ -1,0 +1,33 @@
+---
+/**
+ * Native <dialog> modal: focus trap (browser-native for showModal), Esc closes,
+ * returns focus to trigger, aria-modal and labelled title.
+ * Open with: document.getElementById(id).showModal() or data-open-modal="id" on a button.
+ */
+import IconButton from './IconButton.astro';
+interface Props {
+  id: string;
+  title: string;
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+const { id, title, class: className = '', size = 'md' } = Astro.props;
+const sizes = { sm: 'max-w-md', md: 'max-w-xl', lg: 'max-w-3xl' };
+---
+
+<dialog
+  id={id}
+  class={`modal m-auto w-[calc(100%-32px)] ${sizes[size]} rounded-card bg-ivory p-0 text-charcoal shadow-elevation backdrop:bg-charcoal/50 open:anim-fade ${className}`}
+  aria-labelledby={`${id}-title`}
+  aria-modal="true"
+>
+  <div class="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
+    <h2 id={`${id}-title`} class="font-sans text-h4 font-semibold text-indigo">
+      {title}
+    </h2>
+    <IconButton icon="x" label="Close dialog" data-close-modal />
+  </div>
+  <div class="max-h-[80dvh] overflow-y-auto px-6 py-5">
+    <slot />
+  </div>
+</dialog>

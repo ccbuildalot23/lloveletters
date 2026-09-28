@@ -1,0 +1,68 @@
+---
+/** Crawlable pagination + "Load more" button (6.4). */
+import Button from './Button.astro';
+interface Props {
+  current: number;
+  total: number;
+  baseHref: string;
+  pageSize?: number;
+  class?: string;
+}
+const { current, total, baseHref, class: className = '' } = Astro.props;
+const href = (p: number) =>
+  p === 1 ? baseHref : `${baseHref}${baseHref.includes('?') ? '&' : '?'}page=${p}`;
+---
+
+{total > 1 && (
+  <nav
+    aria-label="Pagination"
+    class={`pagination mt-8 flex flex-col items-center gap-4 ${className}`}
+  >
+    {current < total && (
+      <Button
+        variant="secondary"
+        size="lg"
+        href={href(current + 1)}
+        data-load-more
+        data-next-page={current + 1}
+      >
+        Load more rugs
+      </Button>
+    )}
+    <ol class="flex flex-wrap items-center gap-1 text-small">
+      {current > 1 && (
+        <li>
+          <a
+            rel="prev"
+            href={href(current - 1)}
+            class="tap-target inline-flex items-center px-3 text-indigo no-underline hover:underline"
+          >
+            ← Previous
+          </a>
+        </li>
+      )}
+      {Array.from({ length: total }, (_, i) => i + 1).map((p) => (
+        <li>
+          <a
+            href={href(p)}
+            aria-current={p === current ? 'page' : undefined}
+            class={`tap-target tnum inline-flex items-center justify-center rounded-btn px-3 no-underline ${p === current ? 'bg-indigo text-ivory' : 'text-indigo hover:bg-sand'}`}
+          >
+            {p}
+          </a>
+        </li>
+      ))}
+      {current < total && (
+        <li>
+          <a
+            rel="next"
+            href={href(current + 1)}
+            class="tap-target inline-flex items-center px-3 text-indigo no-underline hover:underline"
+          >
+            Next →
+          </a>
+        </li>
+      )}
+    </ol>
+  </nav>
+)}

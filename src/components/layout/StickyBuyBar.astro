@@ -1,0 +1,65 @@
+---
+/** Mobile sticky bottom bar on product pages (7.7, 17.1). Shown after the in-page CTA scrolls out of view. */
+import Button from '../ui/Button.astro';
+import { formatUsd } from '@lib/format';
+import { isWaitlistMode } from '@lib/site';
+interface Props {
+  rugId: string;
+  priceUsd: number;
+  status: 'available' | 'reserved' | 'sold';
+}
+const { rugId, priceUsd, status } = Astro.props;
+---
+
+<div
+  id="sticky-buy-bar"
+  class="fixed inset-x-0 bottom-0 z-30 translate-y-full border-t border-line bg-ivory px-4 pt-3 transition-transform duration-drawer ease-brand safe-bottom lg:hidden"
+  data-sticky-bar
+  aria-hidden="true"
+>
+  <div class="flex items-center justify-between gap-4">
+    <div>
+      <p class="tnum font-display text-h4 text-indigo">
+        {isWaitlistMode ? 'At launch' : formatUsd(priceUsd)}
+      </p>
+      <p class="text-caption text-stone">
+        {isWaitlistMode ? 'Price revealed at launch' : 'Duties & US shipping included'}
+      </p>
+    </div>
+    {isWaitlistMode ? (
+      <Button href="/waitlist" size="md">
+        Join the drop list
+      </Button>
+    ) : status === 'available' ? (
+      <Button type="button" size="md" data-buy-now={rugId} loadingText="Reserving…">
+        Buy now
+      </Button>
+    ) : status === 'sold' ? (
+      <Button href="#find-similar" variant="secondary" size="md">
+        Find me one like it
+      </Button>
+    ) : (
+      <Button href="#notify" variant="secondary" size="md">
+        Notify me
+      </Button>
+    )}
+  </div>
+</div>
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-bar]');
+  const anchor = document.querySelector<HTMLElement>('[data-cta-anchor]');
+  if (bar && anchor && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        const show = !entry!.isIntersecting && entry!.boundingClientRect.top < 0;
+        bar.classList.toggle('translate-y-full', !show);
+        bar.setAttribute('aria-hidden', String(!show));
+        bar
+          .querySelectorAll<HTMLElement>('a,button')
+          .forEach((el) => (el.tabIndex = show ? 0 : -1));
+      },
+      { threshold: 0 },
+    );
+    io.observe(anchor);
+  }
+</script>

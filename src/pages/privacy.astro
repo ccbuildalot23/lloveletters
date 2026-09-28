@@ -1,0 +1,90 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import { site } from '@lib/site';
+---
+
+<ContentLayout
+  title="Privacy policy"
+  description="What we collect, why, and how to opt out. Cookieless analytics always; marketing pixels only with consent where required."
+  h1="Privacy policy"
+  updated="2026-09-28"
+  toc={[
+    { id: 'collect', label: 'What we collect' },
+    { id: 'analytics', label: 'Analytics & advertising' },
+    { id: 'email', label: 'Email' },
+    { id: 'uploads', label: 'Photos you upload' },
+    { id: 'payments', label: 'Payments' },
+    { id: 'rights', label: 'Your choices' },
+    { id: 'contact', label: 'Contact' },
+  ]}
+>
+  <p>
+    [EDIT: have a lawyer review before launch.] {site.dealerName} (“we”) runs this site. This policy
+    explains what we collect and why, in plain language.
+  </p>
+  <section id="collect" class="scroll-mt-24">
+    <h2>What we collect</h2>
+    <ul>
+      <li>
+        <strong>Forms:</strong> the information you type into the waitlist, trade, contact, request,
+        notify, return, and review forms, plus the page you were on and any campaign tags in the
+        link you arrived from.
+      </li>
+      <li>
+        <strong>Orders:</strong> name, email, phone, shipping address, and what you bought, received
+        from Stripe after checkout.
+      </li>
+      <li>
+        <strong>Local preferences:</strong> your cart, wishlist, unit preference (ft/cm), and
+        dismissed notices are stored in your browser only and never sent to us.
+      </li>
+    </ul>
+  </section>
+  <section id="analytics" class="scroll-mt-24">
+    <h2>Analytics &amp; advertising</h2>
+    <p>
+      We use Cloudflare Web Analytics, which is cookieless and does not track you across sites. We
+      may also use Google Analytics 4 and the Meta Pixel with server-side Conversions API to measure
+      ads. These load only after you interact with the page, never when your browser sends a Global
+      Privacy Control or Do Not Track signal, and, where a consent banner is shown, only if you
+      allow it.
+    </p>
+  </section>
+  <section id="email" class="scroll-mt-24">
+    <h2>Email</h2>
+    <p>
+      Joining the drop list adds you to our list at [EMAIL PROVIDER]. Every email has an unsubscribe
+      link and our postal address, as the CAN-SPAM Act requires. Order emails come from Stripe and
+      from us and are transactional.
+    </p>
+  </section>
+  <section id="uploads" class="scroll-mt-24">
+    <h2>Photos you upload</h2>
+    <p>
+      Room photos and review photos are stored in Cloudflare R2. We strip location and camera
+      metadata from JPEG and PNG files on upload. Room photos are used only to make your mockup and
+      are deleted on request. Review photos are shown publicly only after you submit a review and we
+      approve it.
+    </p>
+  </section>
+  <section id="payments" class="scroll-mt-24">
+    <h2>Payments</h2>
+    <p>
+      Checkout is handled by Stripe. We never see or store your card number. Stripe’s privacy policy
+      applies to the payment itself.
+    </p>
+  </section>
+  <section id="rights" class="scroll-mt-24">
+    <h2>Your choices</h2>
+    <p>
+      Email us to see, correct, or delete what we hold about you. We answer within 10 business days.
+      We do not sell personal information.
+    </p>
+  </section>
+  <section id="contact" class="scroll-mt-24">
+    <h2>Contact</h2>
+    <p>
+      {site.dealerName}, {site.address}. <a href={`mailto:${site.email}`}>{site.email}</a>.
+    </p>
+  </section>
+</ContentLayout>

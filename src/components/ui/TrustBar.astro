@@ -1,0 +1,48 @@
+---
+/** 5 icon+label trust items. Scrolls horizontally with snap on mobile, no auto-scroll. */
+import Icon from './Icon.astro';
+interface Props {
+  variant?: 'bar' | 'mini';
+  class?: string;
+  items?: Array<{ icon: string; label: string; href?: string }>;
+}
+const defaultItems = [
+  { icon: 'knot', label: 'Hand-knotted & verified', href: '/authenticity' },
+  { icon: 'duties', label: 'Duties included', href: '/shipping-duties' },
+  { icon: 'returns', label: '30-day returns', href: '/returns' },
+  { icon: 'us-support', label: 'US-based support', href: '/contact' },
+  { icon: 'lock', label: 'Secure checkout', href: '/faq#payments' },
+];
+const { variant = 'bar', class: className = '', items = defaultItems } = Astro.props;
+---
+
+{variant === 'bar' ? (
+  <section
+    aria-label="Why buy from us"
+    class={`trust-bar border-y border-line bg-sand ${className}`}
+  >
+    <ul class="container-content no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto py-4 md:justify-between md:gap-8 md:overflow-visible">
+      {items.map((item) => (
+        <li class="flex shrink-0 snap-start items-center gap-2 text-small font-medium text-indigo md:shrink">
+          <Icon name={item.icon} size={24} class="text-madder" />
+          {item.href ? (
+            <a href={item.href} class="text-indigo no-underline hover:underline">
+              {item.label}
+            </a>
+          ) : (
+            <span>{item.label}</span>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+) : (
+  <ul class={`trust-mini grid grid-cols-2 gap-x-4 gap-y-2 text-small text-stone ${className}`}>
+    {items.map((item) => (
+      <li class="flex items-center gap-2">
+        <Icon name={item.icon} size={20} class="text-olive" />
+        <span>{item.label}</span>
+      </li>
+    ))}
+  </ul>
+)}

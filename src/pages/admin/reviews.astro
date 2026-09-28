@@ -1,0 +1,72 @@
+---
+import AdminLayout from '@/layouts/AdminLayout.astro';
+---
+
+<AdminLayout title="Review moderation">
+  <p class="text-small text-stone">
+    Approve only reviews you can match to a real order. Approving triggers a rebuild (debounced).
+    Approved reviews are exported to src/data/reviews.json by the build pipeline (see README).
+  </p>
+  <div class="mt-4 flex gap-2">
+    <button
+      type="button"
+      data-filter="pending"
+      class="rounded-btn border border-line px-3 py-1 text-small"
+    >
+      Pending
+    </button>
+    <button
+      type="button"
+      data-filter="approved"
+      class="rounded-btn border border-line px-3 py-1 text-small"
+    >
+      Approved
+    </button>
+    <button
+      type="button"
+      data-filter="rejected"
+      class="rounded-btn border border-line px-3 py-1 text-small"
+    >
+      Rejected
+    </button>
+  </div>
+  <ul class="mt-4 flex flex-col gap-3" data-list></ul>
+  <script>
+    let filter = 'pending';
+    const list = document.querySelector<HTMLElement>('[data-list]')!;
+    async function load() {
+      const r = await fetch(`/api/admin/reviews?status=${filter}`).then(
+        (x) => x.json() as Promise<{ reviews: Array<Record<string, string | number | null>> }>,
+      );
+      list.innerHTML = r.reviews.length
+        ? r.reviews
+            .map(
+              (v) =>
+                `<li class="rounded-card border border-line bg-white p-4 text-small"><p><strong>${'★'.repeat(Number(v.rating))}</strong> ${v.title ?? ''} — ${v.display_name}${v.city ? `, ${v.city}` : ''} · ${String(v.created_at).slice(0, 10)}${v.rug_id ? ` · ${v.rug_id}` : ''}</p><p class="mt-2">${v.body}</p>${v.photo_key ? `<p class="mt-2"><a href="/api/admin/upload?key=${encodeURIComponent(String(v.photo_key))}" target="_blank" rel="noopener">photo</a></p>` : ''}${filter === 'pending' ? `<p class="mt-3 flex gap-2"><button type="button" data-approve="${v.id}" class="rounded-btn bg-olive px-3 py-1 text-white">Approve</button><button type="button" data-reject="${v.id}" class="rounded-btn border border-line px-3 py-1">Reject</button></p>` : ''}</li>`,
+            )
+            .join('')
+        : '<li class="text-stone">Nothing here.</li>';
+    }
+    document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((b) =>
+      b.addEventListener('click', () => {
+        filter = b.dataset.filter!;
+        void load();
+      }),
+    );
+    list.addEventListener('click', async (e) => {
+      const t = e.target as HTMLElement;
+      const id = t.dataset.approve ?? t.dataset.reject;
+      if (!id) return;
+      const r = await fetch('/api/admin/reviews', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ id: Number(id), action: t.dataset.approve ? 'approve' : 'reject' }),
+      }).then((x) => x.json() as Promise<{ deploy: string }>);
+      (window as unknown as { adminSay: (m: string) => void }).adminSay(
+        `Review ${id} ${t.dataset.approve ? 'approved' : 'rejected'}. Deploy: ${r.deploy}.`,
+      );
+      void load();
+    });
+    void load();
+  </script>
+</AdminLayout>

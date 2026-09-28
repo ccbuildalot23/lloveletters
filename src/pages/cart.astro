@@ -1,0 +1,150 @@
+---
+/** 8.1 No-JS fallback cart page: lists rugs from localStorage when JS runs; without JS, explains and links to the collection. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import TrustBar from '@/components/ui/TrustBar.astro';
+import { site, isWaitlistMode } from '@lib/site';
+const err = Astro.url.searchParams.get('error');
+---
+
+<BaseLayout
+  title="Your cart"
+  description="Review the rugs in your cart and check out securely with Stripe."
+  noindex
+>
+  <section class="container-content section-pad max-w-3xl">
+    <h1>Your cart</h1>
+    {err && (
+      <p
+        class="mt-3 rounded-card border border-error bg-white p-3 text-small text-error"
+        role="alert"
+      >
+        {err}
+      </p>
+    )}
+    {isWaitlistMode ? (
+      <div class="mt-6 rounded-card bg-sand p-6">
+        <p class="text-body-lg text-indigo">Checkout opens at launch.</p>
+        <p class="mt-1 text-small">
+          Join the drop list and you’ll get 48 hours of early access before anyone else.
+        </p>
+        <Button href="/waitlist" class="mt-4">
+          Join the drop list
+        </Button>
+      </div>
+    ) : (
+      <>
+        <noscript>
+          <p class="mt-4 text-body">
+            Your browser has JavaScript off, so the cart can’t be shown here. You can still buy any
+            rug: open its page and use the <strong>Buy now</strong> button, which works without
+            JavaScript.
+          </p>
+        </noscript>
+        <div class="mt-6" data-cart-page>
+          <ul class="divide-y divide-line" data-cart-page-lines></ul>
+          <p class="mt-4 text-body text-stone" data-cart-page-empty hidden>
+            Your cart is empty. <a href="/collections/new-arrivals">See the latest drop</a> or{' '}
+            <a href="/book">book a live look</a>.
+          </p>
+          <div
+            class="mt-6 hidden rounded-card border border-line bg-white p-5"
+            data-cart-page-footer
+          >
+            <p class="flex justify-between text-body">
+              <span>Subtotal</span>
+              <span class="tnum font-display text-h4 text-indigo" data-cart-page-subtotal>
+                $0
+              </span>
+            </p>
+            <ul class="mt-1 text-caption text-stone">
+              <li>Duties &amp; US shipping included</li>
+              <li>Sales tax calculated at checkout</li>
+              <li>Trade members: enter your code at checkout</li>
+            </ul>
+            <form method="post" action="/api/checkout" class="mt-4" data-cart-page-form>
+              <input type="hidden" name="rugIds" value="" data-cart-page-ids />
+              <Button type="submit" size="lg" full>
+                Checkout
+              </Button>
+            </form>
+            <p class="mt-2 hidden text-small text-error" data-cart-page-error role="alert"></p>
+          </div>
+        </div>
+        <TrustBar variant="mini" class="mt-8" />
+        <p class="mt-6 text-small text-stone">Trouble? Text {site.phone}.</p>
+      </>
+    )}
+  </section>
+  <script>
+    import {
+      getCart,
+      removeFromCart,
+      loadIndex,
+      fetchStatus,
+      startCheckout,
+      formatUsd,
+      ftIn,
+    } from '@/scripts/cart';
+    const root = document.querySelector<HTMLElement>('[data-cart-page]');
+    if (root) {
+      const lines = root.querySelector<HTMLElement>('[data-cart-page-lines]')!;
+      const empty = root.querySelector<HTMLElement>('[data-cart-page-empty]')!;
+      const footer = root.querySelector<HTMLElement>('[data-cart-page-footer]')!;
+      const subtotal = root.querySelector<HTMLElement>('[data-cart-page-subtotal]')!;
+      const idsInput = root.querySelector<HTMLInputElement>('[data-cart-page-ids]')!;
+      const form = root.querySelector<HTMLFormElement>('[data-cart-page-form]')!;
+      const errEl = root.querySelector<HTMLElement>('[data-cart-page-error]')!;
+      const hash = document.documentElement.dataset.cfImages || '';
+      const img = (i: string) =>
+        i.startsWith('sample-') || !hash
+          ? `/placeholders/${i}.svg`
+          : `https://imagedelivery.net/${hash}/${i}/thumb`;
+      async function render() {
+        const ids = getCart();
+        empty.hidden = ids.length > 0;
+        footer.classList.toggle('hidden', ids.length === 0);
+        if (!ids.length) return void (lines.innerHTML = '');
+        const [index, live] = await Promise.all([loadIndex(), fetchStatus(ids)]);
+        let sum = 0;
+        const buyable: string[] = [];
+        lines.innerHTML = ids
+          .map((id) => {
+            const r = index.find((x) => x.id === id);
+            if (!r) return '';
+            const st = live[id] ?? r.status;
+            if (st === 'available') {
+              sum += r.priceUsd;
+              buyable.push(id);
+            }
+            return `<li class="flex gap-4 py-4"><img src="${img(r.image)}" alt="" width="96" height="120" class="w-24 rounded bg-sand object-cover aspect-[4/5]" /><div class="flex-1"><a href="/rugs/${r.slug}" class="font-medium text-indigo">${r.title.replace('SAMPLE · ', '')}</a><p class="tnum text-small text-stone">${r.id} · ${ftIn(r.sizeFt.w)} × ${ftIn(r.sizeFt.l)}</p><p class="text-small ${st === 'available' ? 'text-olive-dark' : 'text-error'}">${st === 'available' ? 'Available — one of one' : st === 'sold' ? 'Just sold — removed from checkout' : 'In someone else’s cart'}</p><p class="tnum font-medium">${formatUsd(r.priceUsd)}</p></div><button type="button" class="self-start rounded p-2 text-stone hover:text-error" aria-label="Remove ${r.title} from cart" data-remove="${id}">✕</button></li>`;
+          })
+          .join('');
+        subtotal.textContent = formatUsd(sum);
+        idsInput.value = buyable.join(',');
+        lines.querySelectorAll<HTMLButtonElement>('[data-remove]').forEach((b) =>
+          b.addEventListener('click', () => {
+            removeFromCart(b.dataset.remove!);
+            void render();
+          }),
+        );
+      }
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const ids = idsInput.value.split(',').filter(Boolean);
+        if (!ids.length) return;
+        const res = await startCheckout(ids);
+        if (res.ok) return void location.assign(res.url);
+        errEl.textContent =
+          res.status === 409
+            ? 'One of these rugs is no longer available. Your cart has been updated.'
+            : res.status === 503
+              ? 'Checkout is temporarily unavailable. Text us to reserve this rug.'
+              : 'Couldn’t start checkout. Please try again.';
+        errEl.classList.remove('hidden');
+        void render();
+      });
+      void render();
+    }
+  </script>
+</BaseLayout>

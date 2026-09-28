@@ -1,0 +1,26 @@
+---
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import Accordion from '@/components/ui/Accordion.astro';
+import { faqSections, faqFlat } from '@lib/faq';
+import { faqJsonLd } from '@lib/jsonld';
+---
+
+<ContentLayout
+  title="FAQ · shipping, duties, returns, authenticity"
+  description="Straight answers on shipping times, duties included, 30-day returns, authenticity checks, sizing, care, payments, and whether rugs are an investment."
+  h1="Questions, answered plainly"
+  intro="If yours isn’t here, text me. I’d rather answer a question than process a return."
+  updated="2026-09-28"
+  toc={faqSections.map((s) => ({ id: s.id, label: s.title }))}
+  jsonLd={[faqJsonLd(faqFlat)]}
+>
+  {faqSections.map((s) => (
+    <section id={s.id} class="mb-10 scroll-mt-24">
+      <h2>{s.title}</h2>
+      <Accordion
+        items={s.items.map((i) => ({ title: i.q, content: `<p>${i.a}</p>` }))}
+        name={`faq-${s.id}`}
+      />
+    </section>
+  ))}
+</ContentLayout>
