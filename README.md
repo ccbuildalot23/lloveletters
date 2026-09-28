@@ -2,7 +2,7 @@
 
 Static Astro storefront on **Cloudflare Pages**, with **Pages Functions** for checkout, reservations, forms, and admin. Built from `BUILD_SPEC.md` (the Storefront Build Prompt). Brand rationale in `docs/BRAND.md`; pricing bands in `docs/PRICING.md`. Everything in `[BRACKETS]` and every `[EDIT]` marker is a placeholder for Chris to replace.
 
-> **Sample data:** the eight rugs in `src/data/products.json` are marked `SAMPLE` and use placeholder SVGs. Replace them before launch (see _Catalog_ below).
+> **Sample data:** the eight rugs in `src/data/products.json` are marked `SAMPLE` and use hotlinked Unsplash stock photos as stand-ins (credited on each product page; see `docs/SAMPLE_MEDIA.md`). Replace them before launch (see _Catalog_ below). Brand rationale in `docs/BRAND.md`, palette rules in `docs/COLOR.md`, open questions in `docs/HANDOFF.md`.
 
 ## Stack
 
@@ -132,7 +132,15 @@ Zero Trust → Access → Applications → Self-hosted: `[DOMAIN]/admin` and `[D
 
 **Phase 1 (now):** edit `src/data/products.json` (schema in `src/lib/schema.ts`, Section 7.1). `npm run new-rug` walks you through every field; `npm run validate-catalog` fails the build on bad data (forbidden `compareAtUsd`, "silk" without silk fiber, "investment", missing flip video, wrong size bucket…). Commit → Pages rebuilds.
 
-**Phase 2 (Airtable):** create a base **Rug Catalog** with a table **Rugs** and these fields (names are case-sensitive):
+**Phase 2 (Airtable):** the base already exists in the **Harmoniq Solutions** workspace: **Provenant Rugs — Catalog** (`AIRTABLE_BASE_ID=appyY3lhhzj1JbfT0`) with three tables:
+
+| Table              | ID                  | Purpose                                                                                                                                                              |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Rugs`             | `tbltfHRXBuxB52HNe` | Catalog, one row per rug, seeded with the 8 `SAMPLE` rugs (delete them before launch). Internal-only columns `wholesaleUsd`, `supplier`, `notes` are never exported. |
+| `DC Prospects`     | `tblON2kjIWGrzLA3b` | The 30 designer/stager interview prospects with the contact tracker (Contacted, Channel, Response, Interview date).                                                  |
+| `Launch Checklist` | `tblnIEnf2zEsV7i3i` | The launch checklist below, one row per item, so progress is trackable.                                                                                              |
+
+The `Rugs` fields (names are case-sensitive; recreate them if you ever rebuild the base):
 
 | Field                                                                                                                                                                      | Type                                                           |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
@@ -146,11 +154,19 @@ Zero Trust → Access → Applications → Self-hosted: `[DOMAIN]/admin` and `[D
 | `dutiesIncluded`, `publish`                                                                                                                                                | checkbox                                                       |
 | `dateAdded`, `soldAt`                                                                                                                                                      | date                                                           |
 
-`AIRTABLE_TOKEN` (personal access token, `data.records:read`) and `AIRTABLE_BASE_ID` as build env vars; add `npm run pull-airtable &&` in front of the Pages build command. An Airtable automation ("when `publish` changes → run script → `fetch(DEPLOY_HOOK_URL, {method:'POST'})`") publishes.
+`AIRTABLE_TOKEN` (personal access token scoped to this base, `data.records:read`) and `AIRTABLE_BASE_ID=appyY3lhhzj1JbfT0` as build env vars; add `npm run pull-airtable &&` in front of the Pages build command. An Airtable automation ("when `publish` changes → run script → `fetch(DEPLOY_HOOK_URL, {method:'POST'})`") publishes.
 
 **Media workflow:** shoot per Section 3.7 (front, back, 2 corners, fringe, macro, room, person-for-scale, lifestyle; flip video). Put files in `media/rug-TR-0042/` named `front.jpg`, `back.jpg`, `corner-1.jpg`, …, `flip.mp4`, `workshop.mp4`. Run `CF_ACCOUNT_ID=… CF_API_TOKEN=… npm run upload-media -- ./media/rug-TR-0042/` and paste the printed JSON into the rug entry (write real alt text). Then `npm run certificate -- TR-0042`.
 
 **Reviews pipeline:** reviews are submitted to D1 as `pending`, moderated at `/admin/reviews`, and exported by `GET /api/admin/reviews-export` (Access-protected). To publish them statically, add a build step that fetches that endpoint with a service token and writes `src/data/reviews.json` (or paste manually). Sections stay hidden until 3 approved reviews exist. Never seed fake reviews.
+
+## Brand assets
+
+- **Logo:** `src/components/ui/Logo.astro` (SVG Ghiordes-knot mark + Fraunces wordmark; `variant` full/mark/word, `tone` indigo/ivory). Used in the header (swaps to ivory over the hero), footer, `public/favicon.svg`, and the manifest icons.
+- **OG image:** `public/og-default.png` (1200×630), regenerated with `node scripts/og-image.mjs` (Playwright renders an HTML card in the brand palette).
+- **Palette and typography rules:** `docs/COLOR.md` (dye-derived tokens, split-complementary scheme, 60/30/10 usage, contrast rules enforced by `tests/unit/contrast.test.ts`).
+- **Canva:** logo concept board <https://canva.link/z139e3bu929drw1> and the Instagram "one rug, one story" template <https://canva.link/yh53h1nraw1kqkp>, both generated in Chris's Canva account for refinement. The in-repo SVG is the source of truth; export from Canva only for social.
+- **Sample photography:** Unsplash stand-ins, documented in `docs/SAMPLE_MEDIA.md`.
 
 ## Architecture notes
 
@@ -183,11 +199,11 @@ Zero Trust → Access → Applications → Self-hosted: `[DOMAIN]/admin` and `[D
 src/pages            routes (Astro), incl. rugs-index.json / search-index.json / feed.xml / robots.txt endpoints
 src/components       ui/ · forms/ · layout/ · product/ · collection/ · home/ · search/ · cart/
 src/scripts          client islands (analytics, forms, filters, search, cart, gallery, product, overlays…)
-src/lib              schema (Zod), catalog, site config, jsonld, images, format, tokens, contrast
-src/data             products.json (catalog), rooms.json, reviews.json
+src/lib              schema (Zod), catalog, site config, pricing bands, jsonld, images, format, tokens, contrast
+src/data             products.json (catalog), rooms.json, reviews.json, unsplash.mjs (sample photo pool + credits)
 functions            Pages Functions: api/* (status, checkout, stripe-webhook, order, health, forms/*, admin/*), admin/ guard, rugs/[slug] redirect, _lib/*
 migrations           D1 SQL
-scripts              validate-catalog, new-rug, sample-products, make-placeholders, pull-airtable, certificate, upload-media, check-budgets
+scripts              validate-catalog, new-rug, sample-products, make-placeholders, og-image, pull-airtable, certificate, upload-media, check-budgets
 tests                unit (vitest) · e2e (playwright: site, a11y, keyboard, reflow, api)
 public               _headers, _redirects, _routes.json, fonts, placeholders, favicon, manifest
 ```

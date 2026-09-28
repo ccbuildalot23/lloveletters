@@ -33,6 +33,15 @@ export const ImageSchema = z.object({
   ]),
   width: z.number().int().positive().optional(),
   height: z.number().int().positive().optional(),
+  /** Attribution for stock/sample photography (shown on the page). Real product photos need none. */
+  credit: z
+    .object({
+      name: z.string(),
+      url: z.string().url(),
+      source: z.string().optional(),
+      photoUrl: z.string().url().optional(),
+    })
+    .optional(),
 });
 
 export const VideoSchema = z.object({

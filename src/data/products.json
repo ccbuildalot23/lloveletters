@@ -38,74 +38,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0001-front",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, front",
+        "id": "https://images.unsplash.com/photo-1756362846991-f4509403ec4f",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 4394,
+        "height": 6591,
+        "credit": {
+          "name": "engin akyurt",
+          "url": "https://unsplash.com/@enginakyurt?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/sRrP1YIBd3A?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-back",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, back showing knots",
+        "id": "https://images.unsplash.com/photo-1531162805941-58330188d75c",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 3892,
+        "height": 5838,
+        "credit": {
+          "name": "Meriç Dağlı",
+          "url": "https://unsplash.com/@mericdagli?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/_F2ddD6Bohw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-corner1",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, corner detail",
+        "id": "https://images.unsplash.com/photo-1600750238520-f65ab4b18369",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 5125,
+        "height": 6406,
+        "credit": {
+          "name": "Ali Choubin",
+          "url": "https://unsplash.com/@alichubin?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/g_0SeHgWb6o?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-corner2",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1644977624606-4f7dc0093e7e",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 4000,
+        "height": 6000,
+        "credit": {
+          "name": "Robert Sciberras",
+          "url": "https://unsplash.com/@robertsciberras?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/GA7UcXH4JeM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-fringe",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1774215915657-851d8ee7d7bd",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 4032,
+        "height": 2688,
+        "credit": {
+          "name": "Leyla M",
+          "url": "https://unsplash.com/@leyla21m?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/Dxtt4o__kNg?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-macro",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1760519663238-6cfdf81416db",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 3014,
+        "height": 3015,
+        "credit": {
+          "name": "Nik Bagherzadegan",
+          "url": "https://unsplash.com/@nikbagherzadegan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qRfRAxu3tEI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-room",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1534889156217-d643df14f14a",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 5304,
+        "height": 6630,
+        "credit": {
+          "name": "Good Days Digital",
+          "url": "https://unsplash.com/@gooddaysdigital?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/Vra_DPrrBlE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-scale",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1594040226829-7f251ab46d80",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 3010,
+        "height": 2007,
+        "credit": {
+          "name": "Sina Saadatmand",
+          "url": "https://unsplash.com/@sinasaadatmand?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/gB9hryu1q40?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0001-lifestyle",
-        "alt": "Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1617103996702-96ff29b1c467",
+        "alt": "Sample stock photo standing in for TR-0001: Vintage Oushak rug, 5′ 2″ × 8′ 1″, faded coral, sage green and ivory, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 5760,
+        "height": 3240,
+        "credit": {
+          "name": "Spacejoy",
+          "url": "https://unsplash.com/@spacejoy?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/85pCvDWDMmI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0001",
         "kind": "flip",
-        "poster": "sample-TR-0001-back",
+        "poster": "https://images.unsplash.com/photo-1531162805941-58330188d75c",
         "caption": "The flip test: I turn TR-0001 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0001. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -114,7 +168,7 @@
       {
         "streamId": "sample-workshop-TR-0001",
         "kind": "workshop",
-        "poster": "sample-TR-0001-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1617103996702-96ff29b1c467",
         "caption": "The Uşak workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Uşak. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -166,74 +220,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0002-front",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, front",
+        "id": "https://images.unsplash.com/photo-1602795493253-c1da1fed546a",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 4000,
+        "height": 6000,
+        "credit": {
+          "name": "MeSSrro",
+          "url": "https://unsplash.com/@messrro?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/a1b5GcNrRLE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-back",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, back showing knots",
+        "id": "https://images.unsplash.com/photo-1761849450843-4ce9e6560b94",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 2227,
+        "height": 3698,
+        "credit": {
+          "name": "Nik Bagherzadegan",
+          "url": "https://unsplash.com/@nikbagherzadegan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/r9BiyglV2Yw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-corner1",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, corner detail",
+        "id": "https://images.unsplash.com/photo-1760519663238-6cfdf81416db",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 3014,
+        "height": 3015,
+        "credit": {
+          "name": "Nik Bagherzadegan",
+          "url": "https://unsplash.com/@nikbagherzadegan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qRfRAxu3tEI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-corner2",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1531162805941-58330188d75c",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 3892,
+        "height": 5838,
+        "credit": {
+          "name": "Meriç Dağlı",
+          "url": "https://unsplash.com/@mericdagli?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/_F2ddD6Bohw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-fringe",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1643766883805-829d9ad95c42",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 6720,
+        "height": 4480,
+        "credit": {
+          "name": "Mick Haupt",
+          "url": "https://unsplash.com/@rocinante_11?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/5EUy6c3e1bM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-macro",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1588421874990-1fe162747f9b",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 3712,
+        "height": 5568,
+        "credit": {
+          "name": "Ashkan Forouzani",
+          "url": "https://unsplash.com/@ashkfor121?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/eBwGgqSt1QA?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-room",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1628744876497-eb30460be9f6",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 6240,
+        "height": 4160,
+        "credit": {
+          "name": "Zac Gudakov",
+          "url": "https://unsplash.com/@zacgudakov?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/mw_mj-noYHM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-scale",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1616089180418-56172f6c3c2b",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 4608,
+        "height": 3456,
+        "credit": {
+          "name": "Parham Moieni",
+          "url": "https://unsplash.com/@pmoieni?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/AdoI9b6wZuo?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0002-lifestyle",
-        "alt": "New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c",
+        "alt": "Sample stock photo standing in for TR-0002: New Oushak rug, 7′ 11″ × 9′ 10″, ivory, slate gray and pale blue, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 4025,
+        "height": 2886,
+        "credit": {
+          "name": "Sven Brandsma",
+          "url": "https://unsplash.com/@seffen99?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/GZ5cKOgeIB0?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0002",
         "kind": "flip",
-        "poster": "sample-TR-0002-back",
+        "poster": "https://images.unsplash.com/photo-1761849450843-4ce9e6560b94",
         "caption": "The flip test: I turn TR-0002 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0002. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -242,7 +350,7 @@
       {
         "streamId": "sample-workshop-TR-0002",
         "kind": "workshop",
-        "poster": "sample-TR-0002-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1550581190-9c1c48d21d6c",
         "caption": "The Uşak workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Uşak. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -295,74 +403,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0003-front",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, front",
+        "id": "https://images.unsplash.com/photo-1619444978283-cccfb92c357d",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 3456,
+        "height": 5184,
+        "credit": {
+          "name": "Arun Sharma",
+          "url": "https://unsplash.com/@arunsharma?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/Vwb3jT9vZ9E?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-back",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, back showing knots",
+        "id": "https://images.unsplash.com/photo-1608724552874-cd6b9b751f92",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 2848,
+        "height": 3560,
+        "credit": {
+          "name": "Juli Kosolapova",
+          "url": "https://unsplash.com/@yuli_superson?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/6MPL5c2yank?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-corner1",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, corner detail",
+        "id": "https://images.unsplash.com/photo-1608724553307-9c0dddb3100a",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 2848,
+        "height": 4288,
+        "credit": {
+          "name": "Juli Kosolapova",
+          "url": "https://unsplash.com/@yuli_superson?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/l9nsJ2zMppw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-corner2",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1621700052663-f1170e9b26ec",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 5282,
+        "height": 6602,
+        "credit": {
+          "name": "Ali Choubin",
+          "url": "https://unsplash.com/@alichubin?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qsfgZ3P2C2E?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-fringe",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1726464107536-3b62e6d3d2cb",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 3779,
+        "height": 5848,
+        "credit": {
+          "name": "Mina Rad",
+          "url": "https://unsplash.com/@minarad?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/24-buXr_1TE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-macro",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1761988177300-d5c0c8a5c309",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 2992,
+        "height": 5982,
+        "credit": {
+          "name": "Erfan",
+          "url": "https://unsplash.com/@erfan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/SutfL_rMKns?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-room",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1560184897-67f4a3f9a7fa",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 4601,
+        "height": 3067,
+        "credit": {
+          "name": "Francesca Tosolini",
+          "url": "https://unsplash.com/@fromitaly?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/lLDh9JppH2c?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-scale",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1727024418120-77e4e204d09f",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 4000,
+        "height": 5824,
+        "credit": {
+          "name": "Mina Rad",
+          "url": "https://unsplash.com/@minarad?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/4VMI3oBueZA?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0003-lifestyle",
-        "alt": "Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1727192807128-0cee790dcc83",
+        "alt": "Sample stock photo standing in for TR-0003: Konya village rug, 4′ 6″ × 6′ 8″, madder red, indigo and ivory, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 3200,
+        "height": 2133,
+        "credit": {
+          "name": "Clay Banks",
+          "url": "https://unsplash.com/@claybanks?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/owVINZxTUHA?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0003",
         "kind": "flip",
-        "poster": "sample-TR-0003-back",
+        "poster": "https://images.unsplash.com/photo-1608724552874-cd6b9b751f92",
         "caption": "The flip test: I turn TR-0003 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0003. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -371,7 +533,7 @@
       {
         "streamId": "sample-workshop-TR-0003",
         "kind": "workshop",
-        "poster": "sample-TR-0003-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1727192807128-0cee790dcc83",
         "caption": "The Konya workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Konya. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -419,74 +581,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0004-front",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, front",
+        "id": "https://images.unsplash.com/photo-1594040226829-7f251ab46d80",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 3010,
+        "height": 2007,
+        "credit": {
+          "name": "Sina Saadatmand",
+          "url": "https://unsplash.com/@sinasaadatmand?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/gB9hryu1q40?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-back",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, back showing knots",
+        "id": "https://images.unsplash.com/photo-1774215915657-851d8ee7d7bd",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 4032,
+        "height": 2688,
+        "credit": {
+          "name": "Leyla M",
+          "url": "https://unsplash.com/@leyla21m?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/Dxtt4o__kNg?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-corner1",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, corner detail",
+        "id": "https://images.unsplash.com/photo-1782304986577-86b80f0187e4",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 4000,
+        "height": 6000,
+        "credit": {
+          "name": "Shana Van Roosbroek",
+          "url": "https://unsplash.com/@shanavaro?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/pNGZmCoEd9Q?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-corner2",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1572123979839-3749e9973aba",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 3930,
+        "height": 2948,
+        "credit": {
+          "name": "Kadir Celep",
+          "url": "https://unsplash.com/@kadircelep?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/Nk8hqt-BgPw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-fringe",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1695632953538-4581c96135ce",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 3501,
+        "height": 6224,
+        "credit": {
+          "name": "Amir Tohi",
+          "url": "https://unsplash.com/@amirtohi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/44ukCOBupK8?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-macro",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1643766883805-829d9ad95c42",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 6720,
+        "height": 4480,
+        "credit": {
+          "name": "Mick Haupt",
+          "url": "https://unsplash.com/@rocinante_11?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/5EUy6c3e1bM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-room",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1631509824910-82791a0e43d1",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 5688,
+        "height": 4166,
+        "credit": {
+          "name": "Spacejoy",
+          "url": "https://unsplash.com/@spacejoy?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/ucCsSBzYBQQ?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-scale",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1633794298095-a8540daed1d0",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 6000,
+        "height": 4000,
+        "credit": {
+          "name": "Gamze",
+          "url": "https://unsplash.com/@delikosesi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/B6-nBi4stPU?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0004-lifestyle",
-        "alt": "Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1560449752-3fd4bdbe7df0",
+        "alt": "Sample stock photo standing in for TR-0004: Milas kilim rug, 5′ × 7′ 8″, rust, ivory and gold stripes, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 4316,
+        "height": 2878,
+        "credit": {
+          "name": "Francesca Tosolini",
+          "url": "https://unsplash.com/@fromitaly?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/RP29Wz6mIOA?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0004",
         "kind": "flip",
-        "poster": "sample-TR-0004-back",
+        "poster": "https://images.unsplash.com/photo-1774215915657-851d8ee7d7bd",
         "caption": "The flip test: I turn TR-0004 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0004. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -495,7 +711,7 @@
       {
         "streamId": "sample-workshop-TR-0004",
         "kind": "workshop",
-        "poster": "sample-TR-0004-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1560449752-3fd4bdbe7df0",
         "caption": "The Milas workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Milas. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -547,74 +763,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0005-front",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, front",
+        "id": "https://images.unsplash.com/photo-1606885118474-c8baf907e998",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 3119,
+        "height": 4678,
+        "credit": {
+          "name": "Erol Ahmed",
+          "url": "https://unsplash.com/@erol?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/_CeW6TRUWws?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-back",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, back showing knots",
+        "id": "https://images.unsplash.com/photo-1621700052663-f1170e9b26ec",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 5282,
+        "height": 6602,
+        "credit": {
+          "name": "Ali Choubin",
+          "url": "https://unsplash.com/@alichubin?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qsfgZ3P2C2E?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-corner1",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, corner detail",
+        "id": "https://images.unsplash.com/photo-1660338183184-aa63986ff74a",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 4368,
+        "height": 6105,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/N2Ll_Vs12L8?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-corner2",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1660338183700-12388dc9aa4f",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 5202,
+        "height": 5905,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/DQeCpba2Y0Q?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-fringe",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1693332559056-02b80991b2e8",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 3676,
+        "height": 6000,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/u-jddBHfdxk?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-macro",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1660338183207-12f52f1bf9e9",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 5160,
+        "height": 7064,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/KdA-rmihMhY?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-room",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1628745750131-e5cfc5e70ced",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 6240,
+        "height": 4160,
+        "credit": {
+          "name": "Zac Gudakov",
+          "url": "https://unsplash.com/@zacgudakov?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/eygR_ULXxb8?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-scale",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1693332559291-380f10cd2253",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 3929,
+        "height": 5894,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/p6vlyjAHY0w?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0005-lifestyle",
-        "alt": "Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1552242718-c5360894aecd",
+        "alt": "Sample stock photo standing in for TR-0005: Kars runner rug, 2′ 8″ × 9′ 10″, red, deep blue and multicolor medallions, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 3264,
+        "height": 2176,
+        "credit": {
+          "name": "Sven Brandsma",
+          "url": "https://unsplash.com/@seffen99?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/GmRiN7tVW1w?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0005",
         "kind": "flip",
-        "poster": "sample-TR-0005-back",
+        "poster": "https://images.unsplash.com/photo-1621700052663-f1170e9b26ec",
         "caption": "The flip test: I turn TR-0005 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0005. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -623,7 +893,7 @@
       {
         "streamId": "sample-workshop-TR-0005",
         "kind": "workshop",
-        "poster": "sample-TR-0005-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1552242718-c5360894aecd",
         "caption": "The Kars workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Kars. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -675,74 +945,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0006-front",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, front",
+        "id": "https://images.unsplash.com/photo-1622071502155-3d6c4a5803fa",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 5304,
+        "height": 6630,
+        "credit": {
+          "name": "Ali Choubin",
+          "url": "https://unsplash.com/@alichubin?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/jnlrd0Qe0ZI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-back",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, back showing knots",
+        "id": "https://images.unsplash.com/photo-1761849450843-4ce9e6560b94",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 2227,
+        "height": 3698,
+        "credit": {
+          "name": "Nik Bagherzadegan",
+          "url": "https://unsplash.com/@nikbagherzadegan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/r9BiyglV2Yw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-corner1",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, corner detail",
+        "id": "https://images.unsplash.com/photo-1760519663238-6cfdf81416db",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 3014,
+        "height": 3015,
+        "credit": {
+          "name": "Nik Bagherzadegan",
+          "url": "https://unsplash.com/@nikbagherzadegan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qRfRAxu3tEI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-corner2",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1634442747349-3a969d4432df",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 5754,
+        "height": 4126,
+        "credit": {
+          "name": "MERT MEHDI",
+          "url": "https://unsplash.com/@mertmehdi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/lLTNRbNz2Yo?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-fringe",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1652634213812-f0deeb1de78e",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 4964,
+        "height": 3976,
+        "credit": {
+          "name": "Maksym Tymchyk",
+          "url": "https://unsplash.com/@maksymtymchyk?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/UyDIxAcVhRk?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-macro",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1710924447533-7177c52b3da3",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 6240,
+        "height": 4057,
+        "credit": {
+          "name": "Zeki Okur",
+          "url": "https://unsplash.com/@zekiokur?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/kgiBmBW2FQY?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-room",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1667450799167-09e7dd903e59",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 6240,
+        "height": 4160,
+        "credit": {
+          "name": "Zac Gudakov",
+          "url": "https://unsplash.com/@zacgudakov?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/koLQ6-45B3k?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-scale",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1713453076348-1dd57aa31a64",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 3200,
+        "height": 2133,
+        "credit": {
+          "name": "Clay Banks",
+          "url": "https://unsplash.com/@claybanks?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/AgdkUyesz8Y?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0006-lifestyle",
-        "alt": "Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1594408065362-379a5b60910b",
+        "alt": "Sample stock photo standing in for TR-0006: Overdyed Isparta rug, 6′ 2″ × 9′ 3″, deep indigo blue, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 6960,
+        "height": 4640,
+        "credit": {
+          "name": "Lotus Design N Print",
+          "url": "https://unsplash.com/@lotusdesignnprint?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/6zGaqYyRiOg?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0006",
         "kind": "flip",
-        "poster": "sample-TR-0006-back",
+        "poster": "https://images.unsplash.com/photo-1761849450843-4ce9e6560b94",
         "caption": "The flip test: I turn TR-0006 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0006. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -751,7 +1075,7 @@
       {
         "streamId": "sample-workshop-TR-0006",
         "kind": "workshop",
-        "poster": "sample-TR-0006-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1594408065362-379a5b60910b",
         "caption": "The Isparta workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Isparta. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -802,74 +1126,128 @@
     "shippingNote": "Ships from Turkey in 5–8 business days, duties prepaid.",
     "images": [
       {
-        "id": "sample-TR-0007-front",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, front",
+        "id": "https://images.unsplash.com/photo-1701964621005-57f14066187e",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 6996,
+        "height": 8000,
+        "credit": {
+          "name": "The Cleveland Museum of Art",
+          "url": "https://unsplash.com/@clevelandart?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/vYkxbSFx0ig?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-back",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, back showing knots",
+        "id": "https://images.unsplash.com/photo-1588421874990-1fe162747f9b",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 3712,
+        "height": 5568,
+        "credit": {
+          "name": "Ashkan Forouzani",
+          "url": "https://unsplash.com/@ashkfor121?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/eBwGgqSt1QA?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-corner1",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, corner detail",
+        "id": "https://images.unsplash.com/photo-1761988177300-d5c0c8a5c309",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 2992,
+        "height": 5982,
+        "credit": {
+          "name": "Erfan",
+          "url": "https://unsplash.com/@erfan?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/SutfL_rMKns?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-corner2",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1660394585016-508f949df960",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 5252,
+        "height": 8873,
+        "credit": {
+          "name": "SAJAD FI",
+          "url": "https://unsplash.com/@sajadfi?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/DrZQZnEtYTM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-fringe",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1710924447567-f4dcb2ce233f",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 6240,
+        "height": 4160,
+        "credit": {
+          "name": "Zeki Okur",
+          "url": "https://unsplash.com/@zekiokur?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/QOrX97xFnWY?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-macro",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1602795493253-c1da1fed546a",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 4000,
+        "height": 6000,
+        "credit": {
+          "name": "MeSSrro",
+          "url": "https://unsplash.com/@messrro?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/a1b5GcNrRLE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-room",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1560448204-603b3fc33ddc",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 3486,
+        "height": 2324,
+        "credit": {
+          "name": "Francesca Tosolini",
+          "url": "https://unsplash.com/@fromitaly?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/KJFKCed0YKo?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-scale",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1726464107536-3b62e6d3d2cb",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 3779,
+        "height": 5848,
+        "credit": {
+          "name": "Mina Rad",
+          "url": "https://unsplash.com/@minarad?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/24-buXr_1TE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0007-lifestyle",
-        "alt": "Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1616137303871-05ce745f9cdb",
+        "alt": "Sample stock photo standing in for TR-0007: Antique Kayseri prayer rug, 3′ 5″ × 5′ 2″, red, gold and green, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 5760,
+        "height": 3240,
+        "credit": {
+          "name": "Spacejoy",
+          "url": "https://unsplash.com/@spacejoy?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/XQFAzjjjmbE?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0007",
         "kind": "flip",
-        "poster": "sample-TR-0007-back",
+        "poster": "https://images.unsplash.com/photo-1588421874990-1fe162747f9b",
         "caption": "The flip test: I turn TR-0007 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0007. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -878,7 +1256,7 @@
       {
         "streamId": "sample-workshop-TR-0007",
         "kind": "workshop",
-        "poster": "sample-TR-0007-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1616137303871-05ce745f9cdb",
         "caption": "The Kayseri workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Kayseri. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,
@@ -931,74 +1309,128 @@
     "shippingNote": "Ships from Turkey in 7–10 business days, duties prepaid. Oversize freight included.",
     "images": [
       {
-        "id": "sample-TR-0008-front",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, front",
+        "id": "https://images.unsplash.com/photo-1600750238520-f65ab4b18369",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, front, full view",
         "kind": "front",
-        "width": 1600,
-        "height": 2000
+        "width": 5125,
+        "height": 6406,
+        "credit": {
+          "name": "Ali Choubin",
+          "url": "https://unsplash.com/@alichubin?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/g_0SeHgWb6o?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-back",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, back showing knots",
+        "id": "https://images.unsplash.com/photo-1756362846991-f4509403ec4f",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, back of the rug showing the knots",
         "kind": "back",
-        "width": 1600,
-        "height": 2000
+        "width": 4394,
+        "height": 6591,
+        "credit": {
+          "name": "engin akyurt",
+          "url": "https://unsplash.com/@enginakyurt?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/sRrP1YIBd3A?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-corner1",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, corner detail",
+        "id": "https://images.unsplash.com/photo-1644977624606-4f7dc0093e7e",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 4000,
+        "height": 6000,
+        "credit": {
+          "name": "Robert Sciberras",
+          "url": "https://unsplash.com/@robertsciberras?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/GA7UcXH4JeM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-corner2",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, opposite corner detail",
+        "id": "https://images.unsplash.com/photo-1531162805941-58330188d75c",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, corner detail",
         "kind": "corner",
-        "width": 1600,
-        "height": 1600
+        "width": 3892,
+        "height": 5838,
+        "credit": {
+          "name": "Meriç Dağlı",
+          "url": "https://unsplash.com/@mericdagli?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/_F2ddD6Bohw?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-fringe",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, fringe and selvedge",
+        "id": "https://images.unsplash.com/photo-1707978932202-751b08324daf",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, fringe and selvedge",
         "kind": "fringe",
-        "width": 1600,
-        "height": 1600
+        "width": 2595,
+        "height": 3892,
+        "credit": {
+          "name": "mohammad hassan taheri",
+          "url": "https://unsplash.com/@mhtaheri19?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/tUZeoWQ_MXQ?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-macro",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, pile texture macro",
+        "id": "https://images.unsplash.com/photo-1539859717153-c30659a6cb44",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, pile texture close-up",
         "kind": "macro",
-        "width": 1600,
-        "height": 1600
+        "width": 6000,
+        "height": 4000,
+        "credit": {
+          "name": "Lawrence Macaron",
+          "url": "https://unsplash.com/@macaron_la?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/qZBR-zOEeJ4?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-room",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, in a bright living room with a linen sofa and oak coffee table",
+        "id": "https://images.unsplash.com/photo-1617103996702-96ff29b1c467",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, in a living room with a sofa (room-scale)",
         "kind": "room",
-        "width": 1600,
-        "height": 900
+        "width": 5760,
+        "height": 3240,
+        "credit": {
+          "name": "Spacejoy",
+          "url": "https://unsplash.com/@spacejoy?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/85pCvDWDMmI?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-scale",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, held up by a person for scale",
+        "id": "https://images.unsplash.com/photo-1638310533874-6c124c012e1d",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, with a person for scale",
         "kind": "scale",
-        "width": 1600,
-        "height": 2000
+        "width": 3000,
+        "height": 1995,
+        "credit": {
+          "name": "Joel Heard",
+          "url": "https://unsplash.com/@kazheard?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/XSs7xXS71pM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       },
       {
-        "id": "sample-TR-0008-lifestyle",
-        "alt": "Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, lifestyle shot with morning light across the pile",
+        "id": "https://images.unsplash.com/photo-1704040686413-2c607dbd2f06",
+        "alt": "Sample stock photo standing in for TR-0008: Modern Anatolian rug, 9′ × 12′ 1″, sand, charcoal and ivory, lifestyle shot in daylight",
         "kind": "lifestyle",
-        "width": 1600,
-        "height": 1200
+        "width": 6000,
+        "height": 4000,
+        "credit": {
+          "name": "Ariel Domenden",
+          "url": "https://unsplash.com/@arieldomenden?utm_source=provenant_rugs&utm_medium=referral",
+          "source": "Unsplash",
+          "photoUrl": "https://unsplash.com/photos/gBqNmxSxnAM?utm_source=provenant_rugs&utm_medium=referral"
+        }
       }
     ],
     "videos": [
       {
         "streamId": "sample-flip-TR-0008",
         "kind": "flip",
-        "poster": "sample-TR-0008-back",
+        "poster": "https://images.unsplash.com/photo-1756362846991-f4509403ec4f",
         "caption": "The flip test: I turn TR-0008 over and count the knots on camera.",
         "transcript": "[SAMPLE TRANSCRIPT] Here's the back of TR-0008. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.",
         "durationSec": 45,
@@ -1007,7 +1439,7 @@
       {
         "streamId": "sample-workshop-TR-0008",
         "kind": "workshop",
-        "poster": "sample-TR-0008-lifestyle",
+        "poster": "https://images.unsplash.com/photo-1704040686413-2c607dbd2f06",
         "caption": "The Uşak workshop where I found this one.",
         "transcript": "[SAMPLE TRANSCRIPT] This is the workshop in Uşak. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.",
         "durationSec": 60,

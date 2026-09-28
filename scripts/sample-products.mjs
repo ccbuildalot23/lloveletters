@@ -5,6 +5,7 @@
  * Run: node scripts/sample-products.mjs
  */
 import { writeFileSync } from 'node:fs';
+import { unsplashImage } from '../src/data/unsplash.mjs';
 
 const ftToCm = (ft) => Math.round(ft * 30.48);
 const dims = (wFt, wIn, lFt, lIn) => {
@@ -13,74 +14,132 @@ const dims = (wFt, wIn, lFt, lIn) => {
   return { sizeFt: { w: +w.toFixed(3), l: +l.toFixed(3) }, sizeCm: { w: ftToCm(w), l: ftToCm(l) } };
 };
 
-const shots = (id, style, size, colors) => {
-  const base = `${style} rug, ${size}, ${colors}`;
-  return [
-    { id: `sample-${id}-front`, alt: `${base}, front`, kind: 'front', width: 1600, height: 2000 },
-    {
-      id: `sample-${id}-back`,
-      alt: `${base}, back showing knots`,
-      kind: 'back',
-      width: 1600,
-      height: 2000,
-    },
-    {
-      id: `sample-${id}-corner1`,
-      alt: `${base}, corner detail`,
-      kind: 'corner',
-      width: 1600,
-      height: 1600,
-    },
-    {
-      id: `sample-${id}-corner2`,
-      alt: `${base}, opposite corner detail`,
-      kind: 'corner',
-      width: 1600,
-      height: 1600,
-    },
-    {
-      id: `sample-${id}-fringe`,
-      alt: `${base}, fringe and selvedge`,
-      kind: 'fringe',
-      width: 1600,
-      height: 1600,
-    },
-    {
-      id: `sample-${id}-macro`,
-      alt: `${base}, pile texture macro`,
-      kind: 'macro',
-      width: 1600,
-      height: 1600,
-    },
-    {
-      id: `sample-${id}-room`,
-      alt: `${base}, in a bright living room with a linen sofa and oak coffee table`,
-      kind: 'room',
-      width: 1600,
-      height: 900,
-    },
-    {
-      id: `sample-${id}-scale`,
-      alt: `${base}, held up by a person for scale`,
-      kind: 'scale',
-      width: 1600,
-      height: 2000,
-    },
-    {
-      id: `sample-${id}-lifestyle`,
-      alt: `${base}, lifestyle shot with morning light across the pile`,
-      kind: 'lifestyle',
-      width: 1600,
-      height: 1200,
-    },
-  ];
+/** Sample photography from Unsplash (credited). Real listings use Cloudflare Images IDs from `npm run upload-media`. */
+const PHOTO_SETS = {
+  'TR-0001': [
+    'sRrP1YIBd3A',
+    '_F2ddD6Bohw',
+    'g_0SeHgWb6o',
+    'GA7UcXH4JeM',
+    'Dxtt4o__kNg',
+    'qRfRAxu3tEI',
+    'Vra_DPrrBlE',
+    'gB9hryu1q40',
+    '85pCvDWDMmI',
+  ],
+  'TR-0002': [
+    'a1b5GcNrRLE',
+    'r9BiyglV2Yw',
+    'qRfRAxu3tEI',
+    '_F2ddD6Bohw',
+    '5EUy6c3e1bM',
+    'eBwGgqSt1QA',
+    'mw_mj-noYHM',
+    'AdoI9b6wZuo',
+    'GZ5cKOgeIB0',
+  ],
+  'TR-0003': [
+    'Vwb3jT9vZ9E',
+    '6MPL5c2yank',
+    'l9nsJ2zMppw',
+    'qsfgZ3P2C2E',
+    '24-buXr_1TE',
+    'SutfL_rMKns',
+    'lLDh9JppH2c',
+    '4VMI3oBueZA',
+    'owVINZxTUHA',
+  ],
+  'TR-0004': [
+    'gB9hryu1q40',
+    'Dxtt4o__kNg',
+    'pNGZmCoEd9Q',
+    'Nk8hqt-BgPw',
+    '44ukCOBupK8',
+    '5EUy6c3e1bM',
+    'ucCsSBzYBQQ',
+    'B6-nBi4stPU',
+    'RP29Wz6mIOA',
+  ],
+  'TR-0005': [
+    '_CeW6TRUWws',
+    'qsfgZ3P2C2E',
+    'N2Ll_Vs12L8',
+    'DQeCpba2Y0Q',
+    'u-jddBHfdxk',
+    'KdA-rmihMhY',
+    'eygR_ULXxb8',
+    'p6vlyjAHY0w',
+    'GmRiN7tVW1w',
+  ],
+  'TR-0006': [
+    'jnlrd0Qe0ZI',
+    'r9BiyglV2Yw',
+    'qRfRAxu3tEI',
+    'lLTNRbNz2Yo',
+    'UyDIxAcVhRk',
+    'kgiBmBW2FQY',
+    'koLQ6-45B3k',
+    'AgdkUyesz8Y',
+    '6zGaqYyRiOg',
+  ],
+  'TR-0007': [
+    'vYkxbSFx0ig',
+    'eBwGgqSt1QA',
+    'SutfL_rMKns',
+    'DrZQZnEtYTM',
+    'QOrX97xFnWY',
+    'a1b5GcNrRLE',
+    'KJFKCed0YKo',
+    '24-buXr_1TE',
+    'XQFAzjjjmbE',
+  ],
+  'TR-0008': [
+    'g_0SeHgWb6o',
+    'sRrP1YIBd3A',
+    'GA7UcXH4JeM',
+    '_F2ddD6Bohw',
+    'tUZeoWQ_MXQ',
+    'qZBR-zOEeJ4',
+    '85pCvDWDMmI',
+    'XSs7xXS71pM',
+    'gBqNmxSxnAM',
+  ],
 };
+const KINDS = [
+  'front',
+  'back',
+  'corner',
+  'corner',
+  'fringe',
+  'macro',
+  'room',
+  'scale',
+  'lifestyle',
+];
+const KIND_ALT = {
+  front: 'front, full view',
+  back: 'back of the rug showing the knots',
+  corner: 'corner detail',
+  fringe: 'fringe and selvedge',
+  macro: 'pile texture close-up',
+  room: 'in a living room with a sofa (room-scale)',
+  scale: 'with a person for scale',
+  lifestyle: 'lifestyle shot in daylight',
+};
+const shots = (id, style, size, colors) =>
+  PHOTO_SETS[id].map((key, i) =>
+    unsplashImage(
+      key,
+      `Sample stock photo standing in for ${id}: ${style} rug, ${size}, ${colors}, ${KIND_ALT[KINDS[i]]}`,
+      KINDS[i],
+    ),
+  );
 
 const videos = (id, region) => [
   {
     streamId: `sample-flip-${id}`,
     kind: 'flip',
-    poster: `sample-${id}-back`,
+    poster: PHOTO_SETS[id][1] && unsplashImage(PHOTO_SETS[id][1], '', 'back').id,
     caption: `The flip test: I turn ${id} over and count the knots on camera.`,
     transcript: `[SAMPLE TRANSCRIPT] Here's the back of ${id}. You can see every knot as a small square, and the pattern reads through the back just like the front. That's what hand-knotted looks like. A machine-made rug shows a uniform grid and the design is muddy on the back. Count with me: about the same number of knots across as down.`,
     durationSec: 45,
@@ -89,7 +148,7 @@ const videos = (id, region) => [
   {
     streamId: `sample-workshop-${id}`,
     kind: 'workshop',
-    poster: `sample-${id}-lifestyle`,
+    poster: unsplashImage(PHOTO_SETS[id][8], '', 'lifestyle').id,
     caption: `The ${region} workshop where I found this one.`,
     transcript: `[SAMPLE TRANSCRIPT] This is the workshop in ${region}. Two looms, a stack of finished pieces against the wall, and tea. I filmed the rug on the loom, then flipped it, then measured it.`,
     durationSec: 60,

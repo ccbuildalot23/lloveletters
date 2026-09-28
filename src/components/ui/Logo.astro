@@ -1,0 +1,93 @@
+---
+/**
+ * Brand mark + wordmark. The mark is a single Ghiordes (symmetrical Turkish) knot:
+ * two warps with the yarn wrapped over both and pulled up between them.
+ * Props: variant "full" | "mark" | "word", tone "indigo" | "ivory" | "madder", size (height px)
+ */
+import { site } from '@lib/site';
+interface Props {
+  variant?: 'full' | 'mark' | 'word';
+  tone?: 'indigo' | 'ivory';
+  size?: number;
+  class?: string;
+  label?: string;
+}
+const {
+  variant = 'full',
+  tone = 'indigo',
+  size = 32,
+  class: className = '',
+  label = `${site.name} home`,
+} = Astro.props;
+const text = tone === 'ivory' ? '#F6F1E9' : '#23395B';
+const accent = tone === 'ivory' ? '#D9A441' : '#9E2B25';
+const markW = size;
+const wordW = variant === 'full' ? size * 5.2 : 0;
+---
+
+<span
+  class={`logo inline-flex items-center gap-[0.35em] ${className}`}
+  role="img"
+  aria-label={label}
+  style={`font-size:${size}px`}
+>
+  {variant !== 'word' && (
+    <svg width={markW} height={markW} viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path
+        d="M10 3v26M22 3v26"
+        stroke={text}
+        stroke-width="2.2"
+        stroke-linecap="round"
+        fill="none"
+      />
+      <path
+        d="M5 20c0-5 4-7 8-7h6c4 0 8 2 8 7"
+        stroke={accent}
+        stroke-width="3"
+        stroke-linecap="round"
+        fill="none"
+      />
+      <path
+        d="M13 13c-2 0-3-2-3-4M19 13c2 0 3-2 3-4"
+        stroke={accent}
+        stroke-width="3"
+        stroke-linecap="round"
+        fill="none"
+      />
+      <path d="M16 13v-9" stroke={accent} stroke-width="3" stroke-linecap="round" />
+      <path
+        d="M16 20c-3 0-5 3-5 6M16 20c3 0 5 3 5 6"
+        stroke={accent}
+        stroke-width="3"
+        stroke-linecap="round"
+        fill="none"
+      />
+    </svg>
+  )}
+  {variant !== 'mark' && (
+    <svg height={size} width={wordW} viewBox="0 0 520 100" aria-hidden="true" focusable="false">
+      <text
+        x="0"
+        y="66"
+        font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
+        font-size="70"
+        font-weight="500"
+        fill={text}
+        style="font-variation-settings:'opsz' 72"
+      >
+        Provenant
+      </text>
+      <text
+        x="372"
+        y="66"
+        font-family="Fraunces, 'Iowan Old Style', Georgia, serif"
+        font-size="70"
+        font-weight="400"
+        font-style="italic"
+        fill={accent}
+      >
+        Rugs
+      </text>
+    </svg>
+  )}
+</span>

@@ -3,8 +3,9 @@
 import MegaMenu from './MegaMenu.astro';
 import IconButton from '../ui/IconButton.astro';
 import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
 import { mainNav } from '@lib/nav';
-import { site, isWaitlistMode } from '@lib/site';
+import { isWaitlistMode } from '@lib/site';
 interface Props {
   transparent?: boolean;
 }
@@ -26,10 +27,11 @@ const { transparent = false } = Astro.props;
     </div>
     <a
       href="/"
-      class="logo font-display text-h3 text-indigo no-underline header-fg"
-      aria-label={`${site.name} home`}
+      class="logo-link header-fg inline-flex items-center rounded-btn no-underline"
+      data-logo
     >
-      {site.name}
+      <Logo size={30} class="logo-indigo" />
+      <Logo size={30} tone="ivory" class="logo-ivory" />
     </a>
     <nav aria-label="Main" class="hidden items-center gap-1 lg:flex">
       {mainNav.map((n) =>
@@ -83,6 +85,24 @@ const { transparent = false } = Astro.props;
   }
   .site-header.is-transparent:not(.is-scrolled) .header-fg {
     color: var(--color-ivory);
+  }
+  /* Logo spans come from the Logo component, so they need :global() to escape scoping. */
+  .site-header :global(.logo-ivory),
+  .site-header.is-transparent:not(.is-scrolled) :global(.logo-indigo) {
+    display: none;
+  }
+  .site-header.is-transparent:not(.is-scrolled) :global(.logo-ivory) {
+    display: inline-flex;
+  }
+  /* Keep the logo, search and cart on one row at 320px. */
+  @media (max-width: 400px) {
+    .logo-link :global(.logo) {
+      font-size: 24px !important;
+    }
+    .logo-link :global(.logo svg) {
+      height: 24px;
+      width: auto;
+    }
   }
   .site-header.is-transparent:not(.is-scrolled) .header-fg:hover {
     background: rgb(255 255 255 / 0.12);
