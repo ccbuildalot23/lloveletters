@@ -1,5 +1,6 @@
 /**
  * Generates src/data/products.json with 8 SAMPLE rugs (Phase 2).
+ * Prices follow the observed market bands in src/lib/pricing.ts (Demand_Evidence, Sep 2026).
  * Everything here is placeholder data, clearly marked with `sample: true` and "SAMPLE" in the title.
  * Run: node scripts/sample-products.mjs
  */
@@ -105,7 +106,7 @@ const products = [
     slug: 'sample-vintage-oushak-faded-coral-sage',
     title: 'SAMPLE · Vintage Oushak, Faded Coral & Sage',
     style: 'oushak',
-    collection: ['oushak', 'vintage'],
+    collection: ['oushak', 'vintage', 'under-1000'],
     condition: 'vintage',
     era: 'circa 1970s',
     ageYears: 50,
@@ -129,7 +130,7 @@ const products = [
     weightKg: 14,
     conditionNotes:
       'Even low pile throughout. One small professional repair at the lower-left corner, shown in photo 3. Fringe intact on both ends.',
-    priceUsd: 1650,
+    priceUsd: 745,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots(
@@ -177,7 +178,7 @@ const products = [
     weightKg: 34,
     conditionNotes:
       'New. Full pile, no wear. Slight natural abrash (color variation) in the field, which is a feature of hand-spun wool and vegetable dyes.',
-    priceUsd: 2850,
+    priceUsd: 2150,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots('TR-0002', 'New Oushak', '7′ 11″ × 9′ 10″', 'ivory, slate gray and pale blue'),
@@ -198,7 +199,7 @@ const products = [
     slug: 'sample-konya-village-rug-madder-indigo',
     title: 'SAMPLE · Konya Village Rug, Madder & Indigo',
     style: 'village',
-    collection: ['village', 'vintage'],
+    collection: ['village', 'vintage', 'under-1000'],
     condition: 'vintage',
     era: 'circa 1980s',
     ageYears: 40,
@@ -221,7 +222,7 @@ const products = [
     weightKg: 10,
     conditionNotes:
       'Medium pile with some lower areas in the center, shown in photo 6. Ends secured. A small old reweave at one corner, photo 4.',
-    priceUsd: 1150,
+    priceUsd: 650,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots('TR-0003', 'Konya village', '4′ 6″ × 6′ 8″', 'madder red, indigo and ivory'),
@@ -260,7 +261,7 @@ const products = [
     weightKg: 6,
     conditionNotes:
       'Flatweave, reversible. Minor wear on one selvedge, photo 5. No holes or repairs.',
-    priceUsd: 890,
+    priceUsd: 590,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots('TR-0004', 'Milas kilim', '5′ × 7′ 8″', 'rust, ivory and gold stripes'),
@@ -281,7 +282,7 @@ const products = [
     slug: 'sample-kars-runner-kazak-design-red-blue',
     title: 'SAMPLE · Kars Runner, Kazak Design',
     style: 'village',
-    collection: ['runners', 'village', 'vintage'],
+    collection: ['runners', 'village', 'vintage', 'under-1000'],
     condition: 'vintage',
     era: 'circa 1970s',
     ageYears: 50,
@@ -304,7 +305,7 @@ const products = [
     weightKg: 9,
     conditionNotes:
       'Full pile. Slight uneven width (2 inches) typical of a village loom. Ends rewoven professionally.',
-    priceUsd: 1240,
+    priceUsd: 890,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots(
@@ -352,7 +353,7 @@ const products = [
     weightKg: 17,
     conditionNotes:
       'Low, even pile. The overdye is uniform; the original floral pattern shows through as tone-on-tone. Synthetic overdye, stated honestly.',
-    priceUsd: 1480,
+    priceUsd: 1150,
     dutiesIncluded: true,
     shippingNote: 'Ships from Turkey in 5–8 business days, duties prepaid.',
     images: shots('TR-0006', 'Overdyed Isparta', '6′ 2″ × 9′ 3″', 'deep indigo blue'),
@@ -438,7 +439,7 @@ const products = [
     colors: ['beige', 'gray', 'ivory'],
     weightKg: 48,
     conditionNotes: 'New. Full pile, no wear. Synthetic, colorfast dyes, stated honestly.',
-    priceUsd: 3950,
+    priceUsd: 2900,
     dutiesIncluded: true,
     shippingNote:
       'Ships from Turkey in 7–10 business days, duties prepaid. Oversize freight included.',

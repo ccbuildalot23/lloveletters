@@ -1,6 +1,6 @@
-# Rug store — one-of-a-kind hand-knotted Turkish rugs
+# Provenant Rugs — one-of-a-kind hand-knotted Turkish rugs
 
-Static Astro storefront on **Cloudflare Pages**, with **Pages Functions** for checkout, reservations, forms, and admin. Built from `BUILD_SPEC.md` (the Storefront Build Prompt). Everything in `[BRACKETS]` and every `[EDIT]` marker is a placeholder for Chris to replace.
+Static Astro storefront on **Cloudflare Pages**, with **Pages Functions** for checkout, reservations, forms, and admin. Built from `BUILD_SPEC.md` (the Storefront Build Prompt). Brand rationale in `docs/BRAND.md`; pricing bands in `docs/PRICING.md`. Everything in `[BRACKETS]` and every `[EDIT]` marker is a placeholder for Chris to replace.
 
 > **Sample data:** the eight rugs in `src/data/products.json` are marked `SAMPLE` and use placeholder SVGs. Replace them before launch (see _Catalog_ below).
 

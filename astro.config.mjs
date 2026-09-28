@@ -21,11 +21,11 @@ const staleSold = new Set(
     )
     .map(
       (p) =>
-        `${(process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'https://example.com').replace(/\/$/, '')}/rugs/${p.slug}`,
+        `${(process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'https://provenantrugs.com').replace(/\/$/, '')}/rugs/${p.slug}`,
     ),
 );
 
-const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'https://example.com'; // [DOMAIN] — replace via PUBLIC_SITE_URL
+const site = process.env.PUBLIC_SITE_URL || process.env.CF_PAGES_URL || 'https://provenantrugs.com'; // [DOMAIN] — replace via PUBLIC_SITE_URL
 
 export default defineConfig({
   site,

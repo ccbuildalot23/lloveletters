@@ -3,6 +3,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/ui/Breadcrumbs.astro';
 import Gallery from '@/components/product/Gallery.astro';
 import PurchasePanel from '@/components/product/PurchasePanel.astro';
+import ProvenanceReport from '@/components/product/ProvenanceReport.astro';
 import VideoEmbed from '@/components/ui/VideoEmbed.astro';
 import TurkeyMap from '@/components/product/TurkeyMap.astro';
 import FactsTable from '@/components/ui/FactsTable.astro';
@@ -136,6 +137,7 @@ const jsonLd = [
     <div class="min-w-0 lg:col-span-5">
       <div class="lg:sticky lg:top-[calc(var(--header-h-compact)+16px)]">
         <PurchasePanel rug={rug} />
+        <ProvenanceReport rug={rug} class="mt-6" />
         <div class="mt-4 flex flex-wrap items-center gap-2 text-small text-stone">
           <span>Share:</span>
           <button

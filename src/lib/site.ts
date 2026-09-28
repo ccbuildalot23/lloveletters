@@ -6,13 +6,15 @@
 const env = (import.meta.env ?? {}) as Record<string, string | undefined>;
 
 export const site = {
-  name: env.PUBLIC_BRAND_NAME || 'Loom Letters', // [BRAND NAME]
-  dealerName: env.PUBLIC_DEALER_NAME || 'Loom Letters LLC', // [DEALER NAME]
-  url: (env.PUBLIC_SITE_URL || 'https://example.com').replace(/\/$/, ''), // [DOMAIN]
+  name: env.PUBLIC_BRAND_NAME || 'Provenant Rugs', // [BRAND NAME] see docs/BRAND.md
+  dealerName: env.PUBLIC_DEALER_NAME || 'Provenant Rugs LLC', // [DEALER NAME]
+  url: (env.PUBLIC_SITE_URL || 'https://provenantrugs.com').replace(/\/$/, ''), // [DOMAIN]
   tagline: 'Real Turkish rugs. Verified at the loom.',
   description:
     'One-of-a-kind, hand-knotted Turkish rugs sourced and filmed at the source by Chris. Fixed honest prices, duties and US shipping included, 30-day returns.',
   founder: 'Chris',
+  localArea: env.PUBLIC_LOCAL_AREA || 'Washington, DC',
+  provenanceReport: 'Provenance Report', // the per-rug provenance package: flip video, knot count, fiber check, signed certificate
   phone: env.PUBLIC_PHONE || '+1 (202) 555-0100', // [PHONE]
   whatsapp: env.PUBLIC_WHATSAPP || '12025550100', // [WHATSAPP NUMBER] digits only
   email: env.PUBLIC_EMAIL || 'hello@example.com', // [CHRIS EMAIL]
@@ -20,10 +22,10 @@ export const site = {
   bookingUrl: env.PUBLIC_BOOKING_URL || 'https://cal.com/placeholder/live-look', // [Cal.com or Calendly URL]
   googleReviewUrl: env.PUBLIC_GOOGLE_REVIEW_URL || 'https://g.page/r/placeholder/review',
   social: {
-    instagram: env.PUBLIC_INSTAGRAM || 'https://instagram.com/placeholder',
-    tiktok: env.PUBLIC_TIKTOK || 'https://tiktok.com/@placeholder',
-    pinterest: env.PUBLIC_PINTEREST || 'https://pinterest.com/placeholder',
-    youtube: env.PUBLIC_YOUTUBE || 'https://youtube.com/@placeholder',
+    instagram: env.PUBLIC_INSTAGRAM || 'https://instagram.com/provenantrugs',
+    tiktok: env.PUBLIC_TIKTOK || 'https://tiktok.com/@provenantrugs',
+    pinterest: env.PUBLIC_PINTEREST || 'https://pinterest.com/provenantrugs',
+    youtube: env.PUBLIC_YOUTUBE || 'https://youtube.com/@provenantrugs',
   },
   launchMode: (env.LAUNCH_MODE || env.PUBLIC_LAUNCH_MODE || 'waitlist') as 'waitlist' | 'live',
   soldIndexDays: Number(env.SOLD_INDEX_DAYS || 90),

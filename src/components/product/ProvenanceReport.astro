@@ -1,0 +1,76 @@
+---
+/**
+ * The Provenance Report (brand concept): what was verified for this rug, with jump links to the proof.
+ * Flip video · knot count · fiber & dye check · signed certificate.
+ */
+import Icon from '../ui/Icon.astro';
+import type { Product } from '@lib/schema';
+interface Props {
+  rug: Product;
+  class?: string;
+}
+const { rug, class: className = '' } = Astro.props;
+const items = [
+  {
+    icon: 'flip',
+    label: 'Flipped on camera',
+    detail: 'Back-of-rug video, knots visible',
+    href: '#flip-test',
+  },
+  {
+    icon: 'knot',
+    label: rug.kpsi
+      ? `${rug.kpsi} knots per square inch`
+      : rug.construction === 'flatweave'
+        ? 'Hand-woven flatweave'
+        : 'Knot count on record',
+    detail: rug.knotType ?? 'Counted across and down, one inch each',
+    href: '#facts',
+  },
+  {
+    icon: 'loom',
+    label: `Fiber & dye check: ${rug.pileFiber}`,
+    detail: `Dyes: ${rug.dyeType}${rug.dyeType === 'unknown' ? ' (stated honestly)' : ''}`,
+    href: '#facts',
+  },
+  {
+    icon: 'certificate',
+    label: 'Signed certificate',
+    detail: `Rug ID ${rug.id}, matches this page`,
+    href: '#certificate',
+  },
+];
+---
+
+<section
+  class={`provenance-report rounded-card border border-indigo/20 bg-white p-5 ${className}`}
+  aria-labelledby="provenance-title"
+>
+  <div class="flex items-center justify-between gap-3">
+    <h2 id="provenance-title" class="font-sans text-h4 font-semibold text-indigo">
+      Provenance Report
+    </h2>
+    <span class="text-caption font-medium tracking-wide text-madder uppercase">
+      Verified at the loom
+    </span>
+  </div>
+  <p class="mt-1 text-small text-stone">
+    What I checked in person before buying {rug.id}, and where to see it.
+  </p>
+  <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+    {items.map((it) => (
+      <li>
+        <a
+          href={it.href}
+          class="flex items-start gap-3 rounded-card p-2 no-underline hover:bg-sand"
+        >
+          <Icon name={it.icon} size={24} class="mt-0.5 shrink-0 text-olive" />
+          <span>
+            <span class="block text-body font-medium text-charcoal">{it.label}</span>
+            <span class="block text-caption text-stone">{it.detail}</span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

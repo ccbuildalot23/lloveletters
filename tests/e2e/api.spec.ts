@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect, type APIRequestContext } from '@playwright/test';
 
 /**
  * Functions tests. Run against `wrangler pages dev` (E2E_BASE_URL=http://127.0.0.1:8788) with
@@ -24,9 +24,15 @@ test('POST /api/checkout rejects a sold rug with 409', async ({ request }) => {
   expect(j.unavailable[0].status).toBe('sold');
 });
 
+async function stripeConfigured(request: APIRequestContext) {
+  const h = await request.get('/api/health').then((r) => r.json() as Promise<{ stripe: boolean }>);
+  return h.stripe;
+}
+
 test('double purchase race: exactly one of two parallel checkouts succeeds', async ({
   request,
 }) => {
+  test.skip(!(await stripeConfigured(request)), 'Needs STRIPE_SECRET_KEY (test mode) in .dev.vars');
   // Requires TR-0003 available in KV/D1 (fresh local state). Two simultaneous checkouts for the same rug.
   const body = { rugIds: ['TR-0003'] };
   const headers = { accept: 'application/json' };

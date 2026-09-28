@@ -11,9 +11,9 @@ import QRCode from 'qrcode';
 const products = JSON.parse(
   readFileSync(new URL('../src/data/products.json', import.meta.url), 'utf8'),
 );
-const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://example.com').replace(/\/$/, '');
-const brand = process.env.PUBLIC_BRAND_NAME || 'Loom Letters';
-const dealer = process.env.PUBLIC_DEALER_NAME || 'Loom Letters LLC';
+const siteUrl = (process.env.PUBLIC_SITE_URL || 'https://provenantrugs.com').replace(/\/$/, '');
+const brand = process.env.PUBLIC_BRAND_NAME || 'Provenant Rugs';
+const dealer = process.env.PUBLIC_DEALER_NAME || 'Provenant Rugs LLC';
 const hash = process.env.CF_IMAGES_HASH || '';
 const args = process.argv.slice(2);
 const targets = args.includes('--all')
@@ -67,7 +67,7 @@ for (const p of targets) {
     borderWidth: 0.5,
   });
   page.drawText(brand, { x: 54, y: 712, size: 26, font: serif, color: INDIGO });
-  page.drawText('Certificate of Authenticity', {
+  page.drawText('Provenance Report · Certificate of Authenticity', {
     x: 54,
     y: 684,
     size: 14,

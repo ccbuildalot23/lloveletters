@@ -2,6 +2,7 @@
 /** Validates src/data/products.json against the Zod schema. Exits non-zero on failure. */
 import { readFileSync } from 'node:fs';
 import { CatalogSchema } from '../src/lib/schema.ts';
+import { priceWarning } from '../src/lib/pricing.ts';
 
 const path = new URL('../src/data/products.json', import.meta.url);
 const raw = JSON.parse(readFileSync(path, 'utf8'));
@@ -14,6 +15,10 @@ if (!result.success) {
     console.error(`  [${id}] ${issue.path.slice(1).join('.') || '(root)'}: ${issue.message}`);
   }
   process.exit(1);
+}
+for (const p of result.data) {
+  const w = priceWarning(p.priceUsd, p.sizeBucket, p.condition);
+  if (w) console.warn(`⚠ [${p.id}] ${w}`);
 }
 const samples = result.data.filter((p) => p.sample).length;
 console.log(`✔ ${result.data.length} products valid (${samples} marked SAMPLE)`);

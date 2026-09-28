@@ -8,18 +8,19 @@ compatibility_flags = ["nodejs_compat"]
 
 [vars]
 # Public, non-secret configuration. Anything prefixed PUBLIC_ is also exposed to the browser.
-PUBLIC_SITE_URL = "https://example.com"          # [DOMAIN]
-PUBLIC_BRAND_NAME = "Loom Letters"                # [BRAND NAME] — placeholder working name
-PUBLIC_DEALER_NAME = "Loom Letters LLC"           # [DEALER NAME] shown for FTC disclosure
+PUBLIC_SITE_URL = "https://provenantrugs.com"   # [DOMAIN] provenantrugs.com appeared available on 2026-09-28 (RDAP); register it
+PUBLIC_BRAND_NAME = "Provenant Rugs"               # [BRAND NAME] chosen by Chris; pending trademark clearance (docs/BRAND.md)
+PUBLIC_DEALER_NAME = "Provenant Rugs LLC"         # [DEALER NAME] legal entity for FTC disclosure (form the LLC first)
 PUBLIC_PHONE = "+1 (202) 555-0100"               # [PHONE]
 PUBLIC_WHATSAPP = "12025550100"                   # [WHATSAPP NUMBER] digits only
 PUBLIC_EMAIL = "hello@example.com"                # [CHRIS EMAIL] public support address
-PUBLIC_ADDRESS = "1234 Placeholder Ave NW, Suite 100, Washington, DC 20001" # [ADDRESS]
+PUBLIC_ADDRESS = "1234 Placeholder Ave NW, Suite 100, Washington, DC 20001" # [ADDRESS] DC business address (virtual mailbox is fine)
+PUBLIC_LOCAL_AREA = "Washington, DC"              # DC ranks top-3 for "turkish rug" / "oushak rug" search interest; used for local copy
 PUBLIC_BOOKING_URL = "https://cal.com/placeholder/live-look"  # [Cal.com or Calendly URL]
-PUBLIC_INSTAGRAM = "https://instagram.com/placeholder"
-PUBLIC_TIKTOK = "https://tiktok.com/@placeholder"
-PUBLIC_PINTEREST = "https://pinterest.com/placeholder"
-PUBLIC_YOUTUBE = "https://youtube.com/@placeholder"
+PUBLIC_INSTAGRAM = "https://instagram.com/provenantrugs"   # appeared available (unverified); register same day as the domain
+PUBLIC_TIKTOK = "https://tiktok.com/@provenantrugs"
+PUBLIC_PINTEREST = "https://pinterest.com/provenantrugs"
+PUBLIC_YOUTUBE = "https://youtube.com/@provenantrugs"
 PUBLIC_GOOGLE_REVIEW_URL = "https://g.page/r/placeholder/review"
 LAUNCH_MODE = "waitlist"                          # "waitlist" | "live"
 SOLD_INDEX_DAYS = "90"                            # sold rugs stay indexed this long

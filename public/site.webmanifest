@@ -1,6 +1,6 @@
 {
-  "name": "Rug store",
-  "short_name": "Rugs",
+  "name": "Provenant Rugs",
+  "short_name": "Provenant Rugs",
   "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }],
   "theme_color": "#F6F1E9",
   "background_color": "#F6F1E9",

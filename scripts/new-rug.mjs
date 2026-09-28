@@ -91,7 +91,12 @@ const colors = (
   .map((s) => s.trim());
 const weightKg = await num('Weight kg', 12);
 const conditionNotes = await ask('Condition notes');
-const priceUsd = await num('Price USD (integer)', 1600);
+const band = priceBand(sizeBucket, condition);
+if (band)
+  console.log(
+    `  market band for ${condition} ${sizeBucket}: median $${band.median}, middle 50% $${band.q1}–$${band.q3}. ${band.note}`,
+  );
+const priceUsd = await num('Price USD (integer)', band?.median ?? 1600);
 const shippingNote = await ask(
   'Shipping note',
   'Ships from Turkey in 5–8 business days, duties prepaid.',
