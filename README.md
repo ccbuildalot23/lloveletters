@@ -211,4 +211,6 @@ migrations           D1 SQL (0001 init, 0002 jev advisory columns)
 scripts              validate-catalog, new-rug, sample-products, make-placeholders, og-image, pull-airtable, pull-reviews, certificate, upload-media, jev-catalog-check, check-budgets
 tests                unit (vitest) · e2e (playwright: site, a11y, keyboard, reflow, api)
 public               _headers, _redirects, _routes.json, fonts, placeholders, favicon, manifest
+content              launch content: 30-day calendar, bios, welcome emails (nothing here is scheduled or sent)
+docs                 BRAND, COLOR, PRICING, SAMPLE_MEDIA, ENVIRONMENT, JEV, EMAIL, SEO, OUTREACH, DECISIONS, EXECUTION_BRIEF, HANDOFF
 ```
