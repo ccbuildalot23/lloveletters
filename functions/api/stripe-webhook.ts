@@ -4,7 +4,7 @@ import type { Env } from '../_lib/env';
 import { json, error, logError } from '../_lib/http';
 import { stripeClient, webhookCrypto } from '../_lib/stripe';
 import { setStatus } from '../_lib/catalog';
-import { release, findBySession } from '../_lib/reservations';
+import { release, findBySession, isHeld } from '../_lib/reservations';
 import { sendCapi } from '../_lib/capi';
 import { notifyAdmin, syncSubscriber } from '../_lib/email';
 import { triggerDeploy } from '../_lib/deploy';
@@ -154,10 +154,22 @@ async function onCompleted(env: Env, session: Stripe.Checkout.Session, request: 
 }
 
 async function onExpired(env: Env, session: Stripe.Checkout.Session) {
-  const rugIds = idsFrom(session);
   const held = await findBySession(env, session.id);
-  const ids = held.length ? held.map((h) => h.rug_id) : rugIds;
-  await release(env, ids, held.length ? { onlySession: session.id } : {});
+  if (held.length) {
+    await release(
+      env,
+      held.map((h) => h.rug_id),
+      { onlySession: session.id },
+    );
+    return;
+  }
+  // No rows for this session: its hold was already released (or replaced by a newer buyer).
+  // Only repair a KV "reserved" that no reservation row backs; never touch another session's hold.
+  for (const id of idsFrom(session)) {
+    if (await isHeld(env, id)) continue;
+    if ((await env.RUG_STATUS.get(`status:${id}`)) === 'reserved')
+      await setStatus(env, id, 'available');
+  }
 }
 
 async function onRefunded(env: Env, charge: Stripe.Charge) {

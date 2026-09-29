@@ -1,0 +1,52 @@
+# Production deploy to Cloudflare Pages. INACTIVE until the two repository secrets exist:
+#   CLOUDFLARE_API_TOKEN  (Pages:Edit scoped token)   CLOUDFLARE_ACCOUNT_ID  (account identifier)
+# It runs only after the CI workflow succeeds on the same commit of `main`, so a red build never
+# ships. Choose ONE production deployer: either this workflow or the Pages Git integration
+# (Workers & Pages → project → Settings → Builds). Never enable both, or every push deploys twice.
+name: Deploy
+on:
+  workflow_run:
+    workflows: [CI]
+    branches: [main]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  pages:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      CERTIFICATE_SKIP_FETCH: 'true'
+    steps:
+      - name: Refuse to run without credentials
+        run: |
+          if [ -z "${{ secrets.CLOUDFLARE_API_TOKEN }}" ] || [ -z "${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" ]; then
+            echo "::error::CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are not set; deployment is blocked (not skipped)."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build (public vars come from the Pages project, mirrored here for the static build)
+        run: npm run build
+        env:
+          PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+          LAUNCH_MODE: ${{ vars.LAUNCH_MODE }}
+      - name: Deploy dist/ and functions/ to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./dist --project-name rug-store --branch main --commit-hash ${{ github.event.workflow_run.head_sha }}

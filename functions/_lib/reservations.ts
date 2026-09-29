@@ -68,6 +68,14 @@ export async function release(env: Env, ids: string[], opts: { onlySession?: str
   }
 }
 
+/** True when any buyer (any session) currently holds this rug. */
+export async function isHeld(env: Env, id: string): Promise<boolean> {
+  const row = await env.DB.prepare('SELECT rug_id FROM reservations WHERE rug_id = ?')
+    .bind(id)
+    .first<{ rug_id: string }>();
+  return !!row;
+}
+
 export async function findBySession(env: Env, sessionId: string): Promise<Reservation[]> {
   const { results } = await env.DB.prepare(
     'SELECT rug_id, session_id, expires_at FROM reservations WHERE session_id = ?',

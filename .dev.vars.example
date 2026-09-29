@@ -11,10 +11,22 @@ EMAIL_API_KEY=
 EMAIL_LIST_ID=
 ADMIN_EMAIL=you@example.com
 ADMIN_EMAIL_API_KEY=
+ADMIN_EMAIL_FROM=store@localhost.test   # must be a sender your admin-email provider has verified
+TRADE_PROMO_CODE=                       # generic Stripe promotion code that tags orders is_trade
+REVIEW_TOKEN_SECRET=                    # HMAC secret for post-purchase review links
 DEPLOY_HOOK_URL=
 AIRTABLE_TOKEN=
 AIRTABLE_BASE_ID=
 CF_IMAGES_HASH=
+# Optional advisory decision model (docs/JEV.md). Unset = feature off, forms unaffected.
+JEV_API_KEY=
+# JEV_MODEL=jev-latest
+# JEV_DISABLED=true                     # kill switch even when a key is present
 ADMIN_ACCESS_AUD=
 ADMIN_ACCESS_TEAM_DOMAIN=
 PUBLIC_SITE_URL=http://localhost:8788
+# Build-time only (Astro reads these; Functions do not): PUBLIC_GA4_ID, PUBLIC_META_PIXEL_ID,
+# PUBLIC_CF_BEACON_TOKEN, PUBLIC_BNPL_ENABLED, PUBLIC_CONSENT_BANNER, PUBLIC_HERO_STREAM_ID,
+# PUBLIC_FOUNDER_STREAM_ID. Script-only: CF_ACCOUNT_ID + CF_API_TOKEN (upload-media), AIRTABLE_TABLE
+# (pull-airtable), REVIEWS_EXPORT_URL + CF_ACCESS_CLIENT_ID + CF_ACCESS_CLIENT_SECRET (pull-reviews).
+# See docs/ENVIRONMENT.md for every variable, its consumer, and where it lives in production.

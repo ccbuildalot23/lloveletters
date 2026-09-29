@@ -37,15 +37,16 @@ npm run preview             # wrangler pages dev ./dist → http://localhost:878
 
 Useful scripts:
 
-| Command                                                                                   | Purpose                                                       |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| `npm run validate-catalog`                                                                | Zod-validate `products.json` (also runs before every build)   |
-| `npm run new-rug`                                                                         | Interactive CLI that appends a validated rug                  |
-| `npm run certificate -- TR-0042` (or `--all`)                                             | Generate branded certificate PDFs into `public/certificates/` |
-| `npm run upload-media -- ./media/rug-TR-0042/`                                            | Upload images/videos to Cloudflare Images/Stream, print IDs   |
-| `npm run pull-airtable`                                                                   | Replace `products.json` from Airtable (Phase 2 catalog)       |
-| `npm test` · `npm run test:e2e` · `npm run test:a11y` · `npm run lhci` · `npm run budget` | See `TESTING.md`                                              |
-| `npm run check` · `npm run lint` · `npm run format`                                       | astro check + tsc (functions), ESLint, Prettier               |
+| Command                                                                                   | Purpose                                                          |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `npm run validate-catalog`                                                                | Zod-validate `products.json` (also runs before every build)      |
+| `npm run new-rug`                                                                         | Interactive CLI that appends a validated rug                     |
+| `npm run certificate -- TR-0042` (or `--all`)                                             | Generate branded certificate PDFs into `public/certificates/`    |
+| `npm run upload-media -- ./media/rug-TR-0042/`                                            | Upload images/videos to Cloudflare Images/Stream, print IDs      |
+| `npm run pull-airtable`                                                                   | Replace `products.json` from Airtable (Phase 2 catalog)          |
+| `npm run pull-reviews`                                                                    | Refresh `src/data/reviews.json` from the Access-protected export |
+| `npm test` · `npm run test:e2e` · `npm run test:a11y` · `npm run lhci` · `npm run budget` | See `TESTING.md`                                                 |
+| `npm run check` · `npm run lint` · `npm run format`                                       | astro check + tsc (functions), ESLint, Prettier                  |
 
 ## Setup guide (production)
 
@@ -128,6 +129,10 @@ Zero Trust → Access → Applications → Self-hosted: `[DOMAIN]/admin` and `[D
 - **Merchant Center**: add the feed `https://[DOMAIN]/feed.xml` (RSS, `identifier_exists=no`). Free listings first.
 - **Search Console**: submit `https://[DOMAIN]/sitemap-index.xml`.
 
+### 12. Jev advisory decisions (optional)
+
+[Jev](https://docs.typesafe.ai) by TypeSafe AI returns typed decisions instead of prose. When `JEV_API_KEY` is set (`wrangler pages secret put JEV_API_KEY`, after `npm run db:migrate:remote` applies `migrations/0002_jev.sql`), trade applications, contact messages and review submissions get an **advisory** line in the admin email and in `/admin`: lead fit and route, inbox routing, spam-likeness and a publication-policy flag. Nothing is approved, declined or hidden automatically; forms work identically when the key is unset. `JEV_DISABLED=true` is the kill switch. `npm run jev:catalog` runs a warn-only copy check. Details, safety rules and the live-test steps: `docs/JEV.md`.
+
 ## Catalog
 
 **Phase 1 (now):** edit `src/data/products.json` (schema in `src/lib/schema.ts`, Section 7.1). `npm run new-rug` walks you through every field; `npm run validate-catalog` fails the build on bad data (forbidden `compareAtUsd`, "silk" without silk fiber, "investment", missing flip video, wrong size bucket…). Commit → Pages rebuilds.
@@ -158,7 +163,7 @@ The `Rugs` fields (names are case-sensitive; recreate them if you ever rebuild t
 
 **Media workflow:** shoot per Section 3.7 (front, back, 2 corners, fringe, macro, room, person-for-scale, lifestyle; flip video). Put files in `media/rug-TR-0042/` named `front.jpg`, `back.jpg`, `corner-1.jpg`, …, `flip.mp4`, `workshop.mp4`. Run `CF_ACCOUNT_ID=… CF_API_TOKEN=… npm run upload-media -- ./media/rug-TR-0042/` and paste the printed JSON into the rug entry (write real alt text). Then `npm run certificate -- TR-0042`.
 
-**Reviews pipeline:** reviews are submitted to D1 as `pending`, moderated at `/admin/reviews`, and exported by `GET /api/admin/reviews-export` (Access-protected). To publish them statically, add a build step that fetches that endpoint with a service token and writes `src/data/reviews.json` (or paste manually). Sections stay hidden until 3 approved reviews exist. Never seed fake reviews.
+**Reviews pipeline:** reviews are submitted to D1 as `pending`, moderated at `/admin/reviews`, and exported by `GET /api/admin/reviews-export` (Access-protected). To publish them statically, run `npm run pull-reviews` before the build (`scripts/pull-reviews.mjs`): set `REVIEWS_EXPORT_URL=https://[DOMAIN]/api/admin/reviews-export` plus a Cloudflare Access **service token** (`CF_ACCESS_CLIENT_ID`, `CF_ACCESS_CLIENT_SECRET`) allowed on the `/api/admin` Access application. Unset, it skips and keeps the committed snapshot; misconfigured, it fails loudly and never overwrites. Approving a review triggers the deploy hook, so put `npm run pull-reviews &&` in front of the Pages build command to make approvals reach the site on that rebuild. Sections stay hidden until 3 approved reviews exist. Never seed fake reviews.
 
 ## Brand assets
 
@@ -202,8 +207,8 @@ src/scripts          client islands (analytics, forms, filters, search, cart, ga
 src/lib              schema (Zod), catalog, site config, pricing bands, jsonld, images, format, tokens, contrast
 src/data             products.json (catalog), rooms.json, reviews.json, unsplash.mjs (sample photo pool + credits)
 functions            Pages Functions: api/* (status, checkout, stripe-webhook, order, health, forms/*, admin/*), admin/ guard, rugs/[slug] redirect, _lib/*
-migrations           D1 SQL
-scripts              validate-catalog, new-rug, sample-products, make-placeholders, og-image, pull-airtable, certificate, upload-media, check-budgets
+migrations           D1 SQL (0001 init, 0002 jev advisory columns)
+scripts              validate-catalog, new-rug, sample-products, make-placeholders, og-image, pull-airtable, pull-reviews, certificate, upload-media, jev-catalog-check, check-budgets
 tests                unit (vitest) · e2e (playwright: site, a11y, keyboard, reflow, api)
 public               _headers, _redirects, _routes.json, fonts, placeholders, favicon, manifest
 ```

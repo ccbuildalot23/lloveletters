@@ -6,7 +6,7 @@ import { triggerDeploy } from '../../_lib/deploy';
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const status = new URL(request.url).searchParams.get('status') ?? 'pending';
   const { results } = await env.DB.prepare(
-    'SELECT id, rating, title, body, display_name, city, photo_key, status, verified, rug_id, created_at, approved_at FROM reviews WHERE status = ? ORDER BY created_at DESC',
+    'SELECT id, rating, title, body, display_name, city, photo_key, status, verified, rug_id, created_at, approved_at, jev FROM reviews WHERE status = ? ORDER BY created_at DESC',
   )
     .bind(status)
     .all();

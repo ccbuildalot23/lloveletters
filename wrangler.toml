@@ -26,6 +26,9 @@ LAUNCH_MODE = "waitlist"                          # "waitlist" | "live"
 SOLD_INDEX_DAYS = "90"                            # sold rugs stay indexed this long
 EMAIL_PROVIDER = "kit"                            # kit | klaviyo | none
 ADMIN_EMAIL_PROVIDER = "resend"                   # resend | postmark | mailchannels | none
+# ADMIN_EMAIL_FROM is a secret-adjacent runtime value: set it with `wrangler pages secret put ADMIN_EMAIL_FROM`
+# (or in the Pages dashboard) to a sender the provider above has verified. JEV_API_KEY, JEV_MODEL and
+# JEV_DISABLED (docs/JEV.md) are set the same way; see docs/ENVIRONMENT.md for the full matrix.
 RATE_LIMIT_PER_MINUTE = "10"
 
 [[d1_databases]]
