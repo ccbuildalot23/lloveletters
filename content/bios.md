@@ -20,16 +20,16 @@ Spoken, for parties and the elevator:
 
 ## Instagram (150 characters max)
 
-> One-of-a-kind hand-knotted Turkish rugs, flipped and counted before I buy. One price, duties & US shipping included, 30-day returns. Washington, DC.
+> One-of-a-kind hand-knotted Turkish rugs, flipped and counted before I buy. One price, duties & shipping included, 30-day returns. DC · MD · VA.
 
 Link in bio: `https://provenantrugs.com/?utm_source=instagram&utm_medium=bio`
 Name field: "Provenant Rugs · Verified at the Loom"
 
 ## Pinterest (about section, 500 characters max)
 
-> Provenant Rugs sells one-of-a-kind hand-knotted Turkish rugs that Chris checks in person: flip video, knot count, fiber and dye notes and an honest condition report on every page. One fixed price with duties and US shipping included, 30 days to live with it. Based in Washington, DC. Boards cover how rugs are made, how to size a room, and how to care for wool for decades.
+> Provenant Rugs sells one-of-a-kind hand-knotted Turkish rugs that Chris checks in person: flip video, knot count, fiber and dye notes and an honest condition report on every page. One fixed price with duties and US shipping included, 30 days to live with it. Based in Washington, DC, serving DC, Maryland and Virginia, shipping anywhere in the US. Boards cover how rugs are made, how to size a room, and how to care for wool for decades.
 
-Boards to create: "Hand-knotted, explained" · "Rug sizing by room" · "DC rooms" · "Care for wool rugs" · "Provenant Rugs" (products, added only as real rugs list).
+Boards to create: "Hand-knotted, explained" · "Rug sizing by room" · "DMV rooms" (DC, Maryland, Virginia) · "Care for wool rugs" · "Provenant Rugs" (products, added only as real rugs list).
 
 ## TikTok (80 characters max)
 
@@ -37,15 +37,15 @@ Boards to create: "Hand-knotted, explained" · "Rug sizing by room" · "DC rooms
 
 ## YouTube channel description
 
-> Provenant Rugs is a small Washington, DC business selling one-of-a-kind hand-knotted Turkish rugs. Every rug gets a flip video, a knot count on camera, fiber and dye notes and a signed certificate, all published on its page. This channel is the long-form version: the five checks, sizing by room, care, and the sourcing trips. Prices include duties and US shipping; every rug has a 30-day return.
+> Provenant Rugs is a small Washington, DC business serving DC, Maryland and Virginia, selling one-of-a-kind hand-knotted Turkish rugs. Every rug gets a flip video, a knot count on camera, fiber and dye notes and a signed certificate, all published on its page. This channel is the long-form version: the five checks, sizing by room, care, and the sourcing trips. Prices include duties and US shipping; every rug has a 30-day return.
 
 ## Google Business Profile (once eligible)
 
 - Business name: Provenant Rugs
 - Category: Rug store (online retailer)
-- Description (750 characters max): One-of-a-kind hand-knotted Turkish rugs, checked in person before purchase. Each rug's page shows the flip video, knot count, fiber and dye notes, measurements and an honest condition report, with one fixed price that includes duties and US shipping and a 30-day return. Service area: Washington, DC and nearby Maryland and Virginia, with video consultations for anyone in the US.
+- Description (750 characters max): One-of-a-kind hand-knotted Turkish rugs, checked in person before purchase. Each rug's page shows the flip video, knot count, fiber and dye notes, measurements and an honest condition report, with one fixed price that includes duties and US shipping and a 30-day return. Service area: Washington, DC, Maryland and Virginia, with in-home looks across the region and video consultations for anyone in the US.
 - Do not list hours or a storefront address. Do not enable the "products" tab until real rugs are listed.
 
 ## Copy guard review
 
-PASS. No numbers, no testimonials, no partner or press claims. "Washington, DC" is the operating base, not a storefront. The 30-day return and duties-included statements match the site's policy pages.
+PASS. No numbers, no testimonials, no partner or press claims. "Washington, DC" is the operating base, not a storefront; "DC, Maryland and Virginia" is the service area (`site.serviceArea`), and shipping is US-wide. The 30-day return and duties-included statements match the site's policy pages.

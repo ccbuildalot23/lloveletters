@@ -22,7 +22,7 @@ Over the next week I'll send you two more emails: one on how to tell a hand-knot
 You'll hear from me when a drop goes live. Not before, and not every day.
 
 Chris
-Provenant Rugs · Washington, DC
+Provenant Rugs · Washington, DC · serving DC, Maryland and Virginia
 
 {{ unsubscribe_link }} · {{ postal_address }}
 

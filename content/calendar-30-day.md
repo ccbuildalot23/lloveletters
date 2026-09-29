@@ -16,7 +16,7 @@ The brand story in `docs/BRAND_STORY.md` is the spine. Every post lands on one b
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | A · One rug, one story    | Plan step 1, "See the proof", and the transformation from guessing to knowing                                     | The rug's own Provenance Report, shown not described. Day 21 is the maker-story slot and stays blocked until verified.                    |
 | B · Construction evidence | Guide competency, and the villain: the rug-shop script, always a pattern, never a person, seller group or company | Each check the buyer can do, plus a `Script` post on days 10, 18 and 26 naming one move of the script. B posts carry the lead-magnet CTA. |
-| C · DC rooms              | Success: "live with it at home", the room that finally feels finished                                             | Real rooms only; no staged claims about customers until they exist.                                                                       |
+| C · DMV rooms             | Success: "live with it at home", the room that finally feels finished                                             | Real rooms across DC, Maryland and Virginia only; no staged claims about customers until they exist.                                      |
 | D · Care and sizing       | Agreement plan, the Provenant Promise in practice                                                                 | Practical help, plus a `Promise` post on days 12, 20 and 28 stating one commitment the site already keeps.                                |
 
 Villain guardrail for every caption: describe the move ("the price that drops when you stand up"), never the people. No "tourist trap" or "bazaar" jokes, no nationality, no named marketplace or shop. The supplier is never named; if a workshop is mentioned it is "our weaving partner in [WORKSHOP REGION]" and only after `docs/MAKER_STORY.md` clears it.
@@ -27,7 +27,7 @@ Villain guardrail for every caption: describe the move ("the price that drops wh
 | ------------------------- | ---------------------------------------------------------------------------------- | ---------------------------- |
 | A · One rug, one story    | Where this exact rug came from, what it is, what it costs, all in the open         | 1, 5, 9, 13, 17, 21, 25, 29  |
 | B · Construction evidence | Flip test, knot count, fiber and dye checks, what a certificate can and cannot say | 2, 6, 10, 14, 18, 22, 26, 30 |
-| C · DC rooms              | Rugs in Washington homes: rowhouse light, narrow halls, small living rooms         | 3, 7, 11, 15, 19, 23, 27     |
+| C · DMV rooms             | Rugs in DC, Maryland and Virginia homes: rowhouse light, colonials, condos, halls  | 3, 7, 11, 15, 19, 23, 27     |
 | D · Care and sizing       | Sizing rules, pads, vacuuming, spills, rotation, storage                           | 4, 8, 12, 16, 20, 24, 28     |
 
 Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest every day (one Idea Pin or standard Pin repurposing the day's asset). Days 8–30 are topic slots only; captions get written in weekly batches after the first week's engagement is read.
@@ -41,7 +41,7 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 | 12  | D      | `Promise` · "Proof before purchase": the flip video, count and fiber note live on every page before you pay. Then rug pads: felt vs rubber, when you need one                         |
 | 13  | A      | Rug story #4                                                                                                                                                                          |
 | 14  | B      | What KPSI means and why it is not a quality score. CTA: Get the free 5-Minute Rug Check                                                                                               |
-| 15  | C      | Small DC living room: 5×8 vs 6×9 with a sofa                                                                                                                                          |
+| 15  | C      | Small living room, Arlington or Silver Spring condo: 5×8 vs 6×9 with a sofa                                                                                                           |
 | 16  | D      | Spill response, the boring right way                                                                                                                                                  |
 | 17  | A      | Rug story #5                                                                                                                                                                          |
 | 18  | B      | `Script` · "The certificate nobody can check": reading the fringe and selvedge, and what a checkable certificate names. CTA: Get the free 5-Minute Rug Check                          |
@@ -106,11 +106,11 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 
 ### L30-D03-IG · Day 3 · Instagram · C · Carousel
 
-- **Hook:** "DC rowhouse light is hard on rugs. Here is what it does."
-- **Caption:** Long, narrow rooms and one wall of windows: that is most rowhouses I have been in around Washington. Slide 1 is a rug in morning light from the front windows. Slide 2 is the same rug at 4 pm. Slide 3 is a rug under lamps. Faded, low-pile vintage rugs read calm in strong side light; saturated new rugs can look darker than you expect in the back of the room. Send me a photo of your room and I will tell you which way I would go.
+- **Hook:** "Rowhouse light is hard on rugs. Here is what it does."
+- **Caption:** Long, narrow rooms and one wall of windows: that is most rowhouses I have been in around DC, and plenty of older homes in Maryland and Virginia too. Slide 1 is a rug in morning light from the front windows. Slide 2 is the same rug at 4 pm. Slide 3 is a rug under lamps. Faded, low-pile vintage rugs read calm in strong side light; saturated new rugs can look darker than you expect in the back of the room. Send me a photo of your room and I will tell you which way I would go.
 - **CTA:** "DM a room photo, or upload it on the site."
 - **Format:** Carousel, 3–4 slides, same rug, three lighting conditions. Real photos only; no renders presented as rooms.
-- **Asset note:** Shoot in an actual DC-area room you have permission to photograph. If none is available before Day 3, swap with Day 4.
+- **Asset note:** Shoot in an actual DC, Maryland or Virginia room you have permission to photograph. If none is available before Day 3, swap with Day 4.
 - **Alt text:** The same wool rug photographed in morning window light, afternoon light and lamplight.
 - **Source:** /rooms (room-photo upload).
 - **Destination:** `https://provenantrugs.com/rooms?utm_source=instagram&utm_medium=social&utm_campaign=launch30&utm_content=L30-D03-IG`
@@ -129,7 +129,7 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 ### L30-D04-IG · Day 4 · Instagram · D · Carousel
 
 - **Hook:** "The only rug-size rule you need for a living room."
-- **Caption:** Front legs of every seat on the rug. Not the coffee table alone, not floating in the middle. For most DC living rooms with a sofa and two chairs that means an 8×10, not the 5×8 that looks big enough online. A 5×8 works when the sofa sits against the wall and only its front legs need to land on the rug. Measure the seating footprint first, then add 6 to 8 inches on each side. Slide 4 is the tape-measure cheat sheet.
+- **Caption:** Front legs of every seat on the rug. Not the coffee table alone, not floating in the middle. For most living rooms around DC, Maryland and Virginia with a sofa and two chairs that means an 8×10, not the 5×8 that looks big enough online. A 5×8 works when the sofa sits against the wall and only its front legs need to land on the rug. Measure the seating footprint first, then add 6 to 8 inches on each side. Slide 4 is the tape-measure cheat sheet.
 - **CTA:** "Save it. The sizing guide has the bedroom and dining rules too."
 - **Format:** Carousel, 4 slides, overhead diagrams (Canva) plus one real room photo.
 - **Asset note:** Diagrams from Canva copy `DAHWil06FG4` variant "sizing"; palette per `docs/COLOR.md` (indigo lines on ivory, madder accent for the seating footprint).
@@ -195,7 +195,7 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 ### L30-D07-IG · Day 7 · Instagram · C · Static
 
 - **Hook:** "Hallway runners: measure twice, buy once."
-- **Caption:** DC hallways run long and narrow, and the doors along them decide the runner's width, not the wall. Leave 4 to 6 inches of floor on each side, stop short of the door swing, and check the width at the narrowest point, because old houses are rarely straight. Write down three numbers before you shop: length wall to wall, narrowest width, and the distance to the first door.
+- **Caption:** Hallways in older DC, Maryland and Virginia homes run long and narrow, and the doors along them decide the runner's width, not the wall. Leave 4 to 6 inches of floor on each side, stop short of the door swing, and check the width at the narrowest point, because old houses are rarely straight. Write down three numbers before you shop: length wall to wall, narrowest width, and the distance to the first door.
 - **CTA:** "Runners are their own collection on the site."
 - **Format:** Static photo, overhead of a hallway with a tape measure, three numbers overlaid.
 - **Asset note:** Real hallway shoot, or the Day 4 diagram style if no hallway is available.
@@ -229,6 +229,6 @@ All 1080×1440 (4:5) for the feed; export a 1000×1500 crop for Pinterest. Palet
 
 ## Copy guard review (this file)
 
-PASS with conditions. Claims verified: sizing rules (standard interior guidance, stated as advice), flip-test description (construction only, limits stated), KPSI definition, DC rowhouse observations (framed as Chris's experience, no statistics). Claims flagged and resolved: none quantified; no customer quotes; no delivery-time promises beyond what the product pages state ("duties and US shipping included, 30-day return" are site policy). Conditions: every `{PLACEHOLDER}` must be filled from the catalog entry, and "Needs real rug" entries do not post until a real rug exists.
+PASS with conditions. Claims verified: sizing rules (standard interior guidance, stated as advice), flip-test description (construction only, limits stated), KPSI definition, rowhouse and older-home observations across DC, Maryland and Virginia (framed as Chris's experience, no statistics). Claims flagged and resolved: none quantified; no customer quotes; no delivery-time promises beyond what the product pages state ("duties and US shipping included, 30-day return" are site policy). Conditions: every `{PLACEHOLDER}` must be filled from the catalog entry, and "Needs real rug" entries do not post until a real rug exists.
 
 Brand-story additions (Sep 29): the `Script` and `Promise` slots and the lead-magnet CTAs were checked against `docs/BRAND_STORY.md`. The villain is always the rug-shop script as a pattern; no post names a nationality, a seller group, a shop or a marketplace. No post names the supplier or quotes supplier staff; the day-21 maker story is blocked until `docs/MAKER_STORY.md` is cleared. "Get the free 5-Minute Rug Check" links resolve to `/authenticity` until the lead-magnet page and PDF exist. The three Promise commitments (proof before purchase, one price with duties and US shipping included, 30 days at home) are current site policy.

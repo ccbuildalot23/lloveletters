@@ -14,7 +14,7 @@ Grunt test: What do you offer? Real handmade Turkish rugs. How does it make my l
 
 ### Character
 
-Primary hero: a US homeowner, usually in the DC area, furnishing a living or dining room and ready to spend roughly $1,000 to $1,600. The 8x10 is the size they reach for most. Secondary heroes, same story: interior designers (a one-of-one rug they can put in front of a client without a surprise) and home stagers (rugs that make a listing photograph finished; they may prefer to rent `[VERIFY: rental program]`).
+Primary hero: a US homeowner, usually in DC, Maryland or Virginia (the DMV is the home market; the business is based in Washington, DC and ships anywhere in the US), furnishing a living or dining room and ready to spend roughly $1,000 to $1,600. The 8x10 is the size they reach for most. Secondary heroes, same story: interior designers (a one-of-one rug they can put in front of a client without a surprise) and home stagers (rugs that make a listing photograph finished; they may prefer to rent `[VERIFY: rental program]`).
 
 The one want: a real handmade Turkish rug they can buy online with total confidence. Style, color, room fit, delivery speed and trade pricing are subplots.
 
@@ -119,7 +119,7 @@ Taglines: **Verified at the Loom** (primary; the site h1 uses sentence case "Ver
 | Direct CTA            | Header, hero, product sticky bar, `WaysToBuy.astro`              | Every caption's CTA line                                                        |
 | Transitional CTA      | `WaysToBuy.astro` footer line, `/book`                           | Lead magnet + nurture sequence (`content/emails/nurture-5-minute-rug-check.md`) |
 | Explanatory paragraph | `Stakes.astro` closer + `VerifySteps` intro                      | YouTube description, Pinterest about                                            |
-| Success               | `InRealHomes.astro`                                              | Pillar C DC rooms                                                               |
+| Success               | `InRealHomes.astro`                                              | Pillar C DMV rooms (DC, Maryland, Virginia)                                     |
 
 Homepage order (StoryBrand): Hero → trust bar → Stakes → latest drop → three steps → guide (Meet Chris) → ways to buy → shop by size → shop by style → in real homes → reviews (hidden until real) → trade → drop list. The wireframe's video block is the hero Stream loop and the founder video in Meet Chris; no third video.
 

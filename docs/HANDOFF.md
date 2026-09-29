@@ -131,3 +131,12 @@ Source: Chris's `Brand_Story_StoryBrand_Draft.docx` v0.3 and `Barok_Process_Fact
 - **Site.** Homepage now runs Hero → trust bar → Stakes ("Stop guessing.") → latest drop → "Three steps to a rug you can trust" → Meet Chris → three ways to buy (with the transitional CTA pointing at `/authenticity` until the Rug Check page exists) → size → style → real homes → reviews → trade → drop list. Hero subhead is the brand story's. H1 and every CTA label the tests assert on are unchanged.
 - **Guardrails applied.** No customer-facing line names the supplier, its owner, a nationality, a seller group or a company; the villain is a sales pattern. Supplier claims from the showroom audio live only in `docs/MAKER_STORY.md`, each cited and marked unverified; the silk density and loom-time figures were kept out of the working draft. The `dist/` build contains no `[VERIFY]` text and no supplier name.
 - **Airtable.** Seven Content Calendar rows for the new slots, Status = Draft; no existing rows changed. Gmail drafts untouched.
+
+## 11. Customer base widened to DC, Maryland and Virginia (Sep 29)
+
+Chris's direction: the potential customer base is the whole DMV, not the District alone. Applied as:
+
+- `src/lib/site.ts` gains `serviceArea` (`PUBLIC_SERVICE_AREA`, default "DC, Maryland and Virginia"); `localArea` stays "Washington, DC" as the operating base. `/about`, `/book` and `/trade` now use `serviceArea` for delivery and in-home looks. JSON-LD `areaServed` was already `US` (shipping is nationwide) and is unchanged.
+- Brand story hero is a DC, Maryland or Virginia homeowner. Calendar pillar C is "DMV rooms"; the day 3, 4 and 7 captions and the day 15 slot no longer read as DC-only, and the same three captions were updated in their Airtable rows (`recTtj6ICjrsmOGvk`, `rec4IhRgC7vlseiSu`, `recFbgjkiJ3azoZ29`) with a note. Bios, welcome email 1 signature, outreach templates and the SEO map now carry the three-jurisdiction service area.
+- `docs/OUTREACH.md` has a geographic-scope section: the next prospect batch adds Maryland (Bethesda, Chevy Chase, Potomac, Silver Spring, Annapolis, Baltimore) and Virginia (Arlington, Alexandria, McLean, Falls Church, Vienna, Reston) designers and stagers in roughly equal weight.
+- Owner actions: rename the Airtable Pillar option "DC rooms" to "DMV rooms" (a select-choice rename the API tool here cannot do) and, optionally, the "DC Prospects" table to "DMV Prospects" (referenced by id everywhere, so nothing breaks). Set `PUBLIC_SERVICE_AREA` in Pages only if the wording should differ.

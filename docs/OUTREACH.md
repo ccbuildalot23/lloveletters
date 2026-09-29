@@ -8,6 +8,12 @@ Purpose: 15-minute learning conversations, not sales. Chris sends everything him
 - **Gmail drafts, campaign key `provenant-interview-2026-09`:** five drafts created on Sep 29, 2026 for Priority A prospects that list a public business email (two stagers, three designers). Draft ids are stored in each prospect's Airtable **Notes** with "Draft created 2026-09-29"; **Channel = Email**; **Contacted** stays unchecked until Chris actually sends. Each draft ends with a bracketed reminder to add a phone or LinkedIn line, which the template leaves to Chris; delete that bracket before sending.
 - Remaining Priority A prospects with a public email (Georgia & Hunt, Ella Scott, Ally Banks, wowed!) are the second batch; rerun the same template. Two Priority A stagers are **form-only** (Scène Staging, Staged Beautiful): use the variants below in their site contact form.
 
+## Geographic scope: DC, Maryland and Virginia
+
+The customer base is the whole DMV, not the District alone. The current **DC Prospects** table was built from DC-based lists, so the next research batch should add Maryland and Virginia designers and stagers in roughly equal weight: Bethesda, Chevy Chase, Potomac, Silver Spring, Annapolis and Baltimore on the Maryland side; Arlington, Alexandria, McLean, Falls Church, Vienna and Reston on the Virginia side. Keep the same source rule (public business listings only, source noted in the record). The table name can stay as is or be renamed "DMV Prospects" in Airtable; the README and this file reference it by table id `tblON2kjIWGrzLA3b`, so a rename breaks nothing.
+
+Outreach copy says "I live in Washington, DC" because that is true; it should say "designers and stagers around DC, Maryland and Virginia" wherever it describes the research population, and "in the region" rather than "here" when the prospect is outside the District.
+
 ## Pacing (a manual workload ceiling, not a platform rule)
 
 Start with the five drafts. Read the replies before sending the second batch. Never more than five to eight new messages a day, one follow-up after five to seven business days, and stop at once on a decline or an opt-out. A cold response rate of roughly one in ten is a planning guess, not a measurement.
@@ -20,7 +26,7 @@ Subject: 15 minutes on how you source rugs? (research, not a pitch)
 
 > Hi [First name or team],
 >
-> I'm Chris, and I live in Washington, DC. I'm researching how local designers and home stagers source area rugs, especially hand-knotted and vintage pieces. [One specific, source-backed detail about their work.]
+> I'm Chris, and I live in Washington, DC. I'm researching how designers and home stagers around DC, Maryland and Virginia source area rugs, especially hand-knotted and vintage pieces. [One specific, source-backed detail about their work.]
 >
 > This isn't a sales pitch. I'm trying to understand what's hard today (price, authenticity, returns, lead times, sizes) before I decide whether to build anything. Your perspective would be really valuable.
 >
@@ -39,7 +45,7 @@ Stager middle paragraph:
 
 ### Instagram DM variant (under about 450 characters)
 
-> Hi [First name], I'm Chris, a DC local. I've admired your work, especially [specific project]. I'm researching how designers and stagers here source hand-knotted rugs: what's hard, what you pay, what you wish existed. I'm not selling anything. Would you have 15 minutes for a quick call or coffee in the next couple of weeks? Happy to work around your schedule. Thank you!
+> Hi [First name], I'm Chris, a DC local. I've admired your work, especially [specific project]. I'm researching how designers and stagers around DC, Maryland and Virginia source hand-knotted rugs: what's hard, what you pay, what you wish existed. I'm not selling anything. Would you have 15 minutes for a quick call or coffee in the next couple of weeks? Happy to work around your schedule. Thank you!
 
 ### Follow-up (once, after 5–7 business days)
 
