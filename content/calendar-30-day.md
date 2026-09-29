@@ -8,6 +8,19 @@ _Drafted Sep 29, 2026. Nothing here is scheduled or posted. Day 1 = the day the 
 
 **Tracking:** every link uses `?utm_source=<platform>&utm_medium=social&utm_campaign=launch30&utm_content=<content id>`.
 
+## Story spine (StoryBrand beats each pillar carries)
+
+The brand story in `docs/BRAND_STORY.md` is the spine. Every post lands on one beat, and every caption's CTA is one of the story's calls to action (direct: "Shop the rugs" / "Join the drop list" / "Apply for trade"; transitional: "Get the free 5-Minute Rug Check" / "Book a live video look").
+
+| Pillar                    | StoryBrand beat                                                                                                   | How it shows up                                                                                                                           |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| A · One rug, one story    | Plan step 1, "See the proof", and the transformation from guessing to knowing                                     | The rug's own Provenance Report, shown not described. Day 21 is the maker-story slot and stays blocked until verified.                    |
+| B · Construction evidence | Guide competency, and the villain: the rug-shop script, always a pattern, never a person, seller group or company | Each check the buyer can do, plus a `Script` post on days 10, 18 and 26 naming one move of the script. B posts carry the lead-magnet CTA. |
+| C · DC rooms              | Success: "live with it at home", the room that finally feels finished                                             | Real rooms only; no staged claims about customers until they exist.                                                                       |
+| D · Care and sizing       | Agreement plan, the Provenant Promise in practice                                                                 | Practical help, plus a `Promise` post on days 12, 20 and 28 stating one commitment the site already keeps.                                |
+
+Villain guardrail for every caption: describe the move ("the price that drops when you stand up"), never the people. No "tourist trap" or "bazaar" jokes, no nationality, no named marketplace or shop. The supplier is never named; if a workshop is mentioned it is "our weaving partner in [WORKSHOP REGION]" and only after `docs/MAKER_STORY.md` clears it.
+
 ## Four pillars and the 30-day map
 
 | Pillar                    | Promise to the reader                                                              | Days                         |
@@ -19,31 +32,31 @@ _Drafted Sep 29, 2026. Nothing here is scheduled or posted. Day 1 = the day the 
 
 Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest every day (one Idea Pin or standard Pin repurposing the day's asset). Days 8–30 are topic slots only; captions get written in weekly batches after the first week's engagement is read.
 
-| Day | Pillar | Topic slot                                                             |
-| --- | ------ | ---------------------------------------------------------------------- |
-| 8   | D      | "Which way does the rug go under the bed?" three layouts               |
-| 9   | A      | Rug story #3                                                           |
-| 10  | B      | Natural vs synthetic dye: what the back tells you, what it cannot      |
-| 11  | C      | A Capitol Hill rowhouse hallway: why runners are measured, not guessed |
-| 12  | D      | Rug pads: felt vs rubber, when you need one                            |
-| 13  | A      | Rug story #4                                                           |
-| 14  | B      | What KPSI means and why it is not a quality score                      |
-| 15  | C      | Small DC living room: 5×8 vs 6×9 with a sofa                           |
-| 16  | D      | Spill response, the boring right way                                   |
-| 17  | A      | Rug story #5                                                           |
-| 18  | B      | Reading the fringe and selvedge                                        |
-| 19  | C      | Dining room math: chairs pulled out                                    |
-| 20  | D      | Rotating a rug: why and how often                                      |
-| 21  | A      | Rug story #6                                                           |
-| 22  | B      | Repairs: what an honest condition note looks like                      |
-| 23  | C      | Renters: rugs that move with you                                       |
-| 24  | D      | Vacuum settings that will not eat the pile                             |
-| 25  | A      | Rug story #7                                                           |
-| 26  | B      | What a certificate means, and what it does not                         |
-| 27  | C      | Entryways and mudrooms                                                 |
-| 28  | D      | Storing a rug (rolled, never folded)                                   |
-| 29  | A      | Rug story #8                                                           |
-| 30  | B      | Recap: the five checks, in order                                       |
+| Day | Pillar | Topic slot                                                                                                                                                                            |
+| --- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 8   | D      | "Which way does the rug go under the bed?" three layouts                                                                                                                              |
+| 9   | A      | Rug story #3                                                                                                                                                                          |
+| 10  | B      | `Script` · "The fiber claim you can't test at home": natural vs synthetic dye, what the back tells you, what it cannot. CTA: Get the free 5-Minute Rug Check                          |
+| 11  | C      | A Capitol Hill rowhouse hallway: why runners are measured, not guessed                                                                                                                |
+| 12  | D      | `Promise` · "Proof before purchase": the flip video, count and fiber note live on every page before you pay. Then rug pads: felt vs rubber, when you need one                         |
+| 13  | A      | Rug story #4                                                                                                                                                                          |
+| 14  | B      | What KPSI means and why it is not a quality score. CTA: Get the free 5-Minute Rug Check                                                                                               |
+| 15  | C      | Small DC living room: 5×8 vs 6×9 with a sofa                                                                                                                                          |
+| 16  | D      | Spill response, the boring right way                                                                                                                                                  |
+| 17  | A      | Rug story #5                                                                                                                                                                          |
+| 18  | B      | `Script` · "The certificate nobody can check": reading the fringe and selvedge, and what a checkable certificate names. CTA: Get the free 5-Minute Rug Check                          |
+| 19  | C      | Dining room math: chairs pulled out                                                                                                                                                   |
+| 20  | D      | `Promise` · "One price": the listed price is the price, duties and US shipping included, no markdowns that were never real. Then rotating a rug: why and how often                    |
+| 21  | A      | Maker story: where the rugs are woven, in Chris's voice. `[VERIFY supplier]` blocked until `docs/MAKER_STORY.md` clears; fallback: Chris's own sourcing-trip story, no supplier named |
+| 22  | B      | Repairs: what an honest condition note looks like. CTA: Get the free 5-Minute Rug Check                                                                                               |
+| 23  | C      | Renters: rugs that move with you                                                                                                                                                      |
+| 24  | D      | Vacuum settings that will not eat the pile                                                                                                                                            |
+| 25  | A      | Rug story #7                                                                                                                                                                          |
+| 26  | B      | `Script` · "The price that drops when you stand up": what a certificate means, what it does not, and why one fixed price is the honest version. CTA: Get the free 5-Minute Rug Check  |
+| 27  | C      | Entryways and mudrooms                                                                                                                                                                |
+| 28  | D      | `Promise` · "Thirty days at home": the plain return policy in one paragraph. Then storing a rug (rolled, never folded)                                                                |
+| 29  | A      | Rug story #8                                                                                                                                                                          |
+| 30  | B      | Recap: the six checks, in order (the 5-Minute Rug Check as a carousel). CTA: Get the free 5-Minute Rug Check                                                                          |
 
 ## Days 1–7, fully drafted (14 entries)
 
@@ -73,7 +86,7 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 
 - **Hook:** "The 10-second flip test."
 - **Caption:** Turn the rug over. On a hand-knotted rug the pattern is just as sharp on the back, and you can see each knot as a small square. On a machine-made rug the back is usually blurry, with a grid or a glued backing. That is the whole test. It tells you how the rug was made. It does not tell you how old it is, where it is from, or what the fiber is; those take other checks, and I show them separately.
-- **CTA:** "Save this for the next rug you look at."
+- **CTA:** "Save this for the next rug you look at. Want all six checks? Get the free 5-Minute Rug Check, link in bio."
 - **Format:** Reel, 10–15 s, two rugs side by side: one hand-knotted back, one machine-made back (use a machine-made rug you own; label it clearly).
 - **Asset note:** Text overlay "hand-knotted" / "machine-made" on each half. No claims about the machine-made rug's brand.
 - **Alt text:** Two rug backs side by side: one with visible individual knots, one with a blurred grid pattern.
@@ -161,7 +174,7 @@ Weekly rhythm: Instagram every day (Reel or carousel; Stories repost), Pinterest
 
 - **Hook:** "Counting knots on camera, no cuts."
 - **Caption:** Knots per square inch is a count, not a quality score. I lay a one-inch square on the back, count the knots across and down, multiply, and write that number on the page. A village rug at 40 knots can be heavier, springier and more beautiful than a workshop rug at 100. The number tells you fineness and how much work went in. It does not tell you which one belongs in your house.
-- **CTA:** "Every rug's count is on its page."
+- **CTA:** "Every rug's count is on its page. Want to count one yourself? Get the free 5-Minute Rug Check, link in bio."
 - **Format:** Reel, 15–25 s, macro of the back with a ruler, one continuous take.
 - **Asset note:** Overlay the running count. Use a real rug from the catalog when one exists; until then, any hand-knotted rug you own, clearly captioned "demo rug, not for sale".
 - **Alt text:** Close-up of a ruler laid on the back of a rug while knots are counted.
@@ -217,3 +230,5 @@ All 1080×1440 (4:5) for the feed; export a 1000×1500 crop for Pinterest. Palet
 ## Copy guard review (this file)
 
 PASS with conditions. Claims verified: sizing rules (standard interior guidance, stated as advice), flip-test description (construction only, limits stated), KPSI definition, DC rowhouse observations (framed as Chris's experience, no statistics). Claims flagged and resolved: none quantified; no customer quotes; no delivery-time promises beyond what the product pages state ("duties and US shipping included, 30-day return" are site policy). Conditions: every `{PLACEHOLDER}` must be filled from the catalog entry, and "Needs real rug" entries do not post until a real rug exists.
+
+Brand-story additions (Sep 29): the `Script` and `Promise` slots and the lead-magnet CTAs were checked against `docs/BRAND_STORY.md`. The villain is always the rug-shop script as a pattern; no post names a nationality, a seller group, a shop or a marketplace. No post names the supplier or quotes supplier staff; the day-21 maker story is blocked until `docs/MAKER_STORY.md` is cleared. "Get the free 5-Minute Rug Check" links resolve to `/authenticity` until the lead-magnet page and PDF exist. The three Promise commitments (proof before purchase, one price with duties and US shipping included, 30 days at home) are current site policy.

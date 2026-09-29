@@ -4,6 +4,20 @@ Handles `@provenantrugs` appeared available on Sep 28, 2026 (logged-out checks, 
 
 Every bio below states what is true today: one-of-a-kind hand-knotted Turkish rugs, checked in person, honest prices with duties and US shipping included, 30-day returns. None claims volume, awards, partners or customers.
 
+## One-liner and elevator version (from `docs/BRAND_STORY.md`)
+
+Written, for press kits, marketplace profiles and the About page intro:
+
+> Buying a handmade rug online usually means trusting a story you can't check. Provenant Rugs sells real Turkish rugs, each with a Provenance Report that shows how and where it was made. So you know exactly what's on your floor.
+
+Trade version, for designer and stager conversations:
+
+> Designers can't afford a rug that turns out to be something else. Provenant Rugs gives you one-of-one Turkish rugs with a Provenance Report you can hand straight to your client. Your sourcing never gets questioned.
+
+Spoken, for parties and the elevator:
+
+> It's called Provenant Rugs. Turkish rugs with provenance. You see the back, the knots, and where it was made before you buy.
+
 ## Instagram (150 characters max)
 
 > One-of-a-kind hand-knotted Turkish rugs, flipped and counted before I buy. One price, duties & US shipping included, 30-day returns. Washington, DC.

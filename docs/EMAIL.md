@@ -6,13 +6,15 @@
 
 `functions/_lib/email.ts` → `syncSubscriber()` is called by the waitlist form and, after a purchase with `consent.promotions = opt_in`, by the Stripe webhook. It upserts the subscriber in Kit (or Klaviyo if `EMAIL_PROVIDER` is switched) with:
 
-| Tag              | Written when                              |
-| ---------------- | ----------------------------------------- |
-| `waitlist`       | drop-list / waitlist signup               |
-| `size:<bucket>`  | signup form interest, e.g. `size:8x10`    |
-| `style:<style>`  | signup form interest, e.g. `style:oushak` |
-| `customer`       | checkout completed with marketing consent |
-| `bought:<rugId>` | one per rug in the order                  |
+| Tag              | Written when                                                 |
+| ---------------- | ------------------------------------------------------------ |
+| `waitlist`       | drop-list / waitlist signup                                  |
+| `size:<bucket>`  | signup form interest, e.g. `size:8x10`                       |
+| `style:<style>`  | signup form interest, e.g. `style:oushak`                    |
+| `customer`       | checkout completed with marketing consent                    |
+| `bought:<rugId>` | one per rug in the order                                     |
+| `lead:rug-check` | planned: 5-Minute Rug Check download (form not built)        |
+| `trade`          | planned: "I'm a designer or stager" box on the download form |
 
 `source` is recorded as `waitlist` or `checkout`. Secrets needed at runtime: `EMAIL_API_KEY`, `EMAIL_LIST_ID` (a Kit form id). Verify the endpoint paths in `email.ts` against Kit's current API before launch; they were written from documentation, not a live account.
 
@@ -35,6 +37,17 @@ Files: `content/emails/welcome-1.md`, `welcome-2.md`, `welcome-3.md`. Each file 
 | 3   | +4 days after #2         | The rug that looks big enough online (isn't) |
 
 Exit rules: `customer` tag, or unsubscribe. Drop announcements are broadcasts, not part of the sequence, and go only when rugs are actually live.
+
+## Sequence: 5-Minute Rug Check nurture (7 emails, not active)
+
+File: `content/emails/nurture-5-minute-rug-check.md`. Trigger: tag `lead:rug-check` added by the lead-magnet form (page and PDF not built; see `content/lead-magnet-5-minute-rug-check.md`). Cadence: days 0, 3, 6, 10, 14, 18, 22, then the weekly drop broadcast. Designer branch: tag `trade` swaps emails 4 to 7 for the trade versions.
+
+Rules to set in Kit:
+
+- **One sequence at a time.** A contact already in Welcome does not enter Nurture until Welcome finishes, and a contact in Nurture does not enter Welcome; a later `waitlist` tag adds them to the drop broadcast only.
+- **Exit on purchase.** `customer` tag exits both sequences.
+- **Blocked emails.** Emails 1 (PDF link), 3 (needs a real rug) and 4 (Chris's true story) carry `[VERIFY]` blockers in the file and are not loaded until resolved. Loading the sequence with those three missing is fine as a draft, but it must stay paused.
+- No rental or staging-program language anywhere until `docs/DECISIONS.md` settles the stager pilot.
 
 ## Post-purchase (not written yet)
 

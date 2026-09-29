@@ -1,0 +1,59 @@
+---
+/** StoryBrand "price choices" block: one path per kind of buyer, plus the transitional CTA. */
+import SectionHeader from '../ui/SectionHeader.astro';
+import { site, isWaitlistMode } from '@lib/site';
+const tiles = [
+  {
+    title: isWaitlistMode ? 'Preview the collection' : 'Buy a rug from the current drop',
+    who: 'Homeowners',
+    body: isWaitlistMode
+      ? 'See what is coming: 5×8, 8×10 and 9×12 rugs with the back, the knots and the fiber already filmed.'
+      : 'One-of-one rugs in 5×8, 8×10 and 9×12. One price, duties and US shipping included.',
+    href: '/rugs',
+  },
+  {
+    title: 'Join the drop list',
+    who: 'Not ready yet',
+    body: 'Hear about new rugs before they list. A few emails a month, no pressure.',
+    href: '#waitlist',
+  },
+  {
+    title: 'Apply for trade',
+    who: 'Designers and stagers',
+    body: `${site.tradeDiscountPct}% trade pricing, video shortlists, and a Provenance Report you can hand to a client.`,
+    href: '/trade',
+  },
+];
+---
+
+<section class="bg-sand" aria-labelledby="ways-title">
+  <div class="container-content section-pad">
+    <SectionHeader
+      id="ways-title"
+      eyebrow="Pick your path"
+      title="Three ways to get a rug you can trust."
+    />
+    <ul class="grid gap-6 md:grid-cols-3" role="list">
+      {tiles.map((t) => (
+        <li>
+          <a
+            href={t.href}
+            class="group flex h-full flex-col rounded-card border border-line bg-ivory p-6 text-charcoal no-underline transition-[border-color,transform] duration-hover ease-brand hover:border-indigo focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo"
+          >
+            <span class="text-small font-medium tracking-wide text-madder uppercase">{t.who}</span>
+            <span class="mt-2 font-sans text-h4 font-semibold text-indigo group-hover:underline">
+              {t.title}
+            </span>
+            <span class="mt-2 text-body text-charcoal">{t.body}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-8 text-body-lg text-charcoal">
+      Not ready yet? Learn to spot a real one.
+      <a href="/authenticity" class="font-medium">
+        Get the free 5-Minute Rug Check →
+      </a>
+    </p>
+  </div>
+</section>

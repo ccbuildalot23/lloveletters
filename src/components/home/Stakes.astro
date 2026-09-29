@@ -1,0 +1,39 @@
+---
+/** StoryBrand stakes block: what the rug-shop script costs the buyer. The villain is the script, never people. */
+import SectionHeader from '../ui/SectionHeader.astro';
+const stakes = [
+  {
+    title: 'Tufted rugs sold as hand-knotted.',
+    body: 'A glued backing hides the difference. Photos of the front never show it.',
+  },
+  {
+    title: '“Turkish” rugs made somewhere else.',
+    body: 'A label is not a place. Without a certificate for that rug, origin is a story.',
+  },
+  {
+    title: 'Photos that lie about color.',
+    body: 'Warm light and a filter can turn rust into red. You find out when the box opens.',
+  },
+];
+---
+
+<section class="container-content section-pad" aria-labelledby="stakes-title">
+  <SectionHeader
+    id="stakes-title"
+    eyebrow="What the rug-shop script costs you"
+    title="Stop guessing."
+    intro="Buying a rug you can’t touch is nerve-racking. The inflated tag, the “special price, just for you,” the certificate nobody can check: none of it can be tested from a screen. So I test it for you, on camera, before you pay."
+  />
+  <ul class="grid gap-6 md:grid-cols-3" role="list">
+    {stakes.map((s) => (
+      <li class="rounded-card border border-line bg-ivory p-6">
+        <h3 class="font-sans text-h4 font-semibold text-indigo">{s.title}</h3>
+        <p class="mt-2 text-body text-charcoal">{s.body}</p>
+      </li>
+    ))}
+  </ul>
+  <p class="mt-8 max-w-2xl text-body-lg text-charcoal">
+    You shouldn’t need to be an expert to buy an honest rug. Every rug here comes with the proof
+    already done: the back, the knots, the fiber, the dye, and where it was made.
+  </p>
+</section>

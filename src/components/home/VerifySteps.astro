@@ -1,21 +1,22 @@
 ---
 import Icon from '../ui/Icon.astro';
 import SectionHeader from '../ui/SectionHeader.astro';
+import { site } from '@lib/site';
 const steps = [
   {
     icon: 'flip',
-    title: '1. The flip test',
-    body: 'I turn every rug over on camera and count the knots. Hand-knotted rugs show the pattern clearly on the back. Machine-made ones don’t. That video lives on the product page.',
+    title: '1. See the proof',
+    body: `Every rug has its own ${site.provenanceReport}: the back of the rug on video, the knots counted on camera, the fiber and dye checked, and where it was made. It all lives on the product page before you spend a dollar.`,
   },
   {
-    icon: 'knot',
-    title: '2. Fiber & dye check',
-    body: 'A burn test on a fringe fiber (wool smells like hair, viscose like paper), a close look at the pile, and honest notes on whether the dyes are natural, synthetic, or mixed.',
+    icon: 'duties',
+    title: '2. Order at one honest price',
+    body: 'The price you see is the price. No haggling, no “was $5,000” markdowns, no surprise fees at the door. Duties and US shipping are included.',
   },
   {
-    icon: 'certificate',
-    title: '3. Signed certificate',
-    body: 'Every rug gets a unique ID and a signed certificate with its photo, size, fibers, region, and age. It matches the page you bought it from, forever.',
+    icon: 'returns',
+    title: '3. Live with it at home',
+    body: `It ships to your door with a signed certificate that matches its page. You get ${site.returnsDays} days to live with it. If it isn’t what the report says, it comes back.`,
   },
 ];
 ---
@@ -24,8 +25,8 @@ const steps = [
   <SectionHeader
     id="verify-title"
     eyebrow="No haggling. No surprises."
-    title="How I verify every rug"
-    intro="Most people get burned buying rugs because nobody shows them the back. So I show you the back. Every rug ships with a Provenance Report: the flip video, the knot count, the fiber check, and a signed certificate."
+    title="Three steps to a rug you can trust"
+    intro="Most people get burned buying rugs because nobody shows them the back. So I show you the back. I turn every rug over on camera, count the knots, check the fiber and the dye, and sign a certificate with its photo, size, fibers, region and age. Then you decide."
   />
   <ol class="grid gap-8 md:grid-cols-3">
     {steps.map((s) => (

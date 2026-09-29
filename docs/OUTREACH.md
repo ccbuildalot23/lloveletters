@@ -45,6 +45,35 @@ Stager middle paragraph:
 
 > Hi [First name], just floating this back up in case it got buried. Fifteen minutes whenever suits you, and no worries at all if now isn't a good time. Thanks, Chris
 
+## Soundbites for conversations (from `docs/BRAND_STORY.md`)
+
+Use in calls, DMs and follow-ups once a prospect replies. Nothing here goes in a cold email; the templates above ask for an interview, not a sale. Lines marked `[VERIFY]` are not said until the fact behind them is settled.
+
+**Interior designers**
+
+- "Every rug comes with origin proof you can hand straight to your client."
+- "One of one. When your client says yes, it's theirs."
+- "You'll never have to explain a rug that turned out to be something else."
+- "Tell me the room, the size, and the palette. I'll send a short list with the knot close-ups." `[VERIFY: shortlist turnaround before promising a time]`
+- "Trade pricing is 15%. No games." `[VERIFY: final trade discount; the site's `tradeDiscountPct` is 15]`
+- Ask: "Want me to pull three options for your next project?"
+
+**Home stagers**
+
+- "Hand-knotted rugs make a listing photograph like it's worth more."
+- "Each rug carries a QR code to its Provenance Report, so buyers see the proof on the spot." `[VERIFY: QR insert exists before saying it]`
+- "8x10s are the workhorse. That's where I'd start."
+- Rentals: do not offer. "Rent it for the listing" waits on the stager-pilot decision in `docs/DECISIONS.md`. `[VERIFY: no rental program exists]`
+- Ask: "What's your next staging? Let's put a real rug in it."
+
+**Homeowners (casual)**
+
+- "You see the back of your exact rug before you buy."
+- "No haggling. The price is the price."
+- "Made in Turkey. Proven, not promised."
+
+**How the story shows up in a cold email.** The interview templates above already follow the guide posture: they ask about the prospect's problem (sourcing risk, clients who question a rug) before saying anything about Provenant. When a prospect replies, the first substantive answer uses one empathy line ("Nobody wants to explain a rug that turned out to be something else"), one competency line (the Provenance Report, described as what it contains), and one direct CTA (a shortlist for a live project, or "Apply for trade"). Never the villain by name in writing to a professional; they know the script better than we do.
+
 ## Copy guard review
 
 PASS. The messages claim nothing about a product, partnership, pricing or terms; personalization details come from the firm's own site or the AD PRO / Modern Luxury lists cited in the prospect notes. The stager questions are questions, not offers.
