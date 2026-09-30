@@ -177,3 +177,24 @@ Before the next attempt, in the cloud environment menu (session title bar → Ed
 3. Start a new session on this branch and rerun the runbook. It remains idempotent from step 0.
 
 A quick way to verify the fix without burning a full session: ask the new session only to run the two `test -n` checks and `npx wrangler whoami`, and to stop there.
+
+## 14. Cloudflare provisioned and first preview deployed (Sep 30, from Chris's Mac)
+
+The cloud route stayed blocked (no variables in the environment, network policy denies `api.cloudflare.com` and `*.pages.dev`), so Chris ran `docs/PROVISION.md` from a local terminal with the token in his shell. Result:
+
+| Item               | Value                                                                                                                                                                                                               |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Account            | `c8e598e7f39cd5a86c9f47d77964ad1d` (identifier, not a secret)                                                                                                                                                       |
+| D1 `rug-store`     | `14ab8433-e786-4c77-82cd-7cc2051693bf`, migrations `0001_init.sql` and `0002_jev.sql` applied remotely (19 + 4 statements)                                                                                          |
+| KV `RUG_STATUS`    | `31a0b004d65942ba815c4e765cc051a8`                                                                                                                                                                                  |
+| R2                 | enabled on the account; bucket `rug-store-uploads` exists (a second, unused bucket `rugs` was created by hand in the dashboard and can be deleted)                                                                  |
+| Pages project      | `rug-store`, production branch `main` (no production deployment yet, by design)                                                                                                                                     |
+| Preview deployment | <https://e024be18.rug-store.pages.dev>, branch alias <https://claude-vigilant-brahmagupta.rug-store.pages.dev>, built from `3595343` (178 static files, `_headers`, `_redirects`, Functions bundle, `_routes.json`) |
+| `wrangler.toml`    | carries the real D1 and KV ids as of `3595343`; the R2 binding was already correct                                                                                                                                  |
+| Runtime secrets    | none set yet; `/api/health` should report `stripe:false` and `jev:false`. Turnstile uses the test site key baked into the build, so forms pass the widget on the preview but no secret is configured                |
+
+What went wrong along the way, kept so it is not repeated: the account id was first set to an email address; commands were first run outside the repo clone; R2 had to be enabled once in the dashboard (error 10042); the first "add ids" commit captured only `package-lock.json` because the ids had not been pasted; the deploy then failed on the placeholder D1 id (error 8000022) until the ids were patched with `sed`. `docs/PROVISION.md` has the corrected sequence.
+
+Verification from the build session is impossible (network policy), so the step 6 checks (`/api/health`, security headers on `/`, `/certificates/TR-0001.pdf`) run from Chris's terminal; results go here when he pastes them.
+
+Launch decision unchanged: **not ready**. The preview proves the deploy path and the bindings; checkout, the real catalog and the legal pages are still open (§9).
