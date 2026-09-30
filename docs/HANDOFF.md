@@ -154,3 +154,26 @@ A session was asked to run `docs/PROVISION.md` top to bottom. It stopped at the 
 Nothing was created, deployed, merged or changed in Cloudflare; `wrangler.toml` still carries the two placeholder ids. No preview URL exists yet.
 
 Why the variables were missing: environment secrets are read when a session's container starts. Either the variables were added to a different environment than the one this session ran in, or they were added after the container started. Fix: confirm both variables sit in the environment's settings (cloud environment menu → Edit → API credentials or environment variables, names exactly `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`), then start a **new** session on this branch and run the runbook again. It is idempotent from step 0.
+
+## 13. Cloudflare provisioning rerun (Sep 30, second attempt): stopped at the same gate
+
+Chris reported adding `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` to the environment after the first session's container had started, and asked for a rerun of `docs/PROVISION.md` on a fresh session. The fresh session hit the same wall:
+
+| Check                                                              | Result                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Both variables present in the shell (`test -n`, values not printed) | **missing**, both of them. No variable containing `CLOUDFLARE` or starting with `CF_` exists in the environment at all.                                                                                                                              |
+| Wrangler available for step 0                                      | not installed in `node_modules`; not attempted, since it would have had nothing to authenticate with.                                                                                                                                              |
+| Cloudflare reachable through the session proxy                     | the session advertises `cloudflare.com` as a proxy-authenticated host, but a read-only request to `api.cloudflare.com` was refused by the proxy with HTTP 403 on the tunnel. Wrangler needs that host for every step, so even a working token would have stalled at step 0. |
+| Steps 1–7                                                          | not run.                                                                                                                                                                                                                                           |
+
+Nothing was created, deployed, merged or changed in Cloudflare. `wrangler.toml` still carries the two placeholder ids. No preview URL exists. Draft PR #1 is unchanged.
+
+What the platform documentation says: environment secrets are read only when a container starts, and only from the environment the session was launched in. Two sessions on this branch started without them, so the most likely causes are (a) the variables were saved to a different environment than the one these sessions launch from, or (b) they were saved under a different name. The proxy 403 points at a second, separate blocker: the environment's network policy does not allow `api.cloudflare.com`.
+
+Before the next attempt, in the cloud environment menu (session title bar → Edit):
+
+1. Confirm both variables exist in **this** environment, under API credentials or environment variables, with the names spelled exactly as above.
+2. Confirm the network policy allows outbound HTTPS to `api.cloudflare.com` (and, for the deploy step, `*.pages.dev` for the curl checks in step 6).
+3. Start a new session on this branch and rerun the runbook. It remains idempotent from step 0.
+
+A quick way to verify the fix without burning a full session: ask the new session only to run the two `test -n` checks and `npx wrangler whoami`, and to stop there.
