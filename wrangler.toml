@@ -34,11 +34,11 @@ RATE_LIMIT_PER_MINUTE = "10"
 [[d1_databases]]
 binding = "DB"
 database_name = "rug-store"
-database_id = "00000000-0000-0000-0000-000000000000" # [D1_DATABASE_ID] from `wrangler d1 create rug-store`
+database_id = "14ab8433-e786-4c77-82cd-7cc2051693bf" # [D1_DATABASE_ID] from `wrangler d1 create rug-store`
 
 [[kv_namespaces]]
 binding = "RUG_STATUS"
-id = "0000000000000000000000000000dead"            # [KV_NAMESPACE_ID] from `wrangler kv namespace create RUG_STATUS`
+id = "31a0b004d65942ba815c4e765cc051a8"            # [KV_NAMESPACE_ID] from `wrangler kv namespace create RUG_STATUS`
 
 [[r2_buckets]]
 binding = "UPLOADS"
