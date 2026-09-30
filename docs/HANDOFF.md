@@ -140,3 +140,17 @@ Chris's direction: the potential customer base is the whole DMV, not the Distric
 - Brand story hero is a DC, Maryland or Virginia homeowner. Calendar pillar C is "DMV rooms"; the day 3, 4 and 7 captions and the day 15 slot no longer read as DC-only, and the same three captions were updated in their Airtable rows (`recTtj6ICjrsmOGvk`, `rec4IhRgC7vlseiSu`, `recFbgjkiJ3azoZ29`) with a note. Bios, welcome email 1 signature, outreach templates and the SEO map now carry the three-jurisdiction service area.
 - `docs/OUTREACH.md` has a geographic-scope section: the next prospect batch adds Maryland (Bethesda, Chevy Chase, Potomac, Silver Spring, Annapolis, Baltimore) and Virginia (Arlington, Alexandria, McLean, Falls Church, Vienna, Reston) designers and stagers in roughly equal weight.
 - Owner actions: rename the Airtable Pillar option "DC rooms" to "DMV rooms" (a select-choice rename the API tool here cannot do) and, optionally, the "DC Prospects" table to "DMV Prospects" (referenced by id everywhere, so nothing breaks). Set `PUBLIC_SERVICE_AREA` in Pages only if the wording should differ.
+
+## 12. Cloudflare provisioning attempt (Sep 30): stopped at step 0
+
+A session was asked to run `docs/PROVISION.md` top to bottom. It stopped at the runbook's own gate:
+
+| Step                                                                  | Result                                                                                                                                                                                                                               |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 0. `npx wrangler whoami`                                              | **blocked**: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` were not present in the session's environment (checked the shell, the profile files and every variable name). Wrangler 4.143.0 reported "You are not authenticated". |
+| 1–4, 6–7 (resources, ids, migrations, Pages project, verify, secrets) | not run; every one depends on step 0                                                                                                                                                                                                 |
+| 5. `CERTIFICATE_SKIP_FETCH=true npm run build`                        | passed on `a927fe1`: 50 pages, 8 certificate PDFs. The deploy half of step 5 was not run.                                                                                                                                            |
+
+Nothing was created, deployed, merged or changed in Cloudflare; `wrangler.toml` still carries the two placeholder ids. No preview URL exists yet.
+
+Why the variables were missing: environment secrets are read when a session's container starts. Either the variables were added to a different environment than the one this session ran in, or they were added after the container started. Fix: confirm both variables sit in the environment's settings (cloud environment menu → Edit → API credentials or environment variables, names exactly `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`), then start a **new** session on this branch and run the runbook again. It is idempotent from step 0.
