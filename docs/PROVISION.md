@@ -4,6 +4,17 @@ One-time setup that turns the repo into a live Pages project with its D1, KV and
 
 Prerequisites: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the shell environment (the token scopes are listed in `docs/ENVIRONMENT.md` and the handoff: Pages, D1, Workers KV Storage and Workers R2 Storage at Edit, Account Settings and User Details at Read). Wrangler reads both variables automatically. Secrets are read when a session starts, so a session opened before they were added cannot see them.
 
+Network prerequisite for a cloud session: the environment's network policy must allow outbound HTTPS to `api.cloudflare.com` (every wrangler command) and `*.pages.dev` (the step 6 checks). On Sep 30 the default policy answered 403 to both; change Network access in the environment settings (cloud environment menu → Edit) before retrying. Set `WRANGLER_SEND_METRICS=false` so wrangler does not also try to reach its telemetry host. A laptop shell has no such restriction.
+
+Pre-flight for a cloud session, before anything else:
+
+```
+test -n "$CLOUDFLARE_API_TOKEN" && test -n "$CLOUDFLARE_ACCOUNT_ID" && echo "vars: ok" || echo "vars: MISSING"
+curl -s -o /dev/null -w "api.cloudflare.com -> %{http_code}\n" https://api.cloudflare.com/client/v4/
+```
+
+Both must pass (`vars: ok`, and any HTTP status other than `000`) or the runbook stops here.
+
 ## 0. Confirm the token
 
 ```
