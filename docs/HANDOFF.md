@@ -195,6 +195,14 @@ The cloud route stayed blocked (no variables in the environment, network policy 
 
 What went wrong along the way, kept so it is not repeated: the account id was first set to an email address; commands were first run outside the repo clone; R2 had to be enabled once in the dashboard (error 10042); the first "add ids" commit captured only `package-lock.json` because the ids had not been pasted; the deploy then failed on the placeholder D1 id (error 8000022) until the ids were patched with `sed`. `docs/PROVISION.md` has the corrected sequence.
 
-Verification from the build session is impossible (network policy), so the step 6 checks (`/api/health`, security headers on `/`, `/certificates/TR-0001.pdf`) run from Chris's terminal; results go here when he pastes them.
+Verification from the build session is impossible (network policy), so the step 6 checks ran from Chris's terminal on Sep 30 against `https://e024be18.rug-store.pages.dev`. All passed:
+
+| Check                       | Result                                                                                                                                                                                                                                   |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/health`           | `ok:true`, `launchMode:waitlist`, `db:true`; `stripe`, `stripeWebhook`, `turnstile`, `capi`, `deployHook`, `access`, `jev` all `false` (no runtime secrets set yet, as expected); `emailProvider:kit`, `adminEmail:resend` from `[vars]` |
+| Security headers on `/`     | `strict-transport-security: max-age=63072000; includeSubDomains; preload`; the full CSP from `public/_headers` (Stripe, Turnstile, Stream, GA4, Meta, Cal.com allowlists, `upgrade-insecure-requests`); `x-frame-options: DENY`          |
+| `/certificates/TR-0001.pdf` | `HTTP/2 200`                                                                                                                                                                                                                             |
+
+Open on the preview, all expected: Turnstile has no secret so form submissions are rejected server-side; Stripe checkout is off; `/admin` has no Access policy yet, so it serves the pages but every admin API returns 401.
 
 Launch decision unchanged: **not ready**. The preview proves the deploy path and the bindings; checkout, the real catalog and the legal pages are still open (§9).
