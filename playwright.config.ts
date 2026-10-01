@@ -30,7 +30,9 @@ export default defineConfig({
   webServer: useWrangler
     ? undefined
     : {
-        command: 'npx astro preview --host 127.0.0.1 --port 4321',
+        // --ignore-lock: Astro 7 otherwise exits early when a stale preview lock file exists,
+        // which Playwright reports as "Process from config.webServer exited early".
+        command: 'npx astro preview --host 127.0.0.1 --port 4321 --ignore-lock',
         url: baseURL,
         reuseExistingServer: !process.env.CI,
         timeout: 120_000,

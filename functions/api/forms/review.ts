@@ -4,6 +4,7 @@ import { ReviewSchema } from '../../_lib/validate';
 import { notifyAdmin } from '../../_lib/email';
 import { ALLOWED_IMAGE_TYPES, MAX_UPLOAD_BYTES, sniffImageType, stripExif } from '../../_lib/exif';
 import { verifyReviewToken } from '../../_lib/tokens';
+import { decide, jevRecord, jevSummary, minimizeState, REVIEW_QUESTIONS } from '../../_lib/jev';
 
 export const onRequestPost = formHandler({
   name: 'review',
@@ -28,8 +29,14 @@ export const onRequestPost = formHandler({
       }
     }
     const rugIds = JSON.parse(order.rug_ids) as string[];
+    // Advisory moderation signal only (docs/JEV.md). A person still approves every review.
+    const jev = await decide(
+      env,
+      minimizeState(d, ['rating', 'title', 'text', 'city']),
+      REVIEW_QUESTIONS,
+    );
     await env.DB.prepare(
-      'INSERT OR IGNORE INTO reviews (token, order_id, rug_id, rating, title, body, display_name, city, photo_key, verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)',
+      'INSERT OR IGNORE INTO reviews (token, order_id, rug_id, rating, title, body, display_name, city, photo_key, verified, jev) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?)',
     )
       .bind(
         d.token,
@@ -41,12 +48,13 @@ export const onRequestPost = formHandler({
         d.display_name,
         d.city ?? null,
         photoKey,
+        jevRecord(jev),
       )
       .run();
     await notifyAdmin(
       env,
       `New review (${d.rating}★) pending approval`,
-      `${d.display_name}${d.city ? `, ${d.city}` : ''}\n${d.title ?? ''}\n${d.text}\n\nApprove in ${env.PUBLIC_SITE_URL}/admin/reviews`,
+      `${d.display_name}${d.city ? `, ${d.city}` : ''}\n${d.title ?? ''}\n${d.text}${jev ? `\n\n${jevSummary(jev)}` : ''}\n\nApprove in ${env.PUBLIC_SITE_URL}/admin/reviews`,
     );
     return {
       message:

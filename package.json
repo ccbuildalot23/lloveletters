@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run validate-catalog && astro build",
+    "build": "npm run validate-catalog && npm run certificate -- --all && astro build",
     "preview": "wrangler pages dev ./dist --compatibility-date=2026-09-01",
     "check": "astro check && tsc --noEmit -p functions/tsconfig.json",
     "lint": "eslint .",
@@ -23,6 +23,8 @@
     "validate-catalog": "node scripts/validate-catalog.mjs",
     "new-rug": "node scripts/new-rug.mjs",
     "pull-airtable": "node scripts/pull-airtable.mjs",
+    "pull-reviews": "node scripts/pull-reviews.mjs",
+    "jev:catalog": "node scripts/jev-catalog-check.mjs",
     "certificate": "node scripts/certificate.mjs",
     "upload-media": "node scripts/upload-media.mjs",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",

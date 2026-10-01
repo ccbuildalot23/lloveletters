@@ -31,4 +31,8 @@ export interface Env {
   ADMIN_ACCESS_TEAM_DOMAIN?: string;
   TRADE_PROMO_CODE?: string;
   REVIEW_TOKEN_SECRET?: string;
+  // Jev advisory decisions (docs/JEV.md). Key unset or JEV_DISABLED=true → feature off.
+  JEV_API_KEY?: string;
+  JEV_MODEL?: string;
+  JEV_DISABLED?: string;
 }

@@ -22,5 +22,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
     capi: !!(env.META_PIXEL_ID && env.META_CAPI_TOKEN),
     deployHook: !!env.DEPLOY_HOOK_URL,
     access: !!(env.ADMIN_ACCESS_AUD && env.ADMIN_ACCESS_TEAM_DOMAIN),
+    // "configured", not "authenticated or working": no inference runs on a health check.
+    jev: !!env.JEV_API_KEY && env.JEV_DISABLED !== 'true',
   });
 };

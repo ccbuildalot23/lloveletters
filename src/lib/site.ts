@@ -13,7 +13,8 @@ export const site = {
   description:
     'One-of-a-kind, hand-knotted Turkish rugs sourced and filmed at the source by Chris. Fixed honest prices, duties and US shipping included, 30-day returns.',
   founder: 'Chris',
-  localArea: env.PUBLIC_LOCAL_AREA || 'Washington, DC',
+  localArea: env.PUBLIC_LOCAL_AREA || 'Washington, DC', // where the business is based
+  serviceArea: env.PUBLIC_SERVICE_AREA || 'DC, Maryland and Virginia', // where it delivers and does in-home looks
   provenanceReport: 'Provenance Report', // the per-rug provenance package: flip video, knot count, fiber check, signed certificate
   phone: env.PUBLIC_PHONE || '+1 (202) 555-0100', // [PHONE]
   whatsapp: env.PUBLIC_WHATSAPP || '12025550100', // [WHATSAPP NUMBER] digits only

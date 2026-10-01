@@ -5,7 +5,7 @@ import AdminLayout from '@/layouts/AdminLayout.astro';
 <AdminLayout title="Review moderation">
   <p class="text-small text-stone">
     Approve only reviews you can match to a real order. Approving triggers a rebuild (debounced).
-    Approved reviews are exported to src/data/reviews.json by the build pipeline (see README).
+    Approved reviews reach the site only when the build runs `npm run pull-reviews` (see README).
   </p>
   <div class="mt-4 flex gap-2">
     <button
@@ -34,6 +34,20 @@ import AdminLayout from '@/layouts/AdminLayout.astro';
   <script>
     let filter = 'pending';
     const list = document.querySelector<HTMLElement>('[data-list]')!;
+    const esc = (v: unknown) => String(v ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+    /** Advisory Jev summary from the stored JSON (docs/JEV.md); never used to decide anything here. */
+    const jevLine = (raw: unknown) => {
+      if (typeof raw !== 'string') return '';
+      try {
+        const j = JSON.parse(raw) as { answers?: Record<string, { noul?: number }> };
+        const spam = j.answers?.looks_like_spam?.noul;
+        const policy = j.answers?.publication_policy_signal?.noul;
+        if (typeof spam !== 'number' || typeof policy !== 'number') return '';
+        return `<p class="mt-1 text-caption text-stone">Advisory: spam-likeness ${spam.toFixed(2)} · policy flags ${policy.toFixed(2)}</p>`;
+      } catch {
+        return '';
+      }
+    };
     async function load() {
       const r = await fetch(`/api/admin/reviews?status=${filter}`).then(
         (x) => x.json() as Promise<{ reviews: Array<Record<string, string | number | null>> }>,
@@ -42,7 +56,7 @@ import AdminLayout from '@/layouts/AdminLayout.astro';
         ? r.reviews
             .map(
               (v) =>
-                `<li class="rounded-card border border-line bg-white p-4 text-small"><p><strong>${'★'.repeat(Number(v.rating))}</strong> ${v.title ?? ''} — ${v.display_name}${v.city ? `, ${v.city}` : ''} · ${String(v.created_at).slice(0, 10)}${v.rug_id ? ` · ${v.rug_id}` : ''}</p><p class="mt-2">${v.body}</p>${v.photo_key ? `<p class="mt-2"><a href="/api/admin/upload?key=${encodeURIComponent(String(v.photo_key))}" target="_blank" rel="noopener">photo</a></p>` : ''}${filter === 'pending' ? `<p class="mt-3 flex gap-2"><button type="button" data-approve="${v.id}" class="rounded-btn bg-olive px-3 py-1 text-white">Approve</button><button type="button" data-reject="${v.id}" class="rounded-btn border border-line px-3 py-1">Reject</button></p>` : ''}</li>`,
+                `<li class="rounded-card border border-line bg-white p-4 text-small"><p><strong>${'★'.repeat(Number(v.rating))}</strong> ${v.title ?? ''} — ${v.display_name}${v.city ? `, ${v.city}` : ''} · ${String(v.created_at).slice(0, 10)}${v.rug_id ? ` · ${v.rug_id}` : ''}</p><p class="mt-2">${esc(v.body)}</p>${jevLine(v.jev)}${v.photo_key ? `<p class="mt-2"><a href="/api/admin/upload?key=${encodeURIComponent(String(v.photo_key))}" target="_blank" rel="noopener">photo</a></p>` : ''}${filter === 'pending' ? `<p class="mt-3 flex gap-2"><button type="button" data-approve="${v.id}" class="rounded-btn bg-olive px-3 py-1 text-white">Approve</button><button type="button" data-reject="${v.id}" class="rounded-btn border border-line px-3 py-1">Reject</button></p>` : ''}</li>`,
             )
             .join('')
         : '<li class="text-stone">Nothing here.</li>';

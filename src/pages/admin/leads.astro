@@ -38,6 +38,30 @@ const tabs = [
   </div>
   <script>
     let table = 'waitlist';
+    const esc = (v: unknown) => String(v ?? '').replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+    /** Advisory Jev column (docs/JEV.md): one short line, no decisions taken from it here. */
+    const jevCell = (raw: unknown) => {
+      if (typeof raw !== 'string') return '';
+      try {
+        const j = JSON.parse(raw) as {
+          answers?: Record<
+            string,
+            { choice?: string; score?: number; noul?: number; probabilities?: number[] }
+          >;
+        };
+        return Object.entries(j.answers ?? {})
+          .map(([k, a]) =>
+            a.choice !== undefined
+              ? `${k}: ${a.choice}`
+              : a.score !== undefined
+                ? `${k}: ${a.score.toFixed(1)}/${a.probabilities?.length ?? '?'}`
+                : `${k}: ${Number(a.noul).toFixed(2)}`,
+          )
+          .join(' · ');
+      } catch {
+        return '';
+      }
+    };
     const thead = document.querySelector('thead')!;
     const tbody = document.querySelector('tbody')!;
     const csv = document.querySelector<HTMLAnchorElement>('[data-csv]')!;
@@ -56,7 +80,7 @@ const tabs = [
       tbody.innerHTML = r.rows
         .map(
           (row) =>
-            `<tr class="border-b border-line align-top">${cols.map((c) => `<td class="py-2 pr-3">${c === 'photo_url' ? `<a href="${row[c]}" target="_blank" rel="noopener">view photo</a>` : String(row[c] ?? '').slice(0, 160)}</td>`).join('')}${table === 'trade' ? `<td><input placeholder="promo code" data-promo class="w-28 rounded-input border border-line px-1" /> <button type="button" data-approve="${row.id}" class="rounded-btn border border-line px-2 py-1">Approve</button> <button type="button" data-reject="${row.id}" class="rounded-btn border border-line px-2 py-1">Reject</button></td>` : ''}</tr>`,
+            `<tr class="border-b border-line align-top">${cols.map((c) => `<td class="py-2 pr-3">${c === 'photo_url' ? `<a href="${esc(row[c])}" target="_blank" rel="noopener">view photo</a>` : c === 'jev' ? esc(jevCell(row[c])) : esc(String(row[c] ?? '').slice(0, 160))}</td>`).join('')}${table === 'trade' ? `<td><input placeholder="promo code" data-promo class="w-28 rounded-input border border-line px-1" /> <button type="button" data-approve="${row.id}" class="rounded-btn border border-line px-2 py-1">Approve</button> <button type="button" data-reject="${row.id}" class="rounded-btn border border-line px-2 py-1">Reject</button></td>` : ''}</tr>`,
         )
         .join('');
     }

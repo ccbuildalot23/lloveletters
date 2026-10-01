@@ -1,6 +1,7 @@
 /**
- * Approved reviews. Source of truth is D1 (moderated in /admin); the admin "Rebuild site" action
- * exports approved reviews into src/data/reviews.json via the deploy hook pipeline (see README).
+ * Approved reviews. Source of truth is D1 (moderated in /admin). Nothing exports them automatically:
+ * run `npm run pull-reviews` (scripts/pull-reviews.mjs, needs an Access service token) before a build,
+ * or add it in front of the Pages build command, to refresh src/data/reviews.json.
  * This file is intentionally empty until real, verified reviews exist. Never seed fake reviews.
  */
 import raw from '../data/reviews.json';

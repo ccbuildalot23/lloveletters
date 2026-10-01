@@ -10,6 +10,7 @@ jobs:
     env:
       PUBLIC_SITE_URL: https://example.com
       LAUNCH_MODE: waitlist
+      CERTIFICATE_SKIP_FETCH: 'true'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,7 +27,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
       - name: E2E + accessibility (static preview)
-        run: npx playwright test --project=desktop-chrome --project=a11y --project=iphone-15
+        run: npx playwright test --project=desktop-chrome --project=a11y --project=iphone-15 --project=pixel-8 --project=ipad
       - uses: actions/upload-artifact@v4
         if: failure()
         with:

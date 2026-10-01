@@ -6,8 +6,10 @@ import SectionHeader from '@/components/ui/SectionHeader.astro';
 import RugGrid from '@/components/product/RugGrid.astro';
 import Button from '@/components/ui/Button.astro';
 import EmptyState from '@/components/ui/EmptyState.astro';
+import Stakes from '@/components/home/Stakes.astro';
 import VerifySteps from '@/components/home/VerifySteps.astro';
 import MeetChris from '@/components/home/MeetChris.astro';
+import WaysToBuy from '@/components/home/WaysToBuy.astro';
 import ShopBySize from '@/components/home/ShopBySize.astro';
 import ShopByStyle from '@/components/home/ShopByStyle.astro';
 import InRealHomes from '@/components/home/InRealHomes.astro';
@@ -30,6 +32,7 @@ const latestRegion = latest[0]?.region ?? 'Anatolia';
 >
   <Hero />
   <TrustBar />
+  <Stakes />
   <section class="container-content section-pad" aria-labelledby="drop-title">
     <SectionHeader
       id="drop-title"
@@ -56,6 +59,7 @@ const latestRegion = latest[0]?.region ?? 'Anatolia';
   </section>
   <VerifySteps />
   <MeetChris />
+  <WaysToBuy />
   <ShopBySize />
   <ShopByStyle />
   <InRealHomes />

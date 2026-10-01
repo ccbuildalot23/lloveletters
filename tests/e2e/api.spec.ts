@@ -25,7 +25,10 @@ test('POST /api/checkout rejects a sold rug with 409', async ({ request }) => {
 });
 
 async function stripeConfigured(request: APIRequestContext) {
-  const h = await request.get('/api/health').then((r) => r.json() as Promise<{ stripe: boolean }>);
+  const h = await request
+    .get('/api/health')
+    .then((r) => r.json() as Promise<{ stripe: boolean; jev: boolean }>);
+  expect(typeof h.jev).toBe('boolean');
   return h.stripe;
 }
 
